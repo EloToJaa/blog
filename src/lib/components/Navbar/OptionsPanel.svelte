@@ -1,7 +1,7 @@
 <script>
 	import DarkMode from './DarkMode.svelte';
-	import SearchButton from './SearchButton.svelte';
+	import SearchBar from './SearchBar.svelte';
 </script>
 
 <DarkMode />
-<SearchButton />
+<SearchBar />
