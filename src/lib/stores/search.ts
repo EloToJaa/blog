@@ -1,3 +1,4 @@
+import type { PostType } from '$lib/types/Post';
 import { writable } from 'svelte/store';
 
 export interface SearchStoreModel<T extends Record<PropertyKey, any>> {
@@ -5,14 +6,6 @@ export interface SearchStoreModel<T extends Record<PropertyKey, any>> {
 	filtered: T[];
 	search: string;
 }
-
-export type Post = {
-	title: string;
-	content: string;
-	author: string;
-	date: Date;
-	searchTerms: string;
-};
 
 export const createSearchObject = <T extends Record<PropertyKey, any>>(data: T[]) => {
 	return {
@@ -28,7 +21,7 @@ const createSearchStore = <T extends Record<PropertyKey, any>>(data: T[]) => {
 	return store;
 };
 
-export const searchStore = createSearchStore([] as Post[]);
+export const searchStore = createSearchStore([] as PostType[]);
 
 export const searchHandler = <T extends Record<PropertyKey, any>>(store: SearchStoreModel<T>) => {
 	const searchTerm = store.search.toLowerCase() || '';
