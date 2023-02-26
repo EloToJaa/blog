@@ -15,7 +15,8 @@
 	$: searchHandler($searchStore);
 </script>
 
-{#each $searchStore.filtered as post}
-	<Post {post} />
-{/each}
-<br />
+<div class="pt-3">
+	{#each $searchStore.filtered as post}
+		<Post {post} />
+	{/each}
+</div>

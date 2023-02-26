@@ -8,6 +8,7 @@
 </script>
 
 <Button
+	href="/search"
 	color="light"
 	data-collapse-toggle="mobile-menu-3"
 	aria-controls="mobile-menu-3"
