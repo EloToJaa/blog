@@ -5,3 +5,9 @@ export const getPosts = async () => {
 	const posts: Promise<PostType[]> = await res.json();
 	return posts;
 };
+
+export const getPost = async (slug: string) => {
+	const res = await fetch(`http://localhost:3000/posts/${slug}`);
+	const post: Promise<PostType> = await res.json();
+	return post;
+};
