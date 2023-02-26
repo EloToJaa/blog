@@ -1,19 +1,5 @@
 import { writable } from 'svelte/store';
 
-// const createSearchStore = (data) => {
-// 	const { subscribe, set, update } = writable({
-// 		data,
-// 		filtered: data,
-// 		search: ''
-// 	});
-
-// 	return {
-// 		subscribe,
-// 		set,
-// 		update
-// 	};
-// };
-
 export interface SearchStoreModel<T extends Record<PropertyKey, any>> {
 	data: T[];
 	filtered: T[];
