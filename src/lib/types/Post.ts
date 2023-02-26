@@ -2,7 +2,7 @@ export type PostType = {
 	title: string;
 	content: string;
 	author: string;
-	image: string;
+	thumbnail: string;
 	date: Date;
 	slug: string;
 	searchTerms: string;
