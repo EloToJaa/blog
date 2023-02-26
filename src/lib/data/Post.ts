@@ -8,6 +8,7 @@ export const getPosts = async () => {
 
 export const getPost = async (slug: string) => {
 	const res = await fetch(`http://localhost:3000/posts/${slug}`);
+	if (res.status === 404) return null;
 	const post: Promise<PostType> = await res.json();
 	return post;
 };
