@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { Navbar, NavHamburger, NavLi, NavUl } from 'flowbite-svelte';
 	import Logo from './Logo.svelte';
 	import OptionsPanel from './OptionsPanel.svelte';
@@ -15,8 +16,8 @@
 		<NavHamburger on:click={toggle} />
 	</div>
 	<NavUl {hidden}>
-		<NavLi href="/" active={true}>Home</NavLi>
-		<NavLi href="/about">About</NavLi>
-		<NavLi href="/services">Services</NavLi>
+		<NavLi href="/" active={$page.route.id === '/'}>Home</NavLi>
+		<NavLi href="/about" active={$page.route.id === '/about'}>About</NavLi>
+		<NavLi href="/services" active={$page.route.id === '/services'}>Services</NavLi>
 	</NavUl>
 </Navbar>
