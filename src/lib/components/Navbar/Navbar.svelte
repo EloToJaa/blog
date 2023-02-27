@@ -3,6 +3,12 @@
 	import { Navbar, NavHamburger, NavLi, NavUl } from 'flowbite-svelte';
 	import Logo from './Logo.svelte';
 	import OptionsPanel from './OptionsPanel.svelte';
+
+	const links = [
+		{ id: '/', name: 'Home' },
+		{ id: '/about', name: 'About' },
+		{ id: '/services', name: 'Services' }
+	];
 </script>
 
 <Navbar
@@ -16,8 +22,8 @@
 		<NavHamburger on:click={toggle} />
 	</div>
 	<NavUl {hidden}>
-		<NavLi href="/" active={$page.route.id === '/'}>Home</NavLi>
-		<NavLi href="/about" active={$page.route.id === '/about'}>About</NavLi>
-		<NavLi href="/services" active={$page.route.id === '/services'}>Services</NavLi>
+		{#each links as link}
+			<NavLi href={link.id} active={$page.route.id === link.id}>{link.name}</NavLi>
+		{/each}
 	</NavUl>
 </Navbar>
