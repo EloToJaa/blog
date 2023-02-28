@@ -3,7 +3,7 @@ import type { Handle, HandleFetch } from '@sveltejs/kit';
 import jwt from 'jsonwebtoken';
 
 export const handle = (async ({ event, resolve }) => {
-	checkIfAccessTokenExpired();
+	await checkIfAccessTokenExpired();
 
 	// get data from access token
 	const accessToken = getAccessToken();
@@ -14,19 +14,21 @@ export const handle = (async ({ event, resolve }) => {
 	}
 
 	const response = await resolve(event);
+
+	// set cookie header for refresh token
+	response.headers.set('set-cookie', 'name=value');
+	const refreshToken = event.request.headers.get('cookie');
+	if (refreshToken) {
+		response.headers.set('set-cookie', refreshToken);
+	}
 	return response;
 }) satisfies Handle;
 
-export const handleFetch = (({ event, request, fetch }) => {
+export const handleFetch = (({ request, fetch }) => {
 	if (request.url.startsWith('http://localhost:3000/')) {
 		const accessToken = getAccessToken();
 		if (accessToken) {
 			request.headers.set('Authorization', `Bearer ${accessToken}`);
-		}
-		const refreshToken = event.request.headers.get('cookie');
-		if (refreshToken) {
-			// set cookie header for refresh token
-			request.headers.set('set-cookie', refreshToken);
 		}
 	}
 
