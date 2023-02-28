@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PostType } from '$lib/types/Post';
+	import type PostType from '$lib/types/Post';
 	import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 	import { Button, Card } from 'flowbite-svelte';
 	import Fa from 'svelte-fa';

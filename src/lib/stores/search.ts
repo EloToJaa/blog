@@ -1,4 +1,4 @@
-import type { PostType } from '$lib/types/Post';
+import type PostType from '$lib/types/Post';
 import { writable } from 'svelte/store';
 
 export interface SearchStoreModel<T extends Record<PropertyKey, any>> {

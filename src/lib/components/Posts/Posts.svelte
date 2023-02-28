@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Post from '$lib/components/Posts/Post.svelte';
 	import { createSearchObject, searchHandler, searchStore } from '$lib/stores/search';
-	import type { PostType } from '$lib/types/Post';
+	import type PostType from '$lib/types/Post';
 
 	export let posts: PostType[];
 

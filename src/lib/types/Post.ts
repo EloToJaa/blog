@@ -1,4 +1,4 @@
-export type PostType = {
+type PostType = {
 	title: string;
 	content: string;
 	author: string;
@@ -7,3 +7,5 @@ export type PostType = {
 	slug: string;
 	searchTerms: string;
 };
+
+export default PostType;
