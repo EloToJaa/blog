@@ -23,9 +23,10 @@ export const handleFetch = (({ event, request, fetch }) => {
 		if (accessToken) {
 			request.headers.set('Authorization', `Bearer ${accessToken}`);
 		}
-		const refreshToken = event.request.headers.get('authToken');
+		const refreshToken = event.request.headers.get('cookie');
 		if (refreshToken) {
-			request.headers.set('authToken', refreshToken);
+			// set cookie header for refresh token
+			request.headers.set('set-cookie', refreshToken);
 		}
 	}
 

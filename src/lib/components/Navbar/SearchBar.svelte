@@ -11,7 +11,7 @@
 	data-collapse-toggle="mobile-menu-3"
 	aria-controls="mobile-menu-3"
 	aria-expanded="false"
-	class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
+	class="mr-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
 	pill
 >
 	{#if $page.route.id === '/search'}
