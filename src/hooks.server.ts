@@ -1,4 +1,4 @@
-import { checkIfAccessTokenExpired, getAccessToken } from '$lib/token/accessToken';
+import { checkIfAccessTokenExpired, getAccessToken, setAccessToken } from '$lib/token/accessToken';
 import type { Handle, HandleFetch } from '@sveltejs/kit';
 import jwt from 'jsonwebtoken';
 
@@ -7,6 +7,8 @@ export const handle = (async ({ event, resolve }) => {
 	const cookies = event.request.headers.get('cookie');
 	if (cookies) {
 		await checkIfAccessTokenExpired(cookies);
+	} else {
+		setAccessToken(null);
 	}
 
 	// get data from access token
@@ -28,7 +30,6 @@ export const handleFetch = (async ({ request, fetch }) => {
 		if (accessToken) {
 			request.headers.set('Authorization', `Bearer ${accessToken}`);
 		}
-		console.log(request);
 	}
 
 	return fetch(request);

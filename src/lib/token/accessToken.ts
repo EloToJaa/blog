@@ -45,6 +45,6 @@ export const getAccessToken = () => {
 	return accessToken;
 };
 
-export const setAccessToken = (newAccessToken: string) => {
+export const setAccessToken = (newAccessToken: string | null) => {
 	accessToken = newAccessToken;
 };

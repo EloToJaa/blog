@@ -1,10 +1,10 @@
 import { setAccessToken } from '$lib/token/accessToken';
 import { parse } from 'cookie';
-import type { Actions } from '../$types';
+import type { Actions, PageServerLoad } from '../$types';
 
-// export const load = (async ({ params }) => {
-// 	return {};
-// }) satisfies PageServerLoad;
+export const load = (({ locals }) => {
+	return { user: locals.user };
+}) satisfies PageServerLoad;
 
 export const actions = {
 	default: async ({ cookies, request, fetch }) => {
@@ -30,7 +30,6 @@ export const actions = {
 				sameSite: 'strict',
 				maxAge: 60 * 60 * 24 * 7
 			});
-			console.log(parsedCookies);
 		}
 	}
 } satisfies Actions;

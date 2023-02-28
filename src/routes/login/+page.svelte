@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { Button, Input, Label } from 'flowbite-svelte';
+	import type { PageData } from './$types';
 
-	// export let data: PageData;
+	export let data: PageData;
 </script>
 
+{#if data.user}
+	{data.user.username} is logged in
+{/if}
 <form class="flex flex-col space-y-6" method="POST" use:enhance>
 	<h3 class="text-xl font-medium text-gray-900 dark:text-white p-0">Sign in to our platform</h3>
 	<Label class="space-y-2">
