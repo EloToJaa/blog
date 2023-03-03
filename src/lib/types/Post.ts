@@ -3,7 +3,7 @@ interface PostType {
 	content: string;
 	author: string;
 	thumbnail: string;
-	date: Date;
+	date: string;
 	slug: string;
 	searchTerms: string;
 }
