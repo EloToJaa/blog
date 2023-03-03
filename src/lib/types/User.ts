@@ -1,8 +1,8 @@
-type UserType = {
+interface UserType {
 	username: string;
-	email: string;
-	password: string;
-	date: Date;
-};
+	email?: string;
+	password?: string;
+	date?: Date;
+}
 
 export default UserType;

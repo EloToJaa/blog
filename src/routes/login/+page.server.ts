@@ -1,4 +1,5 @@
 import { setAccessToken } from '$lib/token/accessToken';
+import type Messages from '$lib/types/Messages';
 import { parse } from 'cookie';
 import type { Actions, PageServerLoad } from '../$types';
 
@@ -19,7 +20,9 @@ export const actions = {
 		});
 		const obj = await res.json();
 		const accessToken: string = obj.accessToken;
-		const message: string = obj.message;
+		// TODO: toast notification
+		const notification: string | null = obj.notification;
+		const messages: Messages = obj.message;
 		const newCookies = res.headers.get('set-cookie');
 		setAccessToken(accessToken);
 		if (newCookies) {
@@ -31,5 +34,10 @@ export const actions = {
 				maxAge: 60 * 60 * 24 * 7
 			});
 		}
+		return {
+			notification,
+			messages,
+			status: res.status
+		};
 	}
 } satisfies Actions;

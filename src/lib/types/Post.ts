@@ -1,4 +1,4 @@
-type PostType = {
+interface PostType {
 	title: string;
 	content: string;
 	author: string;
@@ -6,6 +6,6 @@ type PostType = {
 	date: Date;
 	slug: string;
 	searchTerms: string;
-};
+}
 
 export default PostType;
