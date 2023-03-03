@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import type UserType from '$lib/types/User';
 	import { Navbar, NavHamburger, NavLi, NavUl } from 'flowbite-svelte';
+	import AccountButton from './AccountButton.svelte';
+	import DarkMode from './DarkMode.svelte';
 	import Logo from './Logo.svelte';
-	import OptionsPanel from './OptionsPanel.svelte';
+	import SearchBar from './SearchBar.svelte';
 
+	export let user: UserType | null;
 	const links = [
 		{ id: '/', name: 'Home' },
 		{ id: '/about', name: 'About' },
@@ -18,7 +22,9 @@
 >
 	<Logo />
 	<div class="flex md:order-2">
-		<OptionsPanel />
+		<DarkMode />
+		<SearchBar />
+		<AccountButton {user} />
 		<NavHamburger on:click={toggle} />
 	</div>
 	<NavUl {hidden}>
