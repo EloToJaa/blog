@@ -20,20 +20,13 @@ export const actions = {
 				'Content-Type': 'application/json'
 			}
 		});
-		if (res.status === 200) {
-			throw redirect(303, '/login');
-		}
 		const obj = await res.json();
 		const notification: string | null = obj.notification;
 		const messages: Messages = obj.message;
 
-		console.log({
-			notification,
-			messages,
-			status: res.status,
-			email: formData.get('email') as string,
-			username: formData.get('username') as string
-		});
+		if (res.status === 201) {
+			throw redirect(303, '/login');
+		}
 
 		return {
 			notification,
