@@ -40,7 +40,8 @@ export const actions = {
 		return {
 			notification,
 			messages,
-			status: res.status
+			status: res.status,
+			username: formData.get('username') as string
 		};
 	}
 } satisfies Actions;

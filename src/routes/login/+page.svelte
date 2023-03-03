@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { Button, Input, Label } from 'flowbite-svelte';
 	import toast from 'svelte-french-toast';
 	import type { ActionData } from './$types';
@@ -10,15 +9,16 @@
 	$: form?.notification && form.status === 400 && toast.error(form.notification);
 </script>
 
-<form class="flex flex-col space-y-6" method="POST" use:enhance>
+<form class="flex flex-col space-y-6" method="POST">
 	<h3 class="text-xl font-medium text-gray-900 dark:text-white p-0">Sign in to our platform</h3>
 	<Label class="space-y-2">
 		<span>Username</span>
 		<Input
 			type="text"
 			name="username"
-			placeholder="User"
+			placeholder="name"
 			color={form?.messages?.username ? 'red' : 'base'}
+			value={form?.username || ''}
 		/>
 
 		{#if form?.messages?.username}
@@ -27,12 +27,7 @@
 	</Label>
 	<Label class="space-y-2">
 		<span>Password</span>
-		<Input
-			type="password"
-			name="password"
-			placeholder="•••••"
-			color={form?.messages?.password ? 'red' : 'base'}
-		/>
+		<Input type="password" name="password" color={form?.messages?.password ? 'red' : 'base'} />
 		{#if form?.messages?.password}
 			<div class="text-red-500 text-sm">{form.messages.password[0]}</div>
 		{/if}
@@ -45,10 +40,9 @@
 		>
 	</div> -->
 	<Button type="submit" class="w-full1">Login to your account</Button>
-	<!-- TODO: implement -->
-	<!-- <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-		Not registered? <a href="/" class="text-blue-700 hover:underline dark:text-blue-500"
+	<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+		Not registered? <a href="/register" class="text-blue-700 hover:underline dark:text-blue-500"
 			>Create account</a
 		>
-	</div> -->
+	</div>
 </form>
