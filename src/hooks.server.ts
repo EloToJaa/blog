@@ -1,4 +1,5 @@
 import { checkIfAccessTokenExpired, getAccessToken, setAccessToken } from '$lib/token/accessToken';
+import type UserType from '$lib/types/User';
 import type { Handle, HandleFetch } from '@sveltejs/kit';
 import jwt from 'jsonwebtoken';
 
@@ -14,7 +15,7 @@ export const handle = (async ({ event, resolve }) => {
 	// get data from access token
 	const accessToken = getAccessToken();
 	if (accessToken) {
-		event.locals.user = jwt.decode(accessToken);
+		event.locals.user = jwt.decode(accessToken) as UserType;
 	} else {
 		event.locals.user = null;
 	}

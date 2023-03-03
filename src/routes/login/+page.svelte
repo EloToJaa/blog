@@ -19,12 +19,29 @@
 <form class="flex flex-col space-y-6" method="POST" use:enhance>
 	<h3 class="text-xl font-medium text-gray-900 dark:text-white p-0">Sign in to our platform</h3>
 	<Label class="space-y-2">
-		<span>Username or Email</span>
-		<Input type="text" name="username" placeholder="name@company.com" required />
+		<span>Username</span>
+		<Input
+			type="text"
+			name="username"
+			placeholder="User"
+			color={form?.messages?.username ? 'red' : 'base'}
+		/>
+
+		{#if form?.messages?.username}
+			<div class="text-red-500 text-sm">{form.messages.username[0]}</div>
+		{/if}
 	</Label>
 	<Label class="space-y-2">
 		<span>Password</span>
-		<Input type="password" name="password" placeholder="•••••" required />
+		<Input
+			type="password"
+			name="password"
+			placeholder="•••••"
+			color={form?.messages?.password ? 'red' : 'base'}
+		/>
+		{#if form?.messages?.password}
+			<div class="text-red-500 text-sm">{form.messages.password[0]}</div>
+		{/if}
 	</Label>
 	<!-- TODO: implement -->
 	<!-- <div class="flex items-start">
