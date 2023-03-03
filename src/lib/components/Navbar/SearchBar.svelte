@@ -7,7 +7,6 @@
 
 <Button
 	href={$page.route.id === '/search' ? '/' : '/search'}
-	color="light"
 	data-collapse-toggle="mobile-menu-3"
 	aria-controls="mobile-menu-3"
 	aria-expanded="false"

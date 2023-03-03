@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 h1 {
-	@apply text-5xl font-bold my-2;
+	@apply text-5xl font-bold my-2 text-gray-900 dark:text-white;
 }
 h2 {
-	@apply text-4xl font-semibold my-1.5;
+	@apply text-4xl font-semibold my-1.5 text-gray-800;
 }
 h3 {
-	@apply text-3xl font-medium my-1;
+	@apply text-3xl font-medium my-1 text-gray-700;
 }
 h4 {
-	@apply text-2xl my-0.5;
+	@apply text-2xl my-0.5 text-gray-600;
 }
 h5 {
 	@apply text-xl;

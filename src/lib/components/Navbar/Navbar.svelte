@@ -18,10 +18,10 @@
 <Navbar
 	let:hidden
 	let:toggle
-	navClass="px-2 sm:px-4 py-2.5 absolute w-full z-20 top-0 left-0 border-b"
+	navClass="px-2 sm:px-4 py-2.5 absolute w-full z-20 top-0 left-0 border-b bg-blue-50"
 >
 	<Logo />
-	<div class="flex md:order-2">
+	<div class="flex md:order-2 ">
 		<DarkMode />
 		<SearchBar />
 		<AccountButton {user} />

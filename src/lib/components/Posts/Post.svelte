@@ -7,7 +7,7 @@
 	export let post: PostType;
 </script>
 
-<Card size="xl" class="mb-2 dark:bg-gray-900">
+<Card size="xl" class="mb-2 mx-auto dark:bg-gray-900 bg-blue-50">
 	<div class="flex justify-between">
 		<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 			{post.title}
