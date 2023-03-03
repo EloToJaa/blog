@@ -2,19 +2,13 @@
 	import { enhance } from '$app/forms';
 	import { Button, Input, Label } from 'flowbite-svelte';
 	import toast from 'svelte-french-toast';
-	import type { ActionData, PageData } from './$types';
+	import type { ActionData } from './$types';
 
-	export let data: PageData;
 	export let form: ActionData;
 
 	$: form?.notification && form.status === 200 && toast.success(form.notification);
 	$: form?.notification && form.status === 400 && toast.error(form.notification);
 </script>
-
-<!-- TODO: move this -->
-{#if data.user}
-	{data.user.username} is logged in
-{/if}
 
 <form class="flex flex-col space-y-6" method="POST" use:enhance>
 	<h3 class="text-xl font-medium text-gray-900 dark:text-white p-0">Sign in to our platform</h3>

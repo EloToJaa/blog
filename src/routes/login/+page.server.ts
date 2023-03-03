@@ -4,11 +4,10 @@ import { redirect } from '@sveltejs/kit';
 import { parse } from 'cookie';
 import type { Actions, PageServerLoad } from '../$types';
 
-export const load = (({ locals }) => {
+export const load = (() => {
 	if (getAccessToken()) {
 		throw redirect(303, '/');
 	}
-	return { user: locals.user };
 }) satisfies PageServerLoad;
 
 export const actions = {
