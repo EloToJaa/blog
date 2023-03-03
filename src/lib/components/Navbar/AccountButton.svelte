@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type UserType from '$lib/types/User';
 	import { faUser } from '@fortawesome/free-solid-svg-icons';
-	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+	import { Button, Dropdown, DropdownDivider, DropdownItem } from 'flowbite-svelte';
 	import Fa from 'svelte-fa';
 	export let user: UserType | null;
 </script>
@@ -16,9 +16,8 @@
 			<span class="block text-sm text-gray-900 dark:text-white"> {user.username} </span>
 			<span class="block truncate text-sm font-medium"> {user.email} </span>
 		</div>
-		<DropdownItem>Dashboard</DropdownItem>
 		<DropdownItem>Settings</DropdownItem>
-		<DropdownItem>Earnings</DropdownItem>
+		<DropdownDivider />
 		<form method="post" action="/api/logout">
 			<DropdownItem type="submit">Sign out</DropdownItem>
 		</form>
