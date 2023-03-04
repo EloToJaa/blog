@@ -2,12 +2,12 @@
 	import type PostType from '$lib/types/Post';
 	import getDate from '$lib/utils/getDate';
 	import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-	import { Button, Card } from 'flowbite-svelte';
+	import { Button } from 'flowbite-svelte';
 	import Fa from 'svelte-fa';
 	export let post: PostType;
 </script>
 
-<Card size="xl" class="mb-2 mx-auto dark:bg-gray-900 bg-blue-50">
+<div class="mb-2 mx-auto dark:bg-gray-900 bg-blue-50 p-5 border-0 rounded-2xl">
 	<div class="flex justify-between">
 		<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 			{post.title}
@@ -25,4 +25,4 @@
 			<Fa icon={faArrowRight} class="pl-2" />
 		</Button>
 	</div>
-</Card>
+</div>
