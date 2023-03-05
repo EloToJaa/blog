@@ -16,7 +16,7 @@
 			<span class="block text-sm text-gray-900 dark:text-white"> {user.username} </span>
 			<span class="block truncate text-sm font-medium"> {user.email} </span>
 		</div>
-		<DropdownItem href="/article/add">New post</DropdownItem>
+		<DropdownItem href="/article/add">New article</DropdownItem>
 		<DropdownItem>User settings</DropdownItem>
 		<DropdownDivider />
 		<form method="post" action="/api/logout">
@@ -25,7 +25,7 @@
 	</Dropdown>
 {:else}
 	<Button
-		class="mr-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
+		class="mr-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
 		pill
 		href="/login"
 	>

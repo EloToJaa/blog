@@ -5,14 +5,13 @@
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
-	let selected;
 
 	$: form?.notification && form.status === 201 && toast.success(form.notification);
 	$: form?.notification && form.status === 400 && toast.error(form.notification);
 </script>
 
 <form class="flex flex-col space-y-6" method="POST">
-	<h3 class="text-xl font-medium text-gray-900 dark:text-white p-0">Create a new account</h3>
+	<h3 class="text-xl font-medium text-gray-900 dark:text-white p-0">Create an article</h3>
 	<FormInput name="title" value={form?.title} messages={form?.messages?.title} />
 	<FormInput
 		textarea
@@ -32,5 +31,5 @@
 		messages={form?.messages?.content}
 		rows={8}
 	/>
-	<Button type="submit" class="w-full">Create a post</Button>
+	<Button type="submit" class="w-full">Create the article</Button>
 </form>

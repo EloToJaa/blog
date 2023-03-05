@@ -10,5 +10,5 @@
 <div class="mb-2 mx-auto dark:bg-gray-900 bg-blue-50 p-5 border-0 rounded-2xl pb-7">
 	<h1>{post.title}</h1>
 	<h5>{date} | {post.author}</h5>
-	<p>{post.content}</p>
+	<p>{@html post.content}</p>
 </div>
