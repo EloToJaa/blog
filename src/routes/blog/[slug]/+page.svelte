@@ -11,4 +11,7 @@
 	<h1>{post.title}</h1>
 	<h5>{date} | {post.author}</h5>
 	<p>{@html post.content}</p>
+	<p>{@html post.content}</p>
+	<p>{@html post.content}</p>
+	<p>{@html post.content}</p>
 </div>
