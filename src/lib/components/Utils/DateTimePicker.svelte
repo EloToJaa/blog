@@ -20,10 +20,12 @@
 		element: '#date-picker',
 		altInput: true,
 		altFormat: 'F j, Y h:i',
-		dateFormat: 'Y-m-d',
+		dateFormat: 'Y-m-d H:i',
 		minDate: 'today',
 		time_24hr: true
 	};
+
+	let date = null;
 </script>
 
 <Flatpickr

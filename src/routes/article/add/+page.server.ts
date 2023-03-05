@@ -7,8 +7,10 @@ import type { Actions } from './$types';
 export const actions = {
 	default: async ({ request, fetch }) => {
 		const formData = await request.formData();
-		formData.set('date', `${formData.get('date')}:00Z`);
-
+		let date: string = formData.get('date') as string;
+		date = date.replace(' ', 'T');
+		date = date + ':00Z';
+		formData.set('date', date);
 		const data = Object.fromEntries(formData);
 		const res = await fetch('http://localhost:3000/posts', {
 			method: 'POST',
@@ -29,8 +31,8 @@ export const actions = {
 			notification,
 			messages,
 			status: res.status,
-			title: formData.get('email') as string,
-			description: formData.get('username') as string,
+			title: formData.get('title') as string,
+			description: formData.get('description') as string,
 			content: formData.get('content') as string,
 			date: formData.get('date') as string
 		};
