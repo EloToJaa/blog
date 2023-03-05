@@ -1,17 +1,14 @@
-import { getAccessToken } from '$lib/token/accessToken';
 import type Messages from '$lib/types/Messages';
 import { redirect } from '@sveltejs/kit';
-import type { Actions, PageServerLoad } from './$types';
+import type { Actions } from './$types';
 
-export const load = (() => {
-	if (getAccessToken()) {
-		throw redirect(303, '/');
-	}
-}) satisfies PageServerLoad;
+// export const load = (() => {}) satisfies PageServerLoad;
 
 export const actions = {
 	default: async ({ request, fetch }) => {
 		const formData = await request.formData();
+		formData.set('date', `${formData.get('date')}:00Z`);
+
 		const data = Object.fromEntries(formData);
 		const res = await fetch('http://localhost:3000/posts', {
 			method: 'POST',
@@ -23,6 +20,7 @@ export const actions = {
 		const obj = await res.json();
 		const notification: string | null = obj.notification;
 		const messages: Messages = obj.message;
+		console.log(messages);
 
 		if (res.status === 201) {
 			throw redirect(303, `/blog/${obj.slug}`);

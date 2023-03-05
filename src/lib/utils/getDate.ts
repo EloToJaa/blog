@@ -10,7 +10,10 @@ const getDate = (date: string, short = false) => {
 	return dateObj.toLocaleDateString('en-US', {
 		year: 'numeric',
 		month: 'long',
-		day: 'numeric'
+		day: 'numeric',
+		hour: 'numeric',
+		minute: 'numeric',
+		hour12: false
 	});
 };
 
