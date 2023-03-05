@@ -11,7 +11,7 @@
 </script>
 
 <form class="flex flex-col space-y-6" method="POST">
-	<h3 class="text-xl font-medium text-gray-900 dark:text-white p-0">Create an article</h3>
+	<h3>Create an article</h3>
 	<FormInput name="title" value={form?.title} messages={form?.messages?.title} />
 	<FormInput
 		textarea
@@ -29,7 +29,7 @@
 		name="content"
 		value={form?.content}
 		messages={form?.messages?.content}
-		rows={8}
+		rows={10}
 	/>
 	<Button type="submit" class="w-full">Create the article</Button>
 </form>

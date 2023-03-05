@@ -11,7 +11,7 @@
 </script>
 
 <form class="flex flex-col space-y-6" method="POST">
-	<h3 class="text-xl font-medium text-gray-900 dark:text-white p-0">Sign in to our platform</h3>
+	<h3>Sign in</h3>
 	<FormInput
 		name="username"
 		value={form?.username}
