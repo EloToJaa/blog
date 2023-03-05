@@ -20,7 +20,6 @@ export const actions = {
 		const obj = await res.json();
 		const notification: string | null = obj.notification;
 		const messages: Messages = obj.message;
-		console.log(messages);
 
 		if (res.status === 201) {
 			throw redirect(303, `/blog/${obj.slug}`);
