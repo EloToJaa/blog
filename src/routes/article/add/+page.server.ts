@@ -13,7 +13,7 @@ export const actions = {
 	default: async ({ request, fetch }) => {
 		const formData = await request.formData();
 		const data = Object.fromEntries(formData);
-		const res = await fetch('http://localhost:3000/auth/register', {
+		const res = await fetch('http://localhost:3000/posts', {
 			method: 'POST',
 			body: JSON.stringify(data),
 			headers: {
@@ -25,15 +25,17 @@ export const actions = {
 		const messages: Messages = obj.message;
 
 		if (res.status === 201) {
-			throw redirect(303, '/login');
+			throw redirect(303, `/blog/${obj.slug}`);
 		}
 
 		return {
 			notification,
 			messages,
 			status: res.status,
-			email: formData.get('email') as string,
-			username: formData.get('username') as string
+			title: formData.get('email') as string,
+			description: formData.get('username') as string,
+			content: formData.get('content') as string,
+			date: formData.get('date') as string
 		};
 	}
 } satisfies Actions;
