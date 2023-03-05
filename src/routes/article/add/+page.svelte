@@ -12,6 +12,10 @@
 	$: form?.notification && form.status === 400 && toast.error(form.notification);
 </script>
 
+<svelte:head>
+	<title>New article</title>
+</svelte:head>
+
 <form class="flex flex-col space-y-6" method="POST">
 	<h3>Create an article</h3>
 	<FormInput name="title" value={form?.title} messages={form?.messages?.title} />

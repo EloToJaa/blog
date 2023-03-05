@@ -10,6 +10,10 @@
 	$: form?.notification && form.status === 400 && toast.error(form.notification);
 </script>
 
+<svelte:head>
+	<title>Register</title>
+</svelte:head>
+
 <form class="flex flex-col space-y-6" method="POST">
 	<h3>Create a new account</h3>
 	<FormInput

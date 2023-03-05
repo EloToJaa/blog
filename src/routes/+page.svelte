@@ -5,4 +5,8 @@
 	export let data: PageData;
 </script>
 
+<svelte:head>
+	<title>Home</title>
+</svelte:head>
+
 <Posts posts={data.posts} />
