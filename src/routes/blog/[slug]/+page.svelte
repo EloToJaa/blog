@@ -1,16 +1,10 @@
 <script lang="ts">
 	import getDate from '$lib/utils/getDate';
-	import Prism from 'prismjs';
-	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 	const post = data.post;
 	const date = getDate(data.post.date || '');
-
-	onMount(() => {
-		Prism.highlightAll();
-	});
 </script>
 
 <svelte:head>

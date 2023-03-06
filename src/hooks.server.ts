@@ -1,23 +1,23 @@
-import { checkIfAccessTokenExpired, getAccessToken, setAccessToken } from '$lib/token/accessToken';
-import type UserType from '$lib/types/User';
-import type { Handle, HandleFetch } from '@sveltejs/kit';
-import jwt from 'jsonwebtoken';
+import { checkIfAccessTokenExpired } from '$lib/token/accessToken';
+import { error, type Handle, type HandleFetch } from '@sveltejs/kit';
+import { parse } from 'cookie';
 
 export const handle = (async ({ event, resolve }) => {
-	// get cookie authToken
 	const cookies = event.request.headers.get('cookie');
-	if (cookies) {
-		await checkIfAccessTokenExpired(cookies);
-	} else {
-		setAccessToken(null);
+	const refreshToken = cookies ? parse(cookies).authToken : null;
+	const authorization = event.request.headers.get('Authorization');
+	let accessToken = authorization ? authorization.split(' ')[1] : null;
+	if (refreshToken) {
+		accessToken = await checkIfAccessTokenExpired(refreshToken, accessToken);
 	}
 
-	// get data from access token
-	const accessToken = getAccessToken();
-	if (accessToken) {
-		event.locals.user = jwt.decode(accessToken) as UserType;
-	} else {
-		event.locals.user = null;
+	event.locals.accessToken = accessToken;
+
+	// protect routes
+	if (event.request.url.startsWith('/article')) {
+		if (!accessToken) {
+			throw error(401, 'Unauthorized');
+		}
 	}
 
 	const response = await resolve(event);
@@ -25,9 +25,9 @@ export const handle = (async ({ event, resolve }) => {
 	return response;
 }) satisfies Handle;
 
-export const handleFetch = (async ({ request, fetch }) => {
+export const handleFetch = (async ({ request, fetch, event }) => {
 	if (request.url.startsWith('http://localhost:3000/')) {
-		const accessToken = getAccessToken();
+		const accessToken = event.locals.accessToken;
 		if (accessToken) {
 			request.headers.set('Authorization', `Bearer ${accessToken}`);
 		}

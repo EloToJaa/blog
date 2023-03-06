@@ -1,9 +1,8 @@
 import { env } from '$env/dynamic/private';
-import { parse, serialize } from 'cookie';
+import { serialize } from 'cookie';
 import { verify } from 'jsonwebtoken';
-let accessToken: string | null = null;
 
-export const regenerateAccessToken = async (refreshToken: string) => {
+export const regenerateAccessToken = async (refreshToken: string): Promise<string | null> => {
 	try {
 		const res = await fetch('http://localhost:3000/auth/token', {
 			method: 'POST',
@@ -18,34 +17,27 @@ export const regenerateAccessToken = async (refreshToken: string) => {
 			}
 		});
 		const data = await res.json();
-		accessToken = data.accessToken;
+		return data.accessToken;
 	} catch (err) {
-		accessToken = null;
 		console.log(err);
+		return null;
 	}
 };
 
-export const checkIfAccessTokenExpired = async (cookies: string) => {
+export const checkIfAccessTokenExpired = async (
+	refreshToken: string,
+	accessToken: string | null
+): Promise<string | null> => {
 	// get access token from cookie
-	const parsedCookies = parse(cookies);
-	const refreshToken = parsedCookies.authToken;
 	if (accessToken === null) {
-		await regenerateAccessToken(refreshToken);
-		return;
+		return await regenerateAccessToken(refreshToken);
 	}
 
 	// if access token is expired, regenerate it
 	await verify(accessToken as string, env.ACCESS_TOKEN_SECRET, async (err, _) => {
 		if (err) {
-			await regenerateAccessToken(refreshToken);
+			return await regenerateAccessToken(refreshToken);
 		}
 	});
-};
-
-export const getAccessToken = () => {
-	return accessToken;
-};
-
-export const setAccessToken = (newAccessToken: string | null) => {
-	accessToken = newAccessToken;
+	return null;
 };
