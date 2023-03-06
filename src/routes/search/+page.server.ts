@@ -21,7 +21,7 @@ export const load = (async ({ locals }) => {
 			slug: post.slug,
 			title: post.title,
 			description: post.description
-		});
+		} as PostType);
 	});
 
 	return {

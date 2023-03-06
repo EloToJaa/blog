@@ -4,7 +4,7 @@
 
 	export let data: PageData;
 	const post = data.post;
-	const date = getDate(data.post.date || '');
+	const date = getDate(data.post.posted_at || '');
 </script>
 
 <svelte:head>
