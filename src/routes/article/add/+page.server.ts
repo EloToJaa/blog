@@ -1,7 +1,9 @@
+import type UserType from '$lib/types/User';
+import { serializeNonPOJOs } from '$lib/utils/helpers';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
-// export const load = (() => {}) satisfies PageServerLoad;
+// export const load = (({ locals }) => {}) satisfies PageServerLoad;
 
 export const actions = {
 	default: async ({ request, locals }) => {
@@ -10,12 +12,18 @@ export const actions = {
 			'slug',
 			formData.get('title')?.toString().toLowerCase().replace(/ /g, '-') as string
 		);
+
 		let date: string = formData.get('postedAt') as string;
 		date = date.replace(' ', 'T');
 		date = date + ':00Z';
 		formData.set('postedAt', date);
-		const data = Object.fromEntries([...formData]);
 
+		const user = serializeNonPOJOs(locals.pocketBase.authStore.model) as UserType;
+		if (!user.id) throw redirect(303, '/login');
+		formData.set('author', user.id);
+
+		const data = Object.fromEntries([...formData]);
+		console.log(data);
 		try {
 			const posts = locals.pocketBase.collection('posts');
 			await posts.create(data);
@@ -27,18 +35,16 @@ export const actions = {
 			};
 		}
 
-		if (res.status === 201) {
-			throw redirect(303, `/blog/${obj.slug}`);
-		}
+		throw redirect(303, `/blog/${data.slug}`);
 
-		return {
-			notification,
-			messages,
-			status: res.status,
-			title: formData.get('title') as string,
-			description: formData.get('description') as string,
-			content: formData.get('content') as string,
-			date: formData.get('date') as string
-		};
+		// return {
+		// 	notification,
+		// 	messages,
+		// 	status: res.status,
+		// 	title: formData.get('title') as string,
+		// 	description: formData.get('description') as string,
+		// 	content: formData.get('content') as string,
+		// 	date: formData.get('date') as string
+		// };
 	}
 } satisfies Actions;

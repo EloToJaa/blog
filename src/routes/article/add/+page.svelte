@@ -36,7 +36,7 @@
 
 	<FormInput
 		type="datetime-local"
-		name="posted-at"
+		name="postedAt"
 		label="Posted at"
 		value={form?.date}
 		messages={form?.messages?.date}
