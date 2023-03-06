@@ -8,6 +8,8 @@ import PostValidation from '$lib/validation/post';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
+export const ssr = false;
+
 // export const load = (({ locals }) => {}) satisfies PageServerLoad;
 
 export const actions = {

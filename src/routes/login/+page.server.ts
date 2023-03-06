@@ -3,6 +3,8 @@ import LoginValidation from '$lib/validation/login';
 import { redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from '../$types';
 
+export const ssr = false;
+
 export const load = (({ locals }) => {
 	if (locals.pocketBase.authStore.isValid) {
 		throw redirect(303, '/');
