@@ -1,3 +1,4 @@
+import RegisterValidation from '$lib/validation/register';
 import { redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from '../$types';
 
@@ -12,6 +13,18 @@ export const actions = {
 		const formData = await request.formData();
 		const data = Object.fromEntries([...formData]);
 
+		// register validation
+		const result = RegisterValidation.safeParse(data);
+		if (!result.success) {
+			return {
+				error: true,
+				notification: 'An error occurred while creating your account. Please try again.',
+				messages: result.error.flatten().fieldErrors,
+				email: data.email as string,
+				username: data.username as string
+			};
+		}
+
 		try {
 			const users = locals.pocketBase.collection('users');
 			await users.create(data);
@@ -23,18 +36,12 @@ export const actions = {
 			console.log(err);
 			return {
 				error: true,
-				notification: 'An error occurred while creating your account. Please try again.'
+				notification: 'An error occurred while creating your account. Please try again.',
+				email: data.email as string,
+				username: data.username as string
 			};
 		}
 
 		throw redirect(303, '/login');
-
-		// return {
-		// 	notification,
-		// 	messages,
-		// 	error: false,
-		// 	email: formData.get('email') as string,
-		// 	username: formData.get('username') as string
-		// };
 	}
 } satisfies Actions;

@@ -1,5 +1,6 @@
 import type UserType from '$lib/types/User';
 import { serializeNonPOJOs } from '$lib/utils/helpers';
+import PostValidation from '$lib/validation/post';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
@@ -23,7 +24,21 @@ export const actions = {
 		formData.set('author', user.id);
 
 		const data = Object.fromEntries([...formData]);
-		console.log(data);
+
+		// post validation
+		const result = PostValidation.safeParse(data);
+		if (!result.success) {
+			return {
+				error: true,
+				notification: 'An error occurred while creating the post. Please try again.',
+				messages: result.error.flatten().fieldErrors,
+				title: data.title as string,
+				description: data.description as string,
+				content: data.content as string,
+				date: data.postedAt as string
+			};
+		}
+
 		try {
 			const posts = locals.pocketBase.collection('posts');
 			await posts.create(data);
@@ -31,20 +46,14 @@ export const actions = {
 			console.log(err);
 			return {
 				error: true,
-				notification: 'An error occurred while creating the post. Please try again.'
+				notification: 'An error occurred while creating the post. Please try again.',
+				title: data.title as string,
+				description: data.description as string,
+				content: data.content as string,
+				date: data.postedAt as string
 			};
 		}
 
 		throw redirect(303, `/blog/${data.slug}`);
-
-		// return {
-		// 	notification,
-		// 	messages,
-		// 	status: res.status,
-		// 	title: formData.get('title') as string,
-		// 	description: formData.get('description') as string,
-		// 	content: formData.get('content') as string,
-		// 	date: formData.get('date') as string
-		// };
 	}
 } satisfies Actions;
