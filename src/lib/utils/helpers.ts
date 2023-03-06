@@ -8,3 +8,9 @@ export const convertMessagesFromPocketBase = (err: object | any) => {
 	}
 	return err.response.data;
 };
+
+export const parseDateFromInput = (date: string) => {
+	date = date.replace(' ', 'T');
+	date = date + ':00Z';
+	return date;
+};

@@ -1,5 +1,9 @@
 import type UserType from '$lib/types/User';
-import { convertMessagesFromPocketBase, serializeNonPOJOs } from '$lib/utils/helpers';
+import {
+	convertMessagesFromPocketBase,
+	parseDateFromInput,
+	serializeNonPOJOs
+} from '$lib/utils/helpers';
 import PostValidation from '$lib/validation/post';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
@@ -7,21 +11,25 @@ import type { Actions } from './$types';
 // export const load = (({ locals }) => {}) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ request, locals, fetch }) => {
 		const formData = await request.formData();
 		formData.set(
 			'slug',
 			formData.get('title')?.toString().toLowerCase().replace(/ /g, '-') as string
 		);
 
-		let date: string = formData.get('postedAt') as string;
-		date = date.replace(' ', 'T');
-		date = date + ':00Z';
-		formData.set('postedAt', date);
+		formData.set('postedAt', parseDateFromInput(formData.get('postedAt') as string));
 
 		const user = serializeNonPOJOs(locals.pocketBase.authStore.model) as UserType;
 		if (!user.id) throw redirect(303, '/login');
 		formData.set('author', user.id);
+
+		const res = await fetch('/api/format', {
+			method: 'POST',
+			body: JSON.stringify({ content: formData.get('content') })
+		});
+		const { content } = await res.json();
+		formData.set('content', content);
 
 		const data = Object.fromEntries([...formData]);
 		const errorObject = {
