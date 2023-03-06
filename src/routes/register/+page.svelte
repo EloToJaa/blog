@@ -6,8 +6,8 @@
 
 	export let form: ActionData;
 
-	$: form?.notification && form.status === 201 && toast.success(form.notification);
-	$: form?.notification && form.status === 400 && toast.error(form.notification);
+	$: form?.notification && !form.error && toast.success(form.notification);
+	$: form?.notification && form.error && toast.error(form.notification);
 </script>
 
 <svelte:head>
@@ -29,6 +29,6 @@
 		placeholder="name@gmail.com"
 	/>
 	<FormInput name="password" type="password" messages={form?.messages?.password} />
-	<FormInput name="confirmPassword" type="password" messages={form?.messages?.confirmPassword} />
+	<FormInput name="passwordConfirm" type="password" messages={form?.messages?.passwordConfirm} />
 	<Button type="submit" class="w-full1">Register</Button>
 </form>

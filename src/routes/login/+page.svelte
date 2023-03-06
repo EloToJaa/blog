@@ -6,8 +6,8 @@
 
 	export let form: ActionData;
 
-	$: form?.notification && form.status === 200 && toast.success(form.notification);
-	$: form?.notification && form.status === 400 && toast.error(form.notification);
+	$: form?.notification && !form.error && toast.success(form.notification);
+	$: form?.notification && form.error && toast.error(form.notification);
 </script>
 
 <svelte:head>
@@ -17,9 +17,9 @@
 <form class="flex flex-col space-y-6" method="POST">
 	<h3>Sign in</h3>
 	<FormInput
-		name="username"
-		value={form?.username}
-		messages={form?.messages?.username}
+		name="usernameOrEmail"
+		value={form?.usernameOrEmail}
+		messages={form?.messages?.usernameOrEmail}
 		placeholder="name"
 	/>
 	<FormInput name="password" type="password" messages={form?.messages?.password} />

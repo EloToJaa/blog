@@ -1,39 +1,42 @@
-import { getAccessToken } from '$lib/token/accessToken';
-import type Messages from '$lib/types/Messages';
 import { redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from '../$types';
 
 export const load = (() => {
-	if (getAccessToken()) {
-		throw redirect(303, '/');
-	}
+	// if (getAccessToken()) {
+	// 	throw redirect(303, '/');
+	// }
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ request, fetch }) => {
+	default: async ({ locals, request }) => {
 		const formData = await request.formData();
-		const data = Object.fromEntries(formData);
-		const res = await fetch('http://localhost:3000/auth/register', {
-			method: 'POST',
-			body: JSON.stringify(data),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-		const obj = await res.json();
-		const notification: string | null = obj.notification;
-		const messages: Messages = obj.message;
+		const data = Object.fromEntries([...formData]);
 
-		if (res.status === 201) {
-			throw redirect(303, '/login');
+		try {
+			// pocketbase create user and login
+
+			const users = locals.pocketBase.collection('users');
+			await users.create(data);
+
+			await users.authWithPassword(data.email as string, data.password as string);
+
+			locals.pocketBase.authStore.clear();
+		} catch (err) {
+			console.log(err);
+			return {
+				error: true,
+				notification: 'An error occurred while creating your account. Please try again.'
+			};
 		}
 
-		return {
-			notification,
-			messages,
-			status: res.status,
-			email: formData.get('email') as string,
-			username: formData.get('username') as string
-		};
+		throw redirect(303, '/login');
+
+		// return {
+		// 	notification,
+		// 	messages,
+		// 	error: false,
+		// 	email: formData.get('email') as string,
+		// 	username: formData.get('username') as string
+		// };
 	}
 } satisfies Actions;

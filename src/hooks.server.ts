@@ -1,37 +1,20 @@
-import { checkIfAccessTokenExpired } from '$lib/token/accessToken';
-import { error, type Handle, type HandleFetch } from '@sveltejs/kit';
-import { parse } from 'cookie';
+import type { Handle } from '@sveltejs/kit';
+import PocketBase from 'pocketbase';
 
 export const handle = (async ({ event, resolve }) => {
-	const cookies = event.request.headers.get('cookie');
-	const refreshToken = cookies ? parse(cookies).authToken : null;
-	const authorization = event.request.headers.get('Authorization');
-	let accessToken = authorization ? authorization.split(' ')[1] : null;
-	if (refreshToken) {
-		accessToken = await checkIfAccessTokenExpired(refreshToken, accessToken);
-	}
+	event.locals.pocketBase = new PocketBase('http://127.0.0.1:8090');
+	event.locals.pocketBase.authStore.loadFromCookie(event.request.headers.get('Cookie') || '');
 
-	event.locals.accessToken = accessToken;
-
-	// protect routes
-	if (event.request.url.startsWith('/article')) {
-		if (!accessToken) {
-			throw error(401, 'Unauthorized');
-		}
-	}
+	// if (event.locals.pocketBase.authStore.isValid) {
+	// 	event.locals.user = event.locals.pocketBase.authStore.model;
+	// }
 
 	const response = await resolve(event);
 
+	response.headers.set(
+		'Set-Cookie',
+		event.locals.pocketBase.authStore.exportToCookie({ path: '/', secure: false })
+	);
+
 	return response;
 }) satisfies Handle;
-
-export const handleFetch = (async ({ request, fetch, event }) => {
-	if (request.url.startsWith('http://localhost:3000/')) {
-		const accessToken = event.locals.accessToken;
-		if (accessToken) {
-			request.headers.set('Authorization', `Bearer ${accessToken}`);
-		}
-	}
-
-	return fetch(request);
-}) satisfies HandleFetch;

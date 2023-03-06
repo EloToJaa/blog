@@ -1,4 +1,5 @@
-const getDate = (date: string, short = false) => {
+const getDate = (date: string | undefined, short = false) => {
+	if (!date) return null;
 	const dateObj = new Date(date);
 	if (short) {
 		return dateObj.toLocaleDateString('en-US', {
