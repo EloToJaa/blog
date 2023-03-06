@@ -29,17 +29,17 @@ const validation = z
 				message: 'Content must be at most 10000 characters long'
 			})
 			.trim(),
-		date: z
+		postedAt: z
 			.string()
 			.datetime({ message: 'Date must be a valid date' })
 			.default(new Date().toDateString())
 	})
-	.superRefine(async ({ title, date }, ctx) => {
-		if (new Date(date) < new Date()) {
+	.superRefine(({ postedAt }, ctx) => {
+		if (new Date(postedAt) < new Date()) {
 			ctx.addIssue({
 				code: 'custom',
 				message: 'Post cannot be created in the past',
-				path: ['date']
+				path: ['postedAt']
 			});
 		}
 	});

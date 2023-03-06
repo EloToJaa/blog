@@ -1,3 +1,4 @@
+import { convertMessagesFromPocketBase } from '$lib/utils/helpers';
 import LoginValidation from '$lib/validation/login';
 import { redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from '../$types';
@@ -12,27 +13,28 @@ export const actions = {
 	default: async ({ request, locals }) => {
 		const formData = await request.formData();
 		const data = Object.fromEntries([...formData]);
+		const errorObject = {
+			error: true,
+			notification: 'An error occurred while logging in. Please try again.',
+			usernameOrEmail: data.usernameOrEmail as string
+		};
 
 		// login validation
 		const result = LoginValidation.safeParse(data);
 		if (!result.success) {
 			return {
-				error: true,
-				notification: 'An error occurred while logging in. Please try again.',
-				message: result.error.flatten().fieldErrors,
-				username: data.usernameOrEmail as string
+				...errorObject,
+				messages: result.error.flatten().fieldErrors
 			};
 		}
 
 		try {
 			const users = locals.pocketBase.collection('users');
 			await users.authWithPassword(data.usernameOrEmail as string, data.password as string);
-		} catch (err) {
-			console.log(err);
+		} catch (err: object | any) {
 			return {
-				error: true,
-				notification: 'An error occurred while logging in. Please try again.',
-				username: data.usernameOrEmail as string
+				...errorObject,
+				messages: convertMessagesFromPocketBase(err)
 			};
 		}
 		throw redirect(303, '/');

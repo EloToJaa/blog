@@ -8,8 +8,8 @@
 
 	export let form: ActionData;
 
-	$: form?.notification && form.status === 201 && toast.success(form.notification);
-	$: form?.notification && form.status === 400 && toast.error(form.notification);
+	$: form?.notification && !form.error && toast.success(form.notification);
+	$: form?.notification && form.error && toast.error(form.notification);
 </script>
 
 <svelte:head>

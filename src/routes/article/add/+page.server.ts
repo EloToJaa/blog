@@ -1,5 +1,5 @@
 import type UserType from '$lib/types/User';
-import { serializeNonPOJOs } from '$lib/utils/helpers';
+import { convertMessagesFromPocketBase, serializeNonPOJOs } from '$lib/utils/helpers';
 import PostValidation from '$lib/validation/post';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
@@ -24,33 +24,32 @@ export const actions = {
 		formData.set('author', user.id);
 
 		const data = Object.fromEntries([...formData]);
+		const errorObject = {
+			error: true,
+			notification: 'An error occurred while creating the post. Please try again.',
+			title: data.title as string,
+			description: data.description as string,
+			content: data.content as string,
+			date: data.postedAt as string
+		};
 
 		// post validation
 		const result = PostValidation.safeParse(data);
 		if (!result.success) {
+			console.log(result.error.flatten().fieldErrors);
 			return {
-				error: true,
-				notification: 'An error occurred while creating the post. Please try again.',
-				messages: result.error.flatten().fieldErrors,
-				title: data.title as string,
-				description: data.description as string,
-				content: data.content as string,
-				date: data.postedAt as string
+				...errorObject,
+				messages: result.error.flatten().fieldErrors
 			};
 		}
 
 		try {
 			const posts = locals.pocketBase.collection('posts');
 			await posts.create(data);
-		} catch (err) {
-			console.log(err);
+		} catch (err: object | any) {
 			return {
-				error: true,
-				notification: 'An error occurred while creating the post. Please try again.',
-				title: data.title as string,
-				description: data.description as string,
-				content: data.content as string,
-				date: data.postedAt as string
+				...errorObject,
+				messages: convertMessagesFromPocketBase(err)
 			};
 		}
 
