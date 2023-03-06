@@ -12,7 +12,7 @@
 		<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 			{post.title}
 		</h5>
-		{getDate(post.posted_at, true)}
+		{getDate(post.postedAt, true)}
 	</div>
 
 	<p class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight">

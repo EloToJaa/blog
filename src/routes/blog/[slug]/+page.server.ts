@@ -11,7 +11,7 @@ export const load = (async ({ locals, params }) => {
 		const author = serializeNonPOJOs(post.expand.author) as UserType;
 		const newPost = {
 			author: author.username,
-			posted_at: post.posted_at,
+			postedAt: post.postedAt,
 			slug: post.slug,
 			title: post.title,
 			content: post.content

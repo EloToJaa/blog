@@ -3,7 +3,7 @@ interface PostType {
 	content?: string;
 	author?: string;
 	description?: string;
-	posted_at?: string;
+	postedAt?: string;
 	slug?: string;
 	searchTerms?: string;
 }

@@ -1,27 +1,31 @@
-import type Messages from '$lib/types/Messages';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
 // export const load = (() => {}) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ request, fetch }) => {
+	default: async ({ request, locals }) => {
 		const formData = await request.formData();
-		let date: string = formData.get('date') as string;
+		formData.set(
+			'slug',
+			formData.get('title')?.toString().toLowerCase().replace(/ /g, '-') as string
+		);
+		let date: string = formData.get('postedAt') as string;
 		date = date.replace(' ', 'T');
 		date = date + ':00Z';
-		formData.set('date', date);
-		const data = Object.fromEntries(formData);
-		const res = await fetch('http://localhost:3000/posts', {
-			method: 'POST',
-			body: JSON.stringify(data),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-		const obj = await res.json();
-		const notification: string | null = obj.notification;
-		const messages: Messages = obj.message;
+		formData.set('postedAt', date);
+		const data = Object.fromEntries([...formData]);
+
+		try {
+			const posts = locals.pocketBase.collection('posts');
+			await posts.create(data);
+		} catch (err) {
+			console.log(err);
+			return {
+				error: true,
+				notification: 'An error occurred while creating the post. Please try again.'
+			};
+		}
 
 		if (res.status === 201) {
 			throw redirect(303, `/blog/${obj.slug}`);

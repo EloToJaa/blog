@@ -27,6 +27,7 @@
 	export let messages: string[] | undefined;
 	export let textarea: boolean = false;
 	export let rows: number = 4;
+	export let label: string = '';
 
 	const message = messages?.[0];
 	let title: string = name.replace(/([A-Z])/g, ' $1').trim();
@@ -34,7 +35,7 @@
 </script>
 
 <Label class="space-y-2">
-	<span>{title}</span>
+	<span>{label === '' ? title : label}</span>
 
 	{#if textarea}
 		<Textarea {name} {placeholder} {value} {rows} />

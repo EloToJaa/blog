@@ -34,7 +34,13 @@
 		rows={10}
 	/>
 
-	<FormInput type="datetime-local" name="date" value={form?.date} messages={form?.messages?.date} />
+	<FormInput
+		type="datetime-local"
+		name="posted-at"
+		label="Posted at"
+		value={form?.date}
+		messages={form?.messages?.date}
+	/>
 
 	<Button type="submit" class="w-full">Create the article</Button>
 </form>

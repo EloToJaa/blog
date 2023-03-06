@@ -2,10 +2,10 @@
 import { redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from '../$types';
 
-export const load = (() => {
-	// if (getAccessToken()) {
-	// 	throw redirect(303, '/');
-	// }
+export const load = (({ locals }) => {
+	if (locals.pocketBase.authStore.isValid) {
+		throw redirect(303, '/');
+	}
 }) satisfies PageServerLoad;
 
 export const actions = {

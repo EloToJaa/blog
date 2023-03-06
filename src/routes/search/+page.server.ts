@@ -6,9 +6,9 @@ import type { PageServerLoad } from './$types';
 export const load = (async ({ locals }) => {
 	const posts = locals.pocketBase.collection('posts');
 	const postsList = await posts.getFullList({
-		sort: 'posted_at',
+		sort: 'postedAt',
 		order: 'desc',
-		filter: `posted_at<='${new Date().toISOString()}'`,
+		filter: `postedAt<='${new Date().toISOString()}'`,
 		expand: 'author'
 	});
 	// for each post add slug
@@ -17,7 +17,7 @@ export const load = (async ({ locals }) => {
 		const author = serializeNonPOJOs(post.expand.author) as UserType;
 		newPosts.push({
 			author: author.username,
-			posted_at: post.posted_at,
+			postedAt: post.postedAt,
 			slug: post.slug,
 			title: post.title,
 			description: post.description
