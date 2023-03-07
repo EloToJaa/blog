@@ -3,9 +3,13 @@ import toast from 'svelte-french-toast';
 export const notify = (notification: string | undefined, error: boolean | undefined) => {
 	if (!notification) return;
 	if (error === undefined) return;
+	const options = {
+		duration: 8 * 1000,
+		style: 'border-radius: 200px; background: #333; color: #fff; margin-top: 60px;'
+	};
 	if (error) {
-		toast.error(notification, { duration: 10000 });
+		toast.error(notification, options);
 	} else {
-		toast.success(notification, { duration: 10000 });
+		toast.success(notification, options);
 	}
 };
