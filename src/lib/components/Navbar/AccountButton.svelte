@@ -11,14 +11,10 @@
 		<Fa icon={faUser} class="mr-2" />
 		<span class="text-lg font-semibold">{user.username}</span>
 	</Button>
-	<Dropdown inline triggeredBy="#avatar_with_name">
-		<div slot="header" class="px-4 py-2">
-			<span class="block text-sm text-gray-900 dark:text-white"> {user.username} </span>
-			<span class="block truncate text-sm font-medium"> {user.email} </span>
-		</div>
+	<Dropdown inline triggeredBy="#avatar_with_name" frameClass="">
 		<DropdownItem href="/user">User settings</DropdownItem>
 		<DropdownItem href={`/profile/${user.username}`}>Profile</DropdownItem>
-		<DropdownDivider />
+		<DropdownDivider divClass="my-1 h-px bg-gray-100 dark:bg-gray-600 w-full" />
 		<DropdownItem href="/article/add">New article</DropdownItem>
 		<DropdownDivider />
 		<form method="post" action="/api/logout">
