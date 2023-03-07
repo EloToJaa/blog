@@ -50,7 +50,6 @@ export const actions = {
 		try {
 			const posts = locals.pocketBase.collection('posts');
 			await posts.create(data);
-			throw redirect(303, `/blog/${data.slug}`);
 		} catch (err: object | any) {
 			return {
 				...errorObject,

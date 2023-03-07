@@ -5,11 +5,14 @@ export const handle = (async ({ event, resolve }) => {
 	event.locals.pocketBase = new PocketBase('http://127.0.0.1:8090');
 	event.locals.pocketBase.authStore.loadFromCookie(event.request.headers.get('Cookie') || '');
 
-	if (event.url.pathname.startsWith('/article')) {
-		if (!event.locals.pocketBase.authStore.isValid) {
-			throw error(401, 'Unauthorized');
+	const protectedPaths = ['/article', '/profile'];
+	protectedPaths.forEach((path) => {
+		if (event.url.pathname.startsWith(path)) {
+			if (!event.locals.pocketBase.authStore.isValid) {
+				throw error(401, 'Unauthorized');
+			}
 		}
-	}
+	});
 
 	const response = await resolve(event);
 

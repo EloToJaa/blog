@@ -4,6 +4,7 @@ import { serializeNonPOJOs } from '$lib/utils/helpers';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ locals }) => {
+	const user = serializeNonPOJOs(locals.pocketBase.authStore.model);
 	const posts = locals.pocketBase.collection('posts');
 	const postsList = await posts.getFullList({
 		sort: 'postedAt',
@@ -23,8 +24,8 @@ export const load = (async ({ locals }) => {
 			description: post.description
 		} as PostType);
 	});
-
 	return {
-		posts: newPosts
+		user: user as UserType,
+		posts: newPosts as PostType[]
 	};
 }) satisfies PageServerLoad;

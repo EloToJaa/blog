@@ -4,6 +4,11 @@
 	import type PostType from '$lib/types/Post';
 
 	export let posts: PostType[];
+	export let author: string | null = null;
+
+	if (author) {
+		posts = posts.filter((post: PostType) => post.author === author);
+	}
 
 	const searchPosts: PostType[] = posts.map((post: PostType) => ({
 		...post,

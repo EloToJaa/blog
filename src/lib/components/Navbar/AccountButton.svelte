@@ -17,7 +17,7 @@
 			<span class="block truncate text-sm font-medium"> {user.email} </span>
 		</div>
 		<DropdownItem href="/article/add">New article</DropdownItem>
-		<DropdownItem>User settings</DropdownItem>
+		<DropdownItem href="/profile">User settings</DropdownItem>
 		<DropdownDivider />
 		<form method="post" action="/api/logout">
 			<DropdownItem type="submit">Sign out</DropdownItem>
