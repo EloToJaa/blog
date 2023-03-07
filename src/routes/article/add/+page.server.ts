@@ -1,3 +1,4 @@
+import type Messages from '$lib/types/Messages';
 import type UserType from '$lib/types/User';
 import { formatContent, sanitizeContent } from '$lib/utils/format';
 import {
@@ -43,7 +44,7 @@ export const actions = {
 		if (!result.success) {
 			return {
 				...errorObject,
-				messages: result.error.flatten().fieldErrors
+				messages: result.error.flatten().fieldErrors as Messages
 			};
 		}
 
@@ -53,7 +54,7 @@ export const actions = {
 		} catch (err: object | any) {
 			return {
 				...errorObject,
-				messages: convertMessagesFromPocketBase(err)
+				messages: convertMessagesFromPocketBase(err) as Messages
 			};
 		}
 

@@ -30,6 +30,12 @@
 		>
 	</div>
 	<div class="text-md font-medium text-gray-500 dark:text-gray-300">
+		Forgot password? <a
+			href="/password-reset"
+			class="text-blue-700 hover:underline dark:text-blue-500">Reset password</a
+		>
+	</div>
+	<div class="text-md font-medium text-gray-500 dark:text-gray-300">
 		Not verified? <a href="/verification" class="text-blue-700 hover:underline dark:text-blue-500"
 			>Resend email</a
 		>

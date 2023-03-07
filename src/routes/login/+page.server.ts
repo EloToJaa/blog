@@ -1,3 +1,4 @@
+import type Messages from '$lib/types/Messages';
 import LoginValidation from '$lib/validation/login';
 import { redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from '../$types';
@@ -23,7 +24,7 @@ export const actions = {
 		if (!result.success) {
 			return {
 				...errorObject,
-				messages: result.error.flatten().fieldErrors
+				messages: result.error.flatten().fieldErrors as Messages
 			};
 		}
 
@@ -36,7 +37,7 @@ export const actions = {
 				messages: {
 					usernameOrEmail: ['Invalid username or password'],
 					password: ['Invalid username or password']
-				}
+				} as Messages
 			};
 		}
 

@@ -1,3 +1,4 @@
+import type Messages from '$lib/types/Messages';
 import { convertMessagesFromPocketBase } from '$lib/utils/helpers';
 import RegisterValidation from '$lib/validation/register';
 import { redirect } from '@sveltejs/kit';
@@ -25,7 +26,7 @@ export const actions = {
 		if (!result.success) {
 			return {
 				...errorObject,
-				messages: result.error.flatten().fieldErrors
+				messages: result.error.flatten().fieldErrors as Messages
 			};
 		}
 
@@ -41,7 +42,7 @@ export const actions = {
 		} catch (err: object | any) {
 			return {
 				...errorObject,
-				messages: convertMessagesFromPocketBase(err)
+				messages: convertMessagesFromPocketBase(err) as Messages
 			};
 		}
 	}

@@ -4,7 +4,7 @@ export const notify = (notification: string | undefined, error: boolean | undefi
 	if (!notification) return;
 	if (error === undefined) return;
 	const options = {
-		duration: 8 * 1000,
+		duration: 10000,
 		style: 'border-radius: 200px; background: #333; color: #fff; margin-top: 60px;'
 	};
 	if (error) {
