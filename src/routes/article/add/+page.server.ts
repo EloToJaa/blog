@@ -1,4 +1,5 @@
 import type UserType from '$lib/types/User';
+import { formatContent, sanitizeContent } from '$lib/utils/format';
 import {
 	convertMessagesFromPocketBase,
 	parseDateFromInput,
@@ -13,7 +14,7 @@ export const ssr = false;
 // export const load = (({ locals }) => {}) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ request, locals, fetch }) => {
+	default: async ({ request, locals }) => {
 		const formData = await request.formData();
 		formData.set(
 			'slug',
@@ -26,12 +27,8 @@ export const actions = {
 		if (!user.id) throw redirect(303, '/login');
 		formData.set('author', user.id);
 
-		const res = await fetch('/api/format', {
-			method: 'POST',
-			body: JSON.stringify({ content: formData.get('content') })
-		});
-		const { content } = await res.json();
-		formData.set('content', content);
+		formData.set('content', formatContent(formData.get('content') as string));
+		formData.set('unformattedContent', sanitizeContent(formData.get('content') as string));
 
 		const data = Object.fromEntries([...formData]);
 		const errorObject = {
@@ -39,7 +36,7 @@ export const actions = {
 			notification: 'An error occurred while creating the post. Please try again.',
 			title: data.title as string,
 			description: data.description as string,
-			content: data.content as string,
+			content: data.unformattedContent as string,
 			date: data.postedAt as string
 		};
 

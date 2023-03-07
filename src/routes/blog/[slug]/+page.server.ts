@@ -9,15 +9,18 @@ export const load = (async ({ locals, params }) => {
 		const posts = locals.pocketBase.collection('posts');
 		const post = await posts.getFirstListItem(`slug="${params.slug}"`, { expand: 'author' });
 		const author = serializeNonPOJOs(post.expand.author) as UserType;
-		const newPost = {
+		const postObject = {
 			author: author.username,
+			authorId: author.id,
 			postedAt: post.postedAt,
 			slug: post.slug,
 			title: post.title,
 			content: post.content
 		} as PostType;
+		const user = serializeNonPOJOs(locals.pocketBase.authStore.model);
 		return {
-			post: newPost
+			post: postObject,
+			user: (locals.pocketBase.authStore.isValid ? user : null) as UserType | null
 		};
 	} catch (err) {
 		console.log(err);

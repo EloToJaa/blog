@@ -20,3 +20,6 @@ h5 {
 h6 {
 	@apply text-lg text-gray-600 dark:text-gray-300;
 }
+pre {
+	@apply py-5;
+}
