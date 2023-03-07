@@ -19,7 +19,7 @@
 		enableTime: true,
 		element: '#date-picker',
 		altInput: true,
-		altFormat: 'F j, Y h:i',
+		altFormat: 'F j, Y H:i',
 		dateFormat: 'Y-m-d H:i',
 		minDate: 'today',
 		time_24hr: true
