@@ -12,7 +12,7 @@
 		<span class="text-lg font-semibold">{user.username}</span>
 	</Button>
 	<Dropdown inline triggeredBy="#avatar_with_name" frameClass="">
-		<DropdownItem href="/user">User settings</DropdownItem>
+		<DropdownItem href="/user">User dashboard</DropdownItem>
 		<DropdownItem href={`/profile/${user.username}`}>Profile</DropdownItem>
 		<DropdownDivider divClass="my-1 h-px bg-gray-100 dark:bg-gray-600 w-full" />
 		<DropdownItem href="/article/add">New article</DropdownItem>
