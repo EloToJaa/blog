@@ -10,8 +10,7 @@
 	export let user: UserType | null;
 	const links = [
 		{ id: '/', name: 'Home' },
-		{ id: '/about', name: 'About' },
-		{ id: '/services', name: 'Services' }
+		{ id: '/contact', name: 'Contact' }
 	];
 </script>
 
