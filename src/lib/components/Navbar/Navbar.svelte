@@ -21,8 +21,8 @@
 >
 	<Logo />
 	<div class="flex md:order-2 ">
-		<DarkMode />
 		<SearchBar />
+		<DarkMode />
 		<AccountButton {user} />
 		<NavHamburger on:click={toggle} />
 	</div>
