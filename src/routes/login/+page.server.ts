@@ -1,9 +1,6 @@
-import { convertMessagesFromPocketBase } from '$lib/utils/helpers';
 import LoginValidation from '$lib/validation/login';
 import { redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from '../$types';
-
-export const ssr = false;
 
 export const load = (({ locals }) => {
 	if (locals.pocketBase.authStore.isValid) {
@@ -36,7 +33,10 @@ export const actions = {
 		} catch (err: object | any) {
 			return {
 				...errorObject,
-				messages: convertMessagesFromPocketBase(err)
+				messages: {
+					usernameOrEmail: ['Invalid username or password'],
+					password: ['Invalid username or password']
+				}
 			};
 		}
 		throw redirect(303, '/');

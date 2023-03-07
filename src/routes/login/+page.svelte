@@ -20,6 +20,7 @@
 		name="usernameOrEmail"
 		value={form?.usernameOrEmail}
 		messages={form?.messages?.usernameOrEmail}
+		label="Username or email"
 		placeholder="name"
 	/>
 	<FormInput name="password" type="password" messages={form?.messages?.password} />

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const validation = z.object({
-	username: z
+	usernameOrEmail: z
 		.string({ required_error: 'Username is required' })
 		.min(3, {
 			message: 'Username must be at least 3 characters long'

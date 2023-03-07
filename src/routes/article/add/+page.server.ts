@@ -9,8 +9,6 @@ import PostValidation from '$lib/validation/post';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
-export const ssr = false;
-
 // export const load = (({ locals }) => {}) satisfies PageServerLoad;
 
 export const actions = {
@@ -27,8 +25,8 @@ export const actions = {
 		if (!user.id) throw redirect(303, '/login');
 		formData.set('author', user.id);
 
-		formData.set('content', formatContent(formData.get('content') as string));
 		formData.set('unformattedContent', sanitizeContent(formData.get('content') as string));
+		formData.set('content', formatContent(formData.get('content') as string));
 
 		const data = Object.fromEntries([...formData]);
 		const errorObject = {
@@ -37,13 +35,12 @@ export const actions = {
 			title: data.title as string,
 			description: data.description as string,
 			content: data.unformattedContent as string,
-			date: data.postedAt as string
+			postedAt: data.postedAt as string
 		};
 
 		// post validation
 		const result = PostValidation.safeParse(data);
 		if (!result.success) {
-			console.log(result.error.flatten().fieldErrors);
 			return {
 				...errorObject,
 				messages: result.error.flatten().fieldErrors
@@ -53,6 +50,7 @@ export const actions = {
 		try {
 			const posts = locals.pocketBase.collection('posts');
 			await posts.create(data);
+			throw redirect(303, `/blog/${data.slug}`);
 		} catch (err: object | any) {
 			return {
 				...errorObject,
