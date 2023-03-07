@@ -16,8 +16,10 @@
 			<span class="block text-sm text-gray-900 dark:text-white"> {user.username} </span>
 			<span class="block truncate text-sm font-medium"> {user.email} </span>
 		</div>
+		<DropdownItem href="/user">User settings</DropdownItem>
+		<DropdownItem href={`/profile/${user.username}`}>Profile</DropdownItem>
+		<DropdownDivider />
 		<DropdownItem href="/article/add">New article</DropdownItem>
-		<DropdownItem href="/profile">User settings</DropdownItem>
 		<DropdownDivider />
 		<form method="post" action="/api/logout">
 			<DropdownItem type="submit">Sign out</DropdownItem>
