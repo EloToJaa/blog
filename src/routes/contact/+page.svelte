@@ -1,3 +1,3 @@
 <svelte:head>
-	<title>About</title>
+	<title>Contact</title>
 </svelte:head>

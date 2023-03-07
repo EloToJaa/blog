@@ -32,17 +32,17 @@ export const actions = {
 		try {
 			const users = locals.pocketBase.collection('users');
 			await users.create(data);
-
-			await users.authWithPassword(data.email as string, data.password as string);
-
-			locals.pocketBase.authStore.clear();
+			await users.requestVerification(data.email as string);
+			return {
+				notification:
+					'Your account has been created. Please check your email to verify your account.',
+				error: false
+			};
 		} catch (err: object | any) {
 			return {
 				...errorObject,
 				messages: convertMessagesFromPocketBase(err)
 			};
 		}
-
-		throw redirect(303, '/login');
 	}
 } satisfies Actions;

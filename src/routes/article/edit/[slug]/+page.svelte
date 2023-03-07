@@ -1,24 +1,23 @@
 <script lang="ts">
 	import FormInput from '$lib/components/Utils/FormInput.svelte';
+	import { notify } from '$lib/utils/notification';
 
 	import { Button } from 'flowbite-svelte';
 
-	import toast from 'svelte-french-toast';
 	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
 	export let form: ActionData;
 
-	$: form?.notification && !form.error && toast.success(form.notification);
-	$: form?.notification && form.error && toast.error(form.notification);
+	$: notify(form?.notification, form?.error);
 </script>
 
 <svelte:head>
-	<title>New article</title>
+	<title>Update an article</title>
 </svelte:head>
 
 <form class="flex flex-col space-y-6" method="POST">
-	<h3>Create an article</h3>
+	<h3>Update an article</h3>
 	<FormInput name="title" value={form?.title ?? data.title} messages={form?.messages?.title} />
 	<FormInput
 		textarea
@@ -43,5 +42,5 @@
 		messages={form?.messages?.date}
 	/>
 
-	<Button type="submit" class="w-full">Create the article</Button>
+	<Button type="submit" class="w-full">Update the article</Button>
 </form>
