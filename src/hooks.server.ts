@@ -5,7 +5,7 @@ export const handle = (async ({ event, resolve }) => {
 	event.locals.pocketBase = new PocketBase('http://127.0.0.1:8090');
 	event.locals.pocketBase.authStore.loadFromCookie(event.request.headers.get('Cookie') || '');
 
-	const protectedPaths = ['/article', '/profile'];
+	const protectedPaths = ['/article', '/user'];
 	protectedPaths.forEach((path) => {
 		if (event.url.pathname.startsWith(path)) {
 			if (!event.locals.pocketBase.authStore.isValid) {

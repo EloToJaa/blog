@@ -20,20 +20,18 @@
 		value={form?.usernameOrEmail}
 		messages={form?.messages?.usernameOrEmail}
 		label="Username or email"
-		placeholder="name"
+		placeholder="name@gmail.com"
 	/>
 	<FormInput name="password" type="password" messages={form?.messages?.password} />
-	<!-- TODO: implement -->
-	<!-- <div class="flex items-start">
-		<Checkbox>Remember me</Checkbox>
-		<a href="/" class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
-			>Lost password?</a
-		>
-	</div> -->
 	<Button type="submit" class="w-full1">Login to your account</Button>
-	<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+	<div class="text-md font-medium text-gray-500 dark:text-gray-300">
 		Not registered? <a href="/register" class="text-blue-700 hover:underline dark:text-blue-500"
 			>Create account</a
+		>
+	</div>
+	<div class="text-md font-medium text-gray-500 dark:text-gray-300">
+		Not verified? <a href="/verification" class="text-blue-700 hover:underline dark:text-blue-500"
+			>Resend email</a
 		>
 	</div>
 </form>

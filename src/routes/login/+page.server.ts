@@ -39,6 +39,16 @@ export const actions = {
 				}
 			};
 		}
+
+		const user = locals.pocketBase.authStore;
+		if (user.model && !user.model.verified) {
+			user.clear();
+			return {
+				error: true,
+				notification:
+					'Your account has not been verified. Please check your email for a verification link.'
+			};
+		}
 		throw redirect(303, '/');
 	}
 } satisfies Actions;
