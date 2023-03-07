@@ -1,9 +1,12 @@
 <script lang="ts">
 	import FormInput from '$lib/components/Utils/FormInput.svelte';
+	import { notify } from '$lib/utils/notification';
 	import { Button } from 'flowbite-svelte';
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
+
+	$: notify(form?.notification, form?.error);
 </script>
 
 <svelte:head>
