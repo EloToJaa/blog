@@ -54,7 +54,7 @@ export const actions = {
 			title: data.title as string,
 			description: data.description as string,
 			content: data.unformattedContent as string,
-			date: data.postedAt as string
+			postedAt: data.postedAt as string
 		};
 
 		// post validation

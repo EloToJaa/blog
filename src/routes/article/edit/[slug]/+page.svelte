@@ -38,8 +38,8 @@
 		type="datetime-local"
 		name="postedAt"
 		label="Posted at"
-		value={form?.date ?? data?.postedAt}
-		messages={form?.messages?.date}
+		value={form?.postedAt ?? data?.postedAt}
+		messages={form?.messages?.postedAt}
 	/>
 
 	<Button type="submit" class="w-full">Update the article</Button>
