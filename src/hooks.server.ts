@@ -3,6 +3,7 @@ import { error, type Handle } from '@sveltejs/kit';
 import PocketBase from 'pocketbase';
 
 export const handle = (async ({ event, resolve }) => {
+	console.log(env.POCKETBASE_URL);
 	event.locals.pocketBase = new PocketBase(env.POCKETBASE_URL);
 	event.locals.pocketBase.authStore.loadFromCookie(event.request.headers.get('Cookie') || '');
 
