@@ -1,8 +1,9 @@
+import { env } from '$env/dynamic/private';
 import { error, type Handle } from '@sveltejs/kit';
 import PocketBase from 'pocketbase';
 
 export const handle = (async ({ event, resolve }) => {
-	event.locals.pocketBase = new PocketBase('http://127.0.0.1:8090');
+	event.locals.pocketBase = new PocketBase(env.POCKETBASE_URL);
 	event.locals.pocketBase.authStore.loadFromCookie(event.request.headers.get('Cookie') || '');
 
 	const protectedPaths = ['/article', '/user'];

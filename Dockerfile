@@ -6,4 +6,6 @@ COPY / /app
 
 RUN npm ci
 
-CMD ["npm", "run", "start"]
+EXPOSE 3000
+
+CMD ["node", "index.js"]
