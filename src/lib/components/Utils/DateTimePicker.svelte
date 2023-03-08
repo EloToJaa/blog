@@ -3,9 +3,9 @@
 	import { onMount } from 'svelte';
 	import Flatpickr from 'svelte-flatpickr';
 
-	export let value: string = '';
+	export let value = '';
 	export let name: string;
-	export let placeholder: string = '';
+	export let placeholder = '';
 
 	onMount(() => {
 		if (document.body.classList.contains('dark')) {
@@ -24,8 +24,6 @@
 		minDate: 'today',
 		time_24hr: true
 	};
-
-	let date = null;
 </script>
 
 <Flatpickr

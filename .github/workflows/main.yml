@@ -25,31 +25,31 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      
+
       - name: Install all dependencies
         run: npm ci
-      
+
       - name: Build
         run: npm run build
-      
+
       - name: Copy package.json
         uses: canastro/copy-file-action@master
         with:
-          source: "package.json"
-          target: "build/package.json"
-      
+          source: 'package.json'
+          target: 'build/package.json'
+
       - name: Copy package-lock.json
         uses: canastro/copy-file-action@master
         with:
-          source: "package-lock.json"
-          target: "build/package-lock.json"
-      
+          source: 'package-lock.json'
+          target: 'build/package-lock.json'
+
       - name: Copy Dockerfile
         uses: canastro/copy-file-action@master
         with:
-          source: "Dockerfile"
-          target: "build/Dockerfile"
-      
+          source: 'Dockerfile'
+          target: 'build/Dockerfile'
+
       - name: Push to build branch
         uses: s0/git-publish-subdir-action@develop
         env:
@@ -57,7 +57,7 @@ jobs:
           BRANCH: build
           FOLDER: build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Build: ({sha}) {msg}"
+          MESSAGE: 'Build: ({sha}) {msg}'
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2.1.0
