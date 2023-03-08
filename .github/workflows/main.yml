@@ -44,12 +44,6 @@ jobs:
           source: "package-lock.json"
           target: "build/package-lock.json"
       
-      - name: Copy .env
-        uses: canastro/copy-file-action@master
-        with:
-          source: ".env"
-          target: "build/.env"
-      
       - name: Copy Dockerfile
         uses: canastro/copy-file-action@master
         with:
