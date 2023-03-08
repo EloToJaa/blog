@@ -17,7 +17,6 @@ export const createSearchObject = <T extends Record<PropertyKey, any>>(data: T[]
 
 const createSearchStore = <T extends Record<PropertyKey, any>>(data: T[]) => {
 	const store = writable<SearchStoreModel<T>>(createSearchObject(data));
-
 	return store;
 };
 
