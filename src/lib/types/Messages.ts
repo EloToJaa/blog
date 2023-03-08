@@ -4,9 +4,10 @@ interface Messages {
 	email?: string[];
 	passwordConfirm?: string[];
 	content?: string[];
-	date?: string[];
 	title?: string[];
 	description?: string[];
+	usernameOrEmail?: string[];
+	postedAt?: string[];
 }
 
 export default Messages;
