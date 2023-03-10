@@ -1,6 +1,7 @@
 import type Messages from '$lib/types/Messages';
 import type PostType from '$lib/types/Post';
 import type UserType from '$lib/types/User';
+import { formatContent, sanitizeContent } from '$lib/utils/format';
 import {
 	convertMessagesFromPocketBase,
 	parseDateFromInput,
@@ -9,8 +10,6 @@ import {
 import PostValidation from '$lib/validation/post';
 import { error, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
-
-export const ssr = false;
 
 export const load = (async ({ locals, params }) => {
 	try {
@@ -43,8 +42,8 @@ export const actions = {
 		if (!user.id) throw redirect(303, '/login');
 		formData.set('author', user.id);
 
-		// formData.set('content', formatContent(formData.get('content') as string));
-		// formData.set('unformattedContent', sanitizeContent(formData.get('content') as string));
+		formData.set('content', formatContent(formData.get('content') as string));
+		formData.set('unformattedContent', sanitizeContent(formData.get('content') as string));
 
 		const data = Object.fromEntries([...formData]);
 		const errorObject = {

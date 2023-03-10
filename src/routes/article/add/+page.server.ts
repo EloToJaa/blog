@@ -1,7 +1,6 @@
-import { env } from '$env/dynamic/private';
 import type Messages from '$lib/types/Messages';
 import type UserType from '$lib/types/User';
-// import { formatContent, sanitizeContent } from '$lib/utils/format';
+import { formatContent, sanitizeContent } from '$lib/utils/format';
 import {
 	convertMessagesFromPocketBase,
 	parseDateFromInput,
@@ -27,11 +26,10 @@ export const actions = {
 		if (!user.id) throw redirect(303, '/login');
 		formData.set('author', user.id as string);
 
-		// formData.set('unformattedContent', sanitizeContent(formData.get('content') as string));
-		// formData.set('content', formatContent(formData.get('content') as string));
+		formData.set('unformattedContent', sanitizeContent(formData.get('content') as string));
+		formData.set('content', formatContent(formData.get('content') as string));
 
 		const data = Object.fromEntries([...formData]);
-		console.log(data);
 		const errorObject = {
 			error: true,
 			notification: 'An error occurred while creating the post. Please try again.',
@@ -43,8 +41,6 @@ export const actions = {
 
 		// post validation
 		const result = PostValidation.safeParse(data);
-		console.log(result);
-		console.log(env.NODE_ENV);
 		if (!result.success) {
 			return {
 				...errorObject,
@@ -63,6 +59,6 @@ export const actions = {
 			};
 		}
 
-		// throw redirect(303, `/blog/${data.slug}`);
+		throw redirect(303, `/blog/${data.slug}`);
 	}
 } satisfies Actions;
