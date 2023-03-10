@@ -6,6 +6,7 @@ interface UserType {
 	avatar?: string;
 	created?: string;
 	updated?: string;
+	posts?: string[];
 }
 
 export default UserType;

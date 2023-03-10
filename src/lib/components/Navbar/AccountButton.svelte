@@ -17,7 +17,7 @@
 		<DropdownDivider divClass="my-1 h-px bg-gray-100 dark:bg-gray-600 w-full" />
 		<DropdownItem href="/article/add">New article</DropdownItem>
 		<DropdownDivider />
-		<form method="post" action="/api/logout">
+		<form method="post" action="/auth/logout">
 			<DropdownItem type="submit">Sign out</DropdownItem>
 		</form>
 	</Dropdown>
