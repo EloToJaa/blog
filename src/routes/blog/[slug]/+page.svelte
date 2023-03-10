@@ -22,7 +22,7 @@
 
 <div class="mb-2 mx-auto dark:bg-gray-900 bg-blue-50 p-5 border-0 rounded-2xl pb-7">
 	<div class="flex justify-between">
-		<h1>{post.title}</h1>
+		<h1 class="text-7xl">{post.title}</h1>
 		{#if user && user.id && user.id === post.authorId}
 			<form action={`/article/delete/${post.slug}`} method="POST">
 				<Button href={`/article/edit/${post.slug}`} class="mb-2">Edit</Button>

@@ -28,7 +28,7 @@ export const load = (async ({ locals, params }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ request, locals, params }) => {
+	update: async ({ request, locals, params }) => {
 		const slug = params.slug;
 		const formData = await request.formData();
 		formData.set(
@@ -55,7 +55,6 @@ export const actions = {
 			postedAt: data.postedAt as string
 		};
 
-		// post validation
 		const result = PostValidation.safeParse(data);
 		if (!result.success) {
 			return {
@@ -77,5 +76,39 @@ export const actions = {
 		}
 
 		throw redirect(303, `/blog/${data.slug}`);
+	},
+	preview: async ({ request }) => {
+		const formData = await request.formData();
+
+		formData.set('postedAt', parseDateFromInput(formData.get('postedAt') as string));
+
+		formData.set('unformattedContent', sanitizeContent(formData.get('content') as string));
+		formData.set('content', formatContent(formData.get('content') as string));
+
+		const data = Object.fromEntries([...formData]);
+		const errorObject = {
+			error: true,
+			notification: 'An error occurred while creating the post. Please try again.',
+			title: data.title as string,
+			content: data.unformattedContent as string,
+			postedAt: data.postedAt as string
+		};
+
+		const result = PostValidation.safeParse(data);
+		if (!result.success) {
+			return {
+				...errorObject,
+				messages: result.error.flatten().fieldErrors as Messages
+			};
+		}
+
+		return {
+			preview: true,
+			title: data.title as string,
+			description: data.description as string,
+			content: data.unformattedContent as string,
+			formattedContent: data.content as string,
+			postedAt: data.postedAt as string
+		};
 	}
 } satisfies Actions;
