@@ -1,3 +1,5 @@
+import type Permissions from './Permissions';
+
 interface UserType {
 	username?: string;
 	email?: string;
@@ -7,6 +9,7 @@ interface UserType {
 	created?: string;
 	updated?: string;
 	posts?: string[];
+	permissions?: Permissions;
 }
 
 export default UserType;
