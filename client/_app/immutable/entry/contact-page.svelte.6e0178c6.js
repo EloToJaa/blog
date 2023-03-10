@@ -1,0 +1,1 @@
+import{S as a,i as o,s as n,a9 as c,h as d,D as e}from"../chunks/index.139172c0.js";function h(s){return{c(){this.h()},l(t){c("svelte-rg684o",document.head).forEach(d),this.h()},h(){document.title="Contact"},m:e,p:e,i:e,o:e,d:e}}class l extends a{constructor(t){super(),o(this,t,null,h,n,{})}}export{l as default};
