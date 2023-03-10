@@ -4,6 +4,7 @@ import PocketBase from 'pocketbase';
 
 export const handle = (async ({ event, resolve }) => {
 	event.locals.pocketBase = new PocketBase(env.POCKETBASE_URL);
+	console.log(env.POCKETBASE_URL);
 	event.locals.pocketBase.authStore.loadFromCookie(event.request.headers.get('Cookie') || '');
 
 	const protectedPaths = ['/article', '/user'];
@@ -19,7 +20,10 @@ export const handle = (async ({ event, resolve }) => {
 
 	response.headers.set(
 		'Set-Cookie',
-		event.locals.pocketBase.authStore.exportToCookie({ path: '/', secure: false })
+		event.locals.pocketBase.authStore.exportToCookie({
+			path: '/',
+			secure: env.NODE_ENV === 'production'
+		})
 	);
 
 	return response;
