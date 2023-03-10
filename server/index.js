@@ -722,7 +722,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "1508z1y"
+  version_hash: "h4ydn6"
 };
 function get_hooks() {
   return import('./chunks/hooks.server-8e5f3119.js');

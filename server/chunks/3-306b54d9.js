@@ -1,7 +1,6 @@
 import { b as private_env } from './shared-server-b7e48788.js';
 import { s as sanitizeContent, f as formatContent, v as validation } from './post-6bd8fac6.js';
 import { p as parseDateFromInput, s as serializeNonPOJOs, c as convertMessagesFromPocketBase } from './helpers-ba8b6484.js';
-import { r as redirect } from './index-1dce6fb5.js';
 import './_commonjsHelpers-849bcf65.js';
 import 'path';
 import 'fs';
@@ -36,8 +35,6 @@ const actions = {
     );
     formData.set("postedAt", parseDateFromInput(formData.get("postedAt")));
     const user = serializeNonPOJOs(locals.pocketBase.authStore.model);
-    if (!user.id)
-      throw redirect(303, "/login");
     formData.set("author", user.id);
     formData.set("unformattedContent", sanitizeContent(formData.get("content")));
     formData.set("content", formatContent(formData.get("content")));
@@ -87,4 +84,4 @@ const stylesheets = ["_app/immutable/assets/Indicator.1d121e74.css"];
 const fonts = [];
 
 export { component, file, fonts, imports, index, _page_server_ts as server, server_id, stylesheets };
-//# sourceMappingURL=3-c5bbc21a.js.map
+//# sourceMappingURL=3-306b54d9.js.map
