@@ -1,3 +1,4 @@
+import { env } from '$env/dynamic/private';
 import type Messages from '$lib/types/Messages';
 import type UserType from '$lib/types/User';
 import { formatContent, sanitizeContent } from '$lib/utils/format';
@@ -43,6 +44,7 @@ export const actions = {
 		// post validation
 		const result = PostValidation.safeParse(data);
 		console.log(result);
+		console.log(env.NODE_ENV);
 		if (!result.success) {
 			return {
 				...errorObject,
@@ -54,12 +56,13 @@ export const actions = {
 			const posts = locals.pocketBase.collection('posts');
 			await posts.create(data);
 		} catch (err: object | any) {
+			console.log(err);
 			return {
 				...errorObject,
 				messages: convertMessagesFromPocketBase(err) as Messages
 			};
 		}
 
-		throw redirect(303, `/blog/${data.slug}`);
+		// throw redirect(303, `/blog/${data.slug}`);
 	}
 } satisfies Actions;
