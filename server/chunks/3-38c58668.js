@@ -41,6 +41,7 @@ const actions = {
     formData.set("unformattedContent", sanitizeContent(formData.get("content")));
     formData.set("content", formatContent(formData.get("content")));
     const data = Object.fromEntries([...formData]);
+    console.log(data);
     const errorObject = {
       error: true,
       notification: "An error occurred while creating the post. Please try again.",
@@ -50,6 +51,7 @@ const actions = {
       postedAt: data.postedAt
     };
     const result = validation.safeParse(data);
+    console.log(result);
     if (!result.success) {
       return {
         ...errorObject,
@@ -83,4 +85,4 @@ const stylesheets = ["_app/immutable/assets/Indicator.1d121e74.css"];
 const fonts = [];
 
 export { component, file, fonts, imports, index, _page_server_ts as server, server_id, stylesheets };
-//# sourceMappingURL=3-8ab45a75.js.map
+//# sourceMappingURL=3-38c58668.js.map
