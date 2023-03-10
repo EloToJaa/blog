@@ -1,3 +1,4 @@
+import { b as private_env } from './shared-server-b7e48788.js';
 import { s as sanitizeContent, f as formatContent, v as validation } from './post-6bd8fac6.js';
 import { p as parseDateFromInput, s as serializeNonPOJOs, c as convertMessagesFromPocketBase } from './helpers-ba8b6484.js';
 import { r as redirect } from './index-1dce6fb5.js';
@@ -52,6 +53,7 @@ const actions = {
     };
     const result = validation.safeParse(data);
     console.log(result);
+    console.log(private_env.NODE_ENV);
     if (!result.success) {
       return {
         ...errorObject,
@@ -62,12 +64,12 @@ const actions = {
       const posts = locals.pocketBase.collection("posts");
       await posts.create(data);
     } catch (err) {
+      console.log(err);
       return {
         ...errorObject,
         messages: convertMessagesFromPocketBase(err)
       };
     }
-    throw redirect(303, `/blog/${data.slug}`);
   }
 };
 
@@ -85,4 +87,4 @@ const stylesheets = ["_app/immutable/assets/Indicator.1d121e74.css"];
 const fonts = [];
 
 export { component, file, fonts, imports, index, _page_server_ts as server, server_id, stylesheets };
-//# sourceMappingURL=3-38c58668.js.map
+//# sourceMappingURL=3-c5bbc21a.js.map
