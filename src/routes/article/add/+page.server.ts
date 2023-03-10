@@ -30,6 +30,7 @@ export const actions = {
 		formData.set('content', formatContent(formData.get('content') as string));
 
 		const data = Object.fromEntries([...formData]);
+		console.log(data);
 		const errorObject = {
 			error: true,
 			notification: 'An error occurred while creating the post. Please try again.',
@@ -41,6 +42,7 @@ export const actions = {
 
 		// post validation
 		const result = PostValidation.safeParse(data);
+		console.log(result);
 		if (!result.success) {
 			return {
 				...errorObject,
