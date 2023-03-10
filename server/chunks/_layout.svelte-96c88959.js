@@ -2722,7 +2722,7 @@ const AccountButton = create_ssr_component(($$result, $$props, $$bindings, slots
           }
         })}
 		${validate_component(DropdownDivider, "DropdownDivider").$$render($$result, {}, {}, {})}
-		<form method="${"post"}" action="${"/api/logout"}">${validate_component(DropdownItem, "DropdownItem").$$render($$result, { type: "submit" }, {}, {
+		<form method="${"post"}" action="${"/auth/logout"}">${validate_component(DropdownItem, "DropdownItem").$$render($$result, { type: "submit" }, {}, {
           default: () => {
             return `Sign out`;
           }
@@ -2854,4 +2854,4 @@ const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 });
 
 export { Layout as default };
-//# sourceMappingURL=_layout.svelte-cee401c8.js.map
+//# sourceMappingURL=_layout.svelte-96c88959.js.map

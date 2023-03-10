@@ -4,10 +4,10 @@ const manifest = {
 	assets: new Set(["favicon.png"]),
 	mimeTypes: {".png":"image/png"},
 	_: {
-		client: {"start":{"file":"_app/immutable/entry/start.51fcb608.js","imports":["_app/immutable/entry/start.51fcb608.js","_app/immutable/chunks/index.2655b24c.js","_app/immutable/chunks/singletons.e0e2255d.js","_app/immutable/chunks/index.393cae65.js"],"stylesheets":[],"fonts":[]},"app":{"file":"_app/immutable/entry/app.244eddc3.js","imports":["_app/immutable/entry/app.244eddc3.js","_app/immutable/chunks/preload-helper.41c905a7.js","_app/immutable/chunks/index.2655b24c.js"],"stylesheets":[],"fonts":[]}},
+		client: {"start":{"file":"_app/immutable/entry/start.52412086.js","imports":["_app/immutable/entry/start.52412086.js","_app/immutable/chunks/index.2655b24c.js","_app/immutable/chunks/singletons.f8f01364.js","_app/immutable/chunks/index.393cae65.js"],"stylesheets":[],"fonts":[]},"app":{"file":"_app/immutable/entry/app.4ab811e3.js","imports":["_app/immutable/entry/app.4ab811e3.js","_app/immutable/chunks/preload-helper.41c905a7.js","_app/immutable/chunks/index.2655b24c.js"],"stylesheets":[],"fonts":[]}},
 		nodes: [
-			() => import('./chunks/0-6f59720c.js'),
-			() => import('./chunks/1-f41b45e6.js'),
+			() => import('./chunks/0-d618ce20.js'),
+			() => import('./chunks/1-23489250.js'),
 			() => import('./chunks/2-8c045db1.js'),
 			() => import('./chunks/3-8ab45a75.js'),
 			() => import('./chunks/4-aa189ad3.js'),
@@ -30,13 +30,6 @@ const manifest = {
 				params: [],
 				page: { layouts: [0], errors: [1], leaf: 2 },
 				endpoint: null
-			},
-			{
-				id: "/api/logout",
-				pattern: /^\/api\/logout\/?$/,
-				params: [],
-				page: null,
-				endpoint: () => import('./chunks/_server.ts-3aea731d.js')
 			},
 			{
 				id: "/article/add",
@@ -72,6 +65,13 @@ const manifest = {
 				params: [{"name":"token","optional":false,"rest":false,"chained":false}],
 				page: { layouts: [0], errors: [1], leaf: 6 },
 				endpoint: null
+			},
+			{
+				id: "/auth/logout",
+				pattern: /^\/auth\/logout\/?$/,
+				params: [],
+				page: null,
+				endpoint: () => import('./chunks/_server.ts-3aea731d.js')
 			},
 			{
 				id: "/blog/[slug]",
