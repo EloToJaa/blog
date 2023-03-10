@@ -8,7 +8,6 @@ import {
 	serializeNonPOJOs
 } from '$lib/utils/helpers';
 import PostValidation from '$lib/validation/post';
-import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
 // export const load = (({ locals }) => {}) satisfies PageServerLoad;
@@ -24,8 +23,8 @@ export const actions = {
 		formData.set('postedAt', parseDateFromInput(formData.get('postedAt') as string));
 
 		const user = serializeNonPOJOs(locals.pocketBase.authStore.model) as UserType;
-		if (!user.id) throw redirect(303, '/login');
-		formData.set('author', user.id);
+		// if (!user.id) throw redirect(303, '/login');
+		formData.set('author', user.id as string);
 
 		formData.set('unformattedContent', sanitizeContent(formData.get('content') as string));
 		formData.set('content', formatContent(formData.get('content') as string));
