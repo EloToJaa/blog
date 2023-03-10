@@ -1,4 +1,4 @@
-import { p as private_env } from './index-f9e34595.js';
+import { p as private_env } from './index-8e6c64f9.js';
 import { e as error } from './index-1dce6fb5.js';
 import './index2-5a9cf22e.js';
 import './index3-4f698b40.js';
@@ -7,6 +7,7 @@ var extendStatics=function(e,t){return extendStatics=Object.setPrototypeOf||{__p
 
 const handle = async ({ event, resolve }) => {
   event.locals.pocketBase = new C(private_env.POCKETBASE_URL);
+  console.log(private_env.POCKETBASE_URL);
   event.locals.pocketBase.authStore.loadFromCookie(event.request.headers.get("Cookie") || "");
   const protectedPaths = ["/article", "/user"];
   protectedPaths.forEach((path) => {
@@ -19,10 +20,13 @@ const handle = async ({ event, resolve }) => {
   const response = await resolve(event);
   response.headers.set(
     "Set-Cookie",
-    event.locals.pocketBase.authStore.exportToCookie({ path: "/", secure: false })
+    event.locals.pocketBase.authStore.exportToCookie({
+      path: "/",
+      secure: private_env.NODE_ENV === "production"
+    })
   );
   return response;
 };
 
 export { handle };
-//# sourceMappingURL=hooks.server-efef7e2e.js.map
+//# sourceMappingURL=hooks.server-aea07fb1.js.map
