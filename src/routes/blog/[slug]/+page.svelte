@@ -1,5 +1,6 @@
 <script lang="ts">
 	import getDate from '$lib/utils/getDate';
+	import { checkPermissions } from '$lib/utils/helpers';
 	import { Button } from 'flowbite-svelte';
 	import hljs from 'highlight.js';
 	import 'highlight.js/styles/atom-one-dark.css';
@@ -23,7 +24,7 @@
 <div class="mb-2 mx-auto dark:bg-gray-900 bg-blue-50 p-5 border-0 rounded-2xl pb-7">
 	<div class="flex justify-between">
 		<h1 class="text-6xl">{post.title}</h1>
-		{#if user && user.id && user.id === post.authorId}
+		{#if (user && user.id && user.id === post.authorId && checkPermissions(['post'], user)) || checkPermissions(['admin'], user)}
 			<form action={`/article/delete/${post.slug}`} method="POST">
 				<Button href={`/article/edit/${post.slug}`} class="mb-2">Edit</Button>
 				<Button type="submit" class="mb-2" color="red">Delete</Button>
