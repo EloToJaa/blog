@@ -3,6 +3,7 @@ import { u as useToasterStore, t as toast, s as startPause, e as endPause, a as 
 import { p as page } from './stores-2da23858.js';
 import { c as classNames, B as Button } from './Indicator.svelte_svelte_type_style_lang-19183851.js';
 import { F as Frame, T as ToolbarButton } from './ToolbarButton-20ae584c.js';
+import { c as checkPermissions } from './helpers-b426d147.js';
 import { F as Fa, f as faUser, a as faMoon, b as faHouse, c as faSearch } from './fa-aaeaa1a9.js';
 import { W as Wrapper } from './Wrapper-d29eca5d.js';
 import './index2-1f09def0.js';
@@ -2716,12 +2717,12 @@ const AccountButton = create_ssr_component(($$result, $$props, $$bindings, slots
           {},
           {}
         )}
-		${validate_component(DropdownItem, "DropdownItem").$$render($$result, { href: "/article/add" }, {}, {
+		${checkPermissions(["post"], user) ? `${validate_component(DropdownItem, "DropdownItem").$$render($$result, { href: "/article/add" }, {}, {
           default: () => {
             return `New article`;
           }
         })}
-		${validate_component(DropdownDivider, "DropdownDivider").$$render($$result, {}, {}, {})}
+			${validate_component(DropdownDivider, "DropdownDivider").$$render($$result, {}, {}, {})}` : ``}
 		<form method="post" action="/auth/logout">${validate_component(DropdownItem, "DropdownItem").$$render($$result, { type: "submit" }, {}, {
           default: () => {
             return `Sign out`;
@@ -2854,4 +2855,4 @@ const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 });
 
 export { Layout as default };
-//# sourceMappingURL=_layout.svelte-0959bafc.js.map
+//# sourceMappingURL=_layout.svelte-67274a32.js.map

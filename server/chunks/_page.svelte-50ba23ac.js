@@ -1,5 +1,6 @@
 import { c as create_ssr_component, e as escape, b as add_attribute, v as validate_component } from './index3-8d921900.js';
 import { g as getDate } from './getDate-8c6d4f59.js';
+import { c as checkPermissions } from './helpers-b426d147.js';
 import { B as Button } from './Indicator.svelte_svelte_type_style_lang-19183851.js';
 import './_commonjsHelpers-7d1333e8.js';
 
@@ -13,7 +14,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `${$$result.head += `<!-- HEAD_svelte-1uty71u_START -->${$$result.title = `<title>${escape(post.title)}</title>`, ""}<!-- HEAD_svelte-1uty71u_END -->`, ""}
 
 <div class="mb-2 mx-auto dark:bg-gray-900 bg-blue-50 p-5 border-0 rounded-2xl pb-7"><div class="flex justify-between"><h1 class="text-6xl">${escape(post.title)}</h1>
-		${user && user.id && user.id === post.authorId ? `<form${add_attribute("action", `/article/delete/${post.slug}`, 0)} method="POST">${validate_component(Button, "Button").$$render(
+		${user && user.id && user.id === post.authorId && checkPermissions(["post"], user) || checkPermissions(["admin"], user) ? `<form${add_attribute("action", `/article/delete/${post.slug}`, 0)} method="POST">${validate_component(Button, "Button").$$render(
     $$result,
     {
       href: `/article/edit/${post.slug}`,
@@ -46,4 +47,4 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-e048bf95.js.map
+//# sourceMappingURL=_page.svelte-50ba23ac.js.map
