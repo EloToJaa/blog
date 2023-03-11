@@ -13,7 +13,6 @@ export const load = (({ locals }) => {
 export const actions = {
 	default: async ({ locals, request }) => {
 		const formData = await request.formData();
-		formData.set('permissions', JSON.stringify({ post: false, admin: false }));
 		const data = Object.fromEntries([...formData]);
 		const errorObject = {
 			error: true,
