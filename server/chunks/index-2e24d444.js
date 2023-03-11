@@ -155,10 +155,10 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "1qpuzar"
+  version_hash: "y3sqm6"
 };
 function get_hooks() {
-  return import('./hooks.server-a7f106dc.js');
+  return import('./hooks.server-d8cdad92.js');
 }
 
 /** @type {Record<string, string>} */
@@ -3855,4 +3855,4 @@ class Server {
 }
 
 export { Server as S, private_env as p };
-//# sourceMappingURL=index-2d758ce2.js.map
+//# sourceMappingURL=index-2e24d444.js.map

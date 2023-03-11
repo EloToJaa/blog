@@ -1,4 +1,4 @@
-import { p as private_env } from './index-2d758ce2.js';
+import { p as private_env } from './index-2e24d444.js';
 import { c as checkPermissions } from './helpers-b426d147.js';
 import { e as error } from './index-1dce6fb5.js';
 import './index3-8d921900.js';
@@ -10,7 +10,7 @@ const handle = async ({ event, resolve }) => {
   event.locals.pocketBase = new C(private_env.POCKETBASE_URL);
   const authStore = event.locals.pocketBase.authStore;
   authStore.loadFromCookie(event.request.headers.get("Cookie") || "");
-  ["/user"].forEach((path) => {
+  ["/user", "/article"].forEach((path) => {
     if (event.url.pathname.startsWith(path)) {
       if (!authStore.isValid) {
         throw error(401, "Unauthorized");
@@ -19,7 +19,7 @@ const handle = async ({ event, resolve }) => {
   });
   ["/article"].forEach((path) => {
     if (event.url.pathname.startsWith(path)) {
-      if (!authStore.isValid || !checkPermissions(["post"], authStore.model)) {
+      if (!checkPermissions(["post"], authStore.model)) {
         throw error(401, "Unauthorized");
       }
     }
@@ -36,4 +36,4 @@ const handle = async ({ event, resolve }) => {
 };
 
 export { handle };
-//# sourceMappingURL=hooks.server-a7f106dc.js.map
+//# sourceMappingURL=hooks.server-d8cdad92.js.map
