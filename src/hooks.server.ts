@@ -9,7 +9,7 @@ export const handle = (async ({ event, resolve }) => {
 	const authStore = event.locals.pocketBase.authStore;
 	authStore.loadFromCookie(event.request.headers.get('Cookie') || '');
 
-	['/user'].forEach((path) => {
+	['/user', '/article'].forEach((path) => {
 		if (event.url.pathname.startsWith(path)) {
 			if (!authStore.isValid) {
 				throw error(401, 'Unauthorized');
@@ -19,7 +19,7 @@ export const handle = (async ({ event, resolve }) => {
 
 	['/article'].forEach((path) => {
 		if (event.url.pathname.startsWith(path)) {
-			if (!authStore.isValid || !checkPermissions(['post'], authStore.model as UserType)) {
+			if (!checkPermissions(['post'], authStore.model as UserType)) {
 				throw error(401, 'Unauthorized');
 			}
 		}
