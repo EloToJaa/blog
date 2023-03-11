@@ -20,7 +20,6 @@ const load = ({ locals }) => {
 const actions = {
   default: async ({ locals, request }) => {
     const formData = await request.formData();
-    formData.set("permissions", JSON.stringify({ post: false, admin: false }));
     const data = Object.fromEntries([...formData]);
     const errorObject = {
       error: true,
@@ -67,4 +66,4 @@ const stylesheets = ["_app/immutable/assets/Indicator.1d121e74.css"];
 const fonts = [];
 
 export { component, file, fonts, imports, index, _page_server_ts as server, server_id, stylesheets };
-//# sourceMappingURL=12-cd693524.js.map
+//# sourceMappingURL=12-c37b920b.js.map

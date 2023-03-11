@@ -12,7 +12,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.data(data);
   return `${$$result.head += `<!-- HEAD_svelte-1uty71u_START -->${$$result.title = `<title>${escape(post.title)}</title>`, ""}<!-- HEAD_svelte-1uty71u_END -->`, ""}
 
-<div class="mb-2 mx-auto dark:bg-gray-900 bg-blue-50 p-5 border-0 rounded-2xl pb-7"><div class="flex justify-between"><h1 class="text-7xl">${escape(post.title)}</h1>
+<div class="mb-2 mx-auto dark:bg-gray-900 bg-blue-50 p-5 border-0 rounded-2xl pb-7"><div class="flex justify-between"><h1 class="text-6xl">${escape(post.title)}</h1>
 		${user && user.id && user.id === post.authorId ? `<form${add_attribute("action", `/article/delete/${post.slug}`, 0)} method="POST">${validate_component(Button, "Button").$$render(
     $$result,
     {
@@ -46,4 +46,4 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 });
 
 export { Page as default };
-//# sourceMappingURL=_page.svelte-d1e02b67.js.map
+//# sourceMappingURL=_page.svelte-e048bf95.js.map
