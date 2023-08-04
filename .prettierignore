@@ -10,4 +10,6 @@
 !package.json
 !.prettierrc
 !.eslintrc.js
+!svelte.config.js
+!tailwind.config.js
 !README.md

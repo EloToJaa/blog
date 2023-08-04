@@ -10,7 +10,7 @@
     "format": "prettier --plugin-search-dir=. --write .",
     "format:check": "prettier --plugin-search-dir=. --check .",
     "lint": "eslint .",
-    "astro": "astro"
+    "sync": "astro sync"
   },
   "dependencies": {
     "@astrojs/mdx": "^0.19.7",
