@@ -1,6 +1,7 @@
 <script lang="ts">
   type Theme = "light" | "dark";
   let theme: Theme = (localStorage.getItem("theme") as Theme) || "dark";
+  const iconClass = "h-7 md:h-8 hover:text-blue-700";
 
   function toggleTheme() {
     theme = theme === "light" ? "dark" : "light";
@@ -13,7 +14,7 @@
   {#if theme === "light"}
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="h-7 md:h-8 hover:text-blue-700"
+      class={iconClass}
       viewBox="0 0 24 24"
       ><path
         fill="currentColor"
@@ -23,7 +24,7 @@
   {:else}
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="h-7 md:h-8 hover:text-blue-700"
+      class={iconClass}
       viewBox="0 0 24 24"
       ><path
         fill="currentColor"
