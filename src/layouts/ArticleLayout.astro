@@ -1,0 +1,17 @@
+---
+import MainLayout from "./MainLayout.astro";
+
+type Props = {
+  title: string;
+};
+
+const { title } = Astro.props as Props;
+---
+
+<MainLayout title={title}>
+  <article
+    class="prose lg:prose-xl prose-h1:mb-4 prose-h2:mt-4 prose-h2:mb-2 dark:prose-invert"
+  >
+    <slot />
+  </article>
+</MainLayout>

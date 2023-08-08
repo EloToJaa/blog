@@ -1,0 +1,85 @@
+---
+import { Icon } from "astro-icon";
+import ThemeIcon from "../components/ThemeIcon.svelte";
+import cn from "../utils/cn.js";
+
+const navbar = [
+  {
+    title: "Home",
+    url: "/",
+  },
+  {
+    title: "About",
+    url: "/about",
+  },
+  {
+    title: "Contact",
+    url: "/contact",
+  },
+];
+---
+
+<navbar class="navbar border-b-2 border-blue-700 py-4 mb-8">
+  <div class="navbar-start">
+    <div class="dropdown">
+      <details class="dropdown md:hidden">
+        <summary class="m-1 btn btn-ghost">
+          <Icon name="fa-solid:bars" class="h-6 md:h-8" />
+        </summary>
+        <ul
+          class="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-lg"
+        >
+          {
+            navbar.map(item => (
+              <li>
+                <a
+                  class={cn({
+                    "font-bold": item.url === Astro.url.pathname,
+                  })}
+                  href={item.url}
+                >
+                  {item.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </details>
+    </div>
+    <a href="/" class="btn btn-ghost normal-case text-2xl md:text-3xl font-bold"
+      >EloToJa</a
+    >
+  </div>
+  <div class="navbar-center hidden md:flex">
+    <ul class="menu menu-horizontal px-1 text-xl">
+      {
+        navbar.map(item => (
+          <li>
+            <a
+              class={cn("hover:bg-base-300", {
+                "font-bold underline underline-offset-4":
+                  item.url === Astro.url.pathname,
+              })}
+              href={item.url}
+            >
+              {item.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <div class="navbar-end">
+    <a href="/search">
+      <Icon name="ic:baseline-search" class="h-7 md:h-8 hover:text-blue-700" />
+    </a>
+    <ThemeIcon client:load />
+  </div>
+</navbar>
+
+<script is:inline>
+document.documentElement.setAttribute(
+  "data-theme",
+  localStorage.getItem("theme") || "dark"
+);
+</script>

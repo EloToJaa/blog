@@ -1,0 +1,24 @@
+---
+import MainHead from "./MainHead.astro";
+import Navbar from "./Navbar.astro";
+
+type Props = {
+  title: string;
+};
+
+const { title } = Astro.props as Props;
+---
+
+<html lang="en">
+  <head>
+    <MainHead title={title} />
+  </head>
+  <body>
+    <div class="container mx-auto font-main">
+      <Navbar />
+      <main class="mt-3">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>
