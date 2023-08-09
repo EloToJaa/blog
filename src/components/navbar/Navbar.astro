@@ -1,0 +1,45 @@
+---
+import ThemeToggle from "../ThemeToggle.svelte";
+import NavbarLinks from "./NavbarLinks.astro";
+import MenuIcon from "../../icons/MenuIcon.astro";
+import SearchIcon from "../../icons/SearchIcon.astro";
+---
+
+<navbar class="navbar border-b-2 border-blue-700 py-4 mb-8">
+  <div class="navbar-start">
+    <div class="dropdown">
+      <details class="dropdown md:hidden">
+        <summary class="m-1 btn btn-ghost">
+          <MenuIcon iconClass="h6" />
+        </summary>
+        <NavbarLinks
+          ulClass="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-lg"
+          activeClass="font-bold"
+        />
+      </details>
+    </div>
+    <a href="/" class="btn btn-ghost normal-case text-2xl md:text-3xl font-bold"
+      >EloToJa</a
+    >
+  </div>
+  <div class="navbar-center hidden md:flex">
+    <NavbarLinks
+      ulClass="menu menu-horizontal px-1 text-xl"
+      liClass="hover:bg-base-300"
+      activeClass="font-bold underline underline-offset-4"
+    />
+  </div>
+  <div class="navbar-end">
+    <a href="/search">
+      <SearchIcon iconClass="h-6 md:h-7 hover:text-blue-700" />
+    </a>
+    <ThemeToggle client:load />
+  </div>
+</navbar>
+
+<script is:inline>
+document.documentElement.setAttribute(
+  "data-theme",
+  localStorage.getItem("theme") || "dark"
+);
+</script>
