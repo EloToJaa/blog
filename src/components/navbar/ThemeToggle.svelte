@@ -1,6 +1,6 @@
 <script lang="ts">
-  import LightIcon from "../icons/LightIcon.svelte";
-  import DarkIcon from "../icons/DarkIcon.svelte";
+  import DarkIcon from "../../icons/DarkIcon.svelte";
+  import LightIcon from "../../icons/LightIcon.svelte";
 
   type Theme = "light" | "dark";
   let theme: Theme = (localStorage.getItem("theme") as Theme) || "dark";
@@ -15,8 +15,8 @@
 
 <button on:click={toggleTheme} class="px-3">
   {#if theme === "light"}
-    <DarkIcon {iconClass} />
-  {:else}
     <LightIcon {iconClass} />
+  {:else}
+    <DarkIcon {iconClass} />
   {/if}
 </button>
