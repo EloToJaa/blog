@@ -1,0 +1,53 @@
+---
+import DarkIcon from "../../icons/DarkIcon.astro";
+import LightIcon from "../../icons/LightIcon.astro";
+---
+
+<button id="theme-button" class="mx-2">
+  <div id="light" class="hidden">
+    <LightIcon iconClass="h-8" />
+  </div>
+  <div id="dark" class="hidden">
+    <DarkIcon iconClass="h-8" />
+  </div>
+</button>
+
+<script is:inline>
+const THEME = {
+    LIGHT: "light",
+    DARK: "dark",
+};
+
+function toggleIcon(theme) {
+    if (theme === THEME.DARK) {
+        lightIcon.className = "hidden";
+        darkIcon.className = "";
+    } else {
+        lightIcon.className = "";
+        darkIcon.className = "hidden";
+    }
+}
+
+const preferedTheme = window.matchMedia("(prefers-color-scheme: dark)")
+    .matches
+    ? THEME.DARK
+    : THEME.LIGHT;
+let currentTheme =
+    localStorage.getItem("theme") ?? preferedTheme ?? THEME.DARK;
+document.documentElement.setAttribute("data-theme", currentTheme);
+
+const darkIcon = document.getElementById("dark");
+const lightIcon = document.getElementById("light");
+
+toggleIcon(currentTheme);
+
+const themeButton = document.getElementById("theme-button");
+themeButton.addEventListener("click", () => {
+    currentTheme = currentTheme === THEME.DARK ? THEME.LIGHT : THEME.DARK;
+
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    localStorage.setItem("theme", currentTheme);
+
+    toggleIcon(currentTheme);
+});
+</script>

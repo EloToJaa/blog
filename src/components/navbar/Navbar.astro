@@ -1,8 +1,8 @@
 ---
-import ThemeToggle from "./ThemeToggle.svelte";
-import NavbarLinks from "./NavbarLinks.astro";
 import MenuIcon from "../../icons/MenuIcon.astro";
 import SearchIcon from "../../icons/SearchIcon.astro";
+import NavbarLinks from "./NavbarLinks.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <navbar class="navbar border-b-2 border-blue-700 py-4 mb-8">
@@ -30,16 +30,10 @@ import SearchIcon from "../../icons/SearchIcon.astro";
     />
   </div>
   <div class="navbar-end">
-    <a href="/search">
+    <a href="/search" title="Search">
       <SearchIcon iconClass="h-6 md:h-7 hover:text-blue-700" />
     </a>
-    <ThemeToggle client:load />
+    <!-- <ThemeToggle client:load /> -->
+    <ThemeToggle />
   </div>
 </navbar>
-
-<script is:inline>
-document.documentElement.setAttribute(
-  "data-theme",
-  localStorage.getItem("theme") || "dark"
-);
-</script>
