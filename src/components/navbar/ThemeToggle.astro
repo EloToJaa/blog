@@ -5,7 +5,7 @@ import LightIcon from "../../icons/LightIcon.astro";
 const iconClass = "h-8 hover:text-blue-700";
 ---
 
-<button id="theme-button">
+<button id="theme-button" aria-live="polite" aria-label="auto">
   <div id="light" class="hidden">
     <LightIcon iconClass={iconClass} />
   </div>

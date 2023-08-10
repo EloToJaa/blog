@@ -26,7 +26,7 @@ import ThemeToggle from "./ThemeToggle.astro";
         />
       </nav>
       <div class="flex w-min mx-auto md:mx-0 md:w-max gap-x-2">
-        <button>
+        <button aria-label="search">
           <a href="/search" title="Search">
             <SearchIcon iconClass="h-6 md:h-7 hover:text-blue-700" />
           </a>
@@ -54,10 +54,12 @@ import ThemeToggle from "./ThemeToggle.astro";
   const hamburgerOpen = document.getElementById("hamburger-open");
   const hamburgerClose = document.getElementById("hamburger-close");
   const navbar = document.getElementById("navbar");
-  const hamburgerButton = document.getElementById("hamburger-button");
+  const menuButton = document.getElementById("hamburger-button");
 
-  hamburgerButton?.addEventListener("click", () => {
+  menuButton?.addEventListener("click", () => {
     open = !open;
+    menuButton?.setAttribute("aria-expanded", open.toString());
+    menuButton?.setAttribute("aria-label", open ? "close menu" : "open menu");
     toggleMenu(open);
   });
 </script>
