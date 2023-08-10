@@ -1,5 +1,5 @@
 ---
-import Navbar from "../components/navbar/Navbar.astro";
+import Header from "../components/navbar/Header.astro";
 import MainHead from "./MainHead.astro";
 
 type Props = {
@@ -15,7 +15,7 @@ const { title } = Astro.props as Props;
   </head>
   <body>
     <div class="container mx-auto font-main">
-      <Navbar />
+      <Header />
       <main class="mt-3">
         <slot />
       </main>
