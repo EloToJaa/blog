@@ -28,13 +28,8 @@ const navbar = [
 <ul class={ulClass}>
   {
     navbar.map(item => (
-      <li>
-        <a
-          class={cn(liClass, item.url === Astro.url.pathname && activeClass)}
-          href={item.url}
-        >
-          {item.title}
-        </a>
+      <li class={cn(liClass, item.url === Astro.url.pathname && activeClass)}>
+        <a href={item.url}>{item.title}</a>
       </li>
     ))
   }

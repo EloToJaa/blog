@@ -1,39 +1,41 @@
 ---
 import DarkIcon from "../../icons/DarkIcon.astro";
 import LightIcon from "../../icons/LightIcon.astro";
+
+const iconClass = "h-8 hover:text-blue-700";
 ---
 
-<button id="theme-button" class="mx-2">
+<button id="theme-button">
   <div id="light" class="hidden">
-    <LightIcon iconClass="h-8" />
+    <LightIcon iconClass={iconClass} />
   </div>
   <div id="dark" class="hidden">
-    <DarkIcon iconClass="h-8" />
+    <DarkIcon iconClass={iconClass} />
   </div>
 </button>
 
 <script is:inline>
 const THEME = {
-    LIGHT: "light",
-    DARK: "dark",
+  LIGHT: "light",
+  DARK: "dark",
 };
 
 function toggleIcon(theme) {
-    if (theme === THEME.DARK) {
-        lightIcon.className = "hidden";
-        darkIcon.className = "";
-    } else {
-        lightIcon.className = "";
-        darkIcon.className = "hidden";
-    }
+  if (theme === THEME.DARK) {
+    lightIcon.classList.add("hidden");
+    darkIcon.classList.remove("hidden");
+  } else {
+    lightIcon.classList.remove("hidden");
+    darkIcon.classList.add("hidden");
+  }
 }
 
 const preferedTheme = window.matchMedia("(prefers-color-scheme: dark)")
-    .matches
-    ? THEME.DARK
-    : THEME.LIGHT;
+  .matches
+  ? THEME.DARK
+  : THEME.LIGHT;
 let currentTheme =
-    localStorage.getItem("theme") ?? preferedTheme ?? THEME.DARK;
+  localStorage.getItem("theme") ?? preferedTheme ?? THEME.DARK;
 document.documentElement.setAttribute("data-theme", currentTheme);
 
 const darkIcon = document.getElementById("dark");
@@ -43,11 +45,11 @@ toggleIcon(currentTheme);
 
 const themeButton = document.getElementById("theme-button");
 themeButton.addEventListener("click", () => {
-    currentTheme = currentTheme === THEME.DARK ? THEME.LIGHT : THEME.DARK;
+  currentTheme = currentTheme === THEME.DARK ? THEME.LIGHT : THEME.DARK;
 
-    document.documentElement.setAttribute("data-theme", currentTheme);
-    localStorage.setItem("theme", currentTheme);
+  document.documentElement.setAttribute("data-theme", currentTheme);
+  localStorage.setItem("theme", currentTheme);
 
-    toggleIcon(currentTheme);
+  toggleIcon(currentTheme);
 });
 </script>
