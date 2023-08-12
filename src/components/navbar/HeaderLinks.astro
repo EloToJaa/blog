@@ -1,13 +1,13 @@
 ---
 import cn from "../../utils/cn.js";
 
-type Props = {
+export interface Props {
   ulClass?: string;
   liClass?: string;
   activeClass?: string;
-};
+}
 
-const { ulClass = "", liClass = "", activeClass = "" } = Astro.props as Props;
+const { ulClass = "", liClass = "", activeClass = "" } = Astro.props;
 
 const navbar = [
   {
