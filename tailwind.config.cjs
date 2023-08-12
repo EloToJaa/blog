@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      main: ["'Fira Code'", "monospace"],
+      main: ["'Fira Code Variable'", "sans-serif"],
     }
   },
   darkMode: "class",
