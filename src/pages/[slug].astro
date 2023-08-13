@@ -1,5 +1,5 @@
 ---
-import MainLayout from "@layouts/MainLayout.astro";
+import ArticleLayout from "@layouts/ArticleLayout.astro";
 import { CollectionEntry, getCollection } from "astro:content";
 
 export interface Props {
@@ -21,7 +21,7 @@ const { slug } = Astro.params;
 const { post } = Astro.props;
 ---
 
-<MainLayout title="Test">
+<ArticleLayout title={post.data.title}>
   <h1>{post.data.title}</h1>
   <p>{post.data.description}</p>
-</MainLayout>
+</ArticleLayout>

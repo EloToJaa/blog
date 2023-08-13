@@ -1,11 +1,15 @@
 {
-    "arrowParens": "avoid",
-    "semi": true,
-    "tabWidth": 2,
-    "printWidth": 80,
-    "singleQuote": false,
-    "jsxSingleQuote": false,
-    "trailingComma": "es5",
-    "bracketSpacing": true,
-    "endOfLine": "lf"
+  "arrowParens": "avoid",
+  "semi": true,
+  "tabWidth": 2,
+  "printWidth": 80,
+  "singleQuote": false,
+  "jsxSingleQuote": false,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindConfig": "./tailwind.config.cjs",
+  "tailwindAttributes": ["iconClass", "liClass", "ulClass", "activeClass"],
+  "tailwindFunctions": ["cn"]
 }
