@@ -1,6 +1,5 @@
 ---
-import CloseIcon from "../../icons/CloseIcon.astro";
-import MenuIcon from "../../icons/MenuIcon.astro";
+import Icon from "astro-icon";
 ---
 
 <button
@@ -10,9 +9,9 @@ import MenuIcon from "../../icons/MenuIcon.astro";
   aria-controls="navbar"
 >
   <div id="hamburger-open">
-    <MenuIcon iconClass="h-7" />
+    <Icon name="ic:baseline-menu" class="h-8"/>
   </div>
   <div id="hamburger-close" class="hidden">
-    <CloseIcon iconClass="h-8" />
+    <Icon name="ic:round-close" class="h-8"/>
   </div>
 </button>

@@ -1,9 +1,9 @@
 ---
-import SearchIcon from "../../icons/SearchIcon.astro";
 import MenuToggle from "./MenuToggle.astro";
 import HeaderLinks from "./HeaderLinks.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import Hr from "@components/Hr.astro";
+import Icon from "astro-icon";
 ---
 
 <header class="py-3">
@@ -29,7 +29,7 @@ import Hr from "@components/Hr.astro";
       <div class="flex w-min mx-auto md:mx-0 md:w-max gap-x-2">
         <button aria-label="search">
           <a href="/search" title="Search">
-            <SearchIcon iconClass="h-6 md:h-7 hover:text-blue-700" />
+            <Icon name="ic:baseline-search" class="h-8 hover:text-blue-700"/>
           </a>
         </button>
         <ThemeToggle />

@@ -1,11 +1,9 @@
 import mdx from "@astrojs/mdx";
-import prefetch from "@astrojs/prefetch";
+import partytown from "@astrojs/partytown";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
-
-import partytown from "@astrojs/partytown";
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,7 +12,6 @@ export default defineConfig({
     tailwind({ applyBaseStyles: false }),
     mdx(),
     sitemap(),
-    prefetch(),
     partytown(),
   ],
 });
