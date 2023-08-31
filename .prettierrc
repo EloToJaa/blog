@@ -10,6 +10,6 @@
   "endOfLine": "lf",
   "plugins": ["prettier-plugin-tailwindcss"],
   "tailwindConfig": "./tailwind.config.cjs",
-  "tailwindAttributes": ["iconClass", "liClass", "ulClass", "activeClass"],
+  "tailwindAttributes": ["liClass", "ulClass", "activeClass"],
   "tailwindFunctions": ["cn"]
 }
