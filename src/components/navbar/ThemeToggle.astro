@@ -13,42 +13,45 @@ const iconClass = "h-8 hover:text-blue-700";
   </div>
 </button>
 
-<script is:inline>
-const THEME = {
-  LIGHT: "light",
-  DARK: "dark",
-};
+<script>
+function onLoad() {
 
-function toggleIcon(theme) {
-  if (theme === THEME.DARK) {
-    lightIcon.classList.add("hidden");
-    darkIcon.classList.remove("hidden");
-  } else {
-    lightIcon.classList.remove("hidden");
-    darkIcon.classList.add("hidden");
+  const darkIcon = document.getElementById("dark");
+  const lightIcon = document.getElementById("light");
+
+  const changeIcon = (theme: string) => {
+    if (theme === "dark") {
+      lightIcon?.classList.add("hidden");
+      darkIcon?.classList.remove("hidden");
+    } else {
+      lightIcon?.classList.remove("hidden");
+      darkIcon?.classList.add("hidden");
+    }
   }
-}
 
-const preferedTheme = window.matchMedia("(prefers-color-scheme: dark)")
-  .matches
-  ? THEME.DARK
-  : THEME.LIGHT;
-let currentTheme =
-  localStorage.getItem("theme") ?? preferedTheme ?? THEME.DARK;
-document.documentElement.setAttribute("data-theme", currentTheme);
+  const preferedTheme = window.matchMedia("(prefers-color-scheme: dark)")
+    .matches
+    ? "dark"
+    : "light";
+  let currentTheme =
+    localStorage.getItem("theme") ?? preferedTheme ?? "dark";
 
-const darkIcon = document.getElementById("dark");
-const lightIcon = document.getElementById("light");
-
-toggleIcon(currentTheme);
-
-const themeButton = document.getElementById("theme-button");
-themeButton.addEventListener("click", () => {
-  currentTheme = currentTheme === THEME.DARK ? THEME.LIGHT : THEME.DARK;
+  console.log(currentTheme);
 
   document.documentElement.setAttribute("data-theme", currentTheme);
-  localStorage.setItem("theme", currentTheme);
 
-  toggleIcon(currentTheme);
-});
+  changeIcon(currentTheme);
+
+  const themeButton = document.getElementById("theme-button");
+  themeButton?.addEventListener("click", () => {
+    currentTheme = currentTheme === "dark" ? "light" : "dark";
+
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    localStorage.setItem("theme", currentTheme);
+
+    changeIcon(currentTheme);
+  });
+}
+
+onLoad();
 </script>
