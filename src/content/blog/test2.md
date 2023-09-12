@@ -1,8 +1,7 @@
 ---
-author: "John Doe"
+author: elotoja
 pubDatetime: 2021-01-01T00:00:00.000Z
 title: "Test 2"
-postSlug: "test"
 featured: false
 draft: false
 tags: ["others"]

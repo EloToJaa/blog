@@ -15,7 +15,6 @@ const iconClass = "h-8 hover:text-blue-700";
 
 <script>
 function onLoad() {
-
   const darkIcon = document.getElementById("dark");
   const lightIcon = document.getElementById("light");
 
@@ -35,8 +34,6 @@ function onLoad() {
     : "light";
   let currentTheme =
     localStorage.getItem("theme") ?? preferedTheme ?? "dark";
-
-  console.log(currentTheme);
 
   document.documentElement.setAttribute("data-theme", currentTheme);
 

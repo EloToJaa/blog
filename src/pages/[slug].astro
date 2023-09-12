@@ -1,6 +1,6 @@
 ---
 import ArticleLayout from "@layouts/ArticleLayout.astro";
-import { CollectionEntry, getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 export interface Props {
   post: CollectionEntry<"blog">;

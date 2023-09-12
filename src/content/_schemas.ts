@@ -1,8 +1,8 @@
-import { z } from "astro:content";
+import { reference, z } from "astro:content";
 
 export const blogSchema = z
   .object({
-    author: z.string().optional(),
+    author: reference("authors"),
     pubDatetime: z.date(),
     title: z.string(),
     postSlug: z.string().optional(),
@@ -14,3 +14,16 @@ export const blogSchema = z
   .strict();
 
 export type BlogFrontmatter = z.infer<typeof blogSchema>;
+
+export const authorSchema = z
+  .object({
+    name: z.string(),
+    bio: z.string(),
+    avatar: z.string().optional(),
+    twitter: z.string().url().optional(),
+    github: z.string().url().optional(),
+    website: z.string().url().optional(),
+  })
+  .strict();
+
+export type AuthorFrontmatter = z.infer<typeof authorSchema>;

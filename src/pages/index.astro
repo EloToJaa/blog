@@ -1,7 +1,23 @@
 ---
+import AboutMe from "@components/AboutMe.astro";
+import Hr from "@components/Hr.astro";
+import Posts from "@components/Posts.astro";
+import BlogCollection from "@utils/blog";
 import MainLayout from "../layouts/MainLayout.astro";
+
+const blogCollection = new BlogCollection();
+await blogCollection.getCollection();
+const featuredPosts = blogCollection.getFeaturedPosts();
+const recentPosts = blogCollection.getRecentPosts(3);
 ---
 
 <MainLayout title="Home">
-  <h1 class="text-3xl font-bold">Home</h1>
+  <AboutMe/>
+  <Hr noPadding/>
+  
+  <Posts posts={featuredPosts} sectionName="featured" header="Featured"/>
+  <Hr noPadding/>
+
+  <Posts posts={recentPosts} sectionName="recent" header="Recent"/>
+  
 </MainLayout>
