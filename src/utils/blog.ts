@@ -4,8 +4,9 @@ class BlogCollection {
   private posts: CollectionEntry<"blog">[] = [];
 
   public async getCollection() {
-    this.posts = await getCollection("blog");
-    this.filterHiddenPosts();
+    this.posts = await getCollection("blog", ({ data }) => {
+      return !data.draft && data.pubDatetime <= new Date();
+    });
     this.sortByDate();
   }
 
@@ -20,12 +21,6 @@ class BlogCollection {
         new Date(a.data.pubDatetime).getTime()
       );
     });
-  }
-
-  private filterHiddenPosts() {
-    this.posts = this.posts.filter(
-      post => !post.data.draft && post.data.pubDatetime <= new Date()
-    );
   }
 
   public getRecentPosts(number: number) {
