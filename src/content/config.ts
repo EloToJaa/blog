@@ -7,7 +7,7 @@ const blogCollection = defineCollection({
 });
 
 const authorCollection = defineCollection({
-  type: "data",
+  type: "content",
   schema: authorSchema,
 });
 

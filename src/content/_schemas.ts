@@ -18,8 +18,7 @@ export type BlogFrontmatter = z.infer<typeof blogSchema>;
 export const authorSchema = z
   .object({
     name: z.string(),
-    bio: z.string(),
-    avatar: z.string().optional(),
+    avatar: z.string().url().optional(),
     twitter: z.string().url().optional(),
     github: z.string().url().optional(),
     website: z.string().url().optional(),
