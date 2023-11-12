@@ -8,12 +8,12 @@
   const {title, description, pubDatetime} = frontmatter;
 </script>
 
-<li class="my-6">
+<li class="my-4">
   <a
     href={href}
     class="inline-block text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
   >
-  <h3 class="decoration-dashed hover:underline">
+    <h3 class="decoration-dashed hover:underline">
       {title}
     </h3>
   </a>

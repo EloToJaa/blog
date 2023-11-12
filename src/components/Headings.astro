@@ -1,0 +1,28 @@
+---
+import type { MarkdownHeading } from "astro";
+export interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+---
+
+<div>
+  <div class="hidden lg:block sticky top-6">
+    {
+      headings.map(heading => (
+        <>
+          {heading.depth < 10 && (
+            <>
+              {[...Array(heading.depth - 1)].map((x, i) => (
+                <>&nbsp;&nbsp;</>
+              ))}
+              <a href={`#${heading.slug}`}>{heading.text}</a>
+              <br />
+            </>
+          )}
+        </>
+      ))
+    }
+  </div>
+</div>

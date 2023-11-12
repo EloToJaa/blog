@@ -7,7 +7,7 @@
   export let className: string = "";
 </script>
 
-<div class={cn("flex items-center space-x-2 opacity-80", className)}>
+<div class={cn("flex items-center space-x-2 opacity-80 mb-3", className)}>
   <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 36 36">
     <path fill="currentColor" d="M32.25 6H29v2h3v22H4V8h3V6H3.75A1.78 1.78 0 0 0 2 7.81v22.38A1.78 1.78 0 0 0 3.75 32h28.5A1.78 1.78 0 0 0 34 30.19V7.81A1.78 1.78 0 0 0 32.25 6Z" class="clr-i-outline clr-i-outline-path-1"/>
     <path fill="currentColor" d="M8 14h2v2H8z" class="clr-i-outline clr-i-outline-path-2"/>
@@ -27,7 +27,7 @@
     <path fill="currentColor" d="M13 6h10v2H13z" class="clr-i-outline clr-i-outline-path-16"/><path fill="none" d="M0 0h36v36H0z"/>
   </svg>
   <span class="sr-only">Posted on:</span>
-  <span class={`font-semibold italic ${size === "sm" ? "text-sm" : "text-base"}`}>
+  <span class={`font-semibold ${size === "sm" ? "text-base" : "text-base md:text-xl"}`}>
     <FormattedDatetime datetime={datetime} />
   </span>
 </div>

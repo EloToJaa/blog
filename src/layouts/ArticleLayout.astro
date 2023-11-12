@@ -1,17 +1,27 @@
 ---
+import Datetime from "@components/Datetime.svelte";
+import Headings from "@components/Headings.astro";
+import type { MarkdownHeading } from "astro";
+import type { CollectionEntry } from "astro:content";
 import MainLayout from "./MainLayout.astro";
 
 export interface Props {
-  title: string;
+  headings: MarkdownHeading[];
+  post: CollectionEntry<"blog">;
 }
 
-const { title } = Astro.props;
+const { post, headings } = Astro.props;
 ---
 
-<MainLayout title={title}>
-  <article
-    class="prose lg:prose-xl prose-h1:mb-4 prose-h2:mt-4 prose-h2:mb-2 dark:prose-invert"
-  >
-    <slot />
-  </article>
+<MainLayout title={post.data.title}>
+  <div class="flex justify-around mt-3">
+    <article
+      class="prose lg:prose-xl prose-h1:mb-4 prose-h2:mt-4 prose-h2:mb-2 dark:prose-invert text-justify grow"
+    >
+      <h1>{post.data.title}</h1>
+      <Datetime datetime={post.data.pubDatetime} size="lg" />
+      <slot />
+    </article>
+    <Headings headings={headings} />
+  </div>
 </MainLayout>

@@ -1,19 +1,20 @@
 <script lang="ts">
-    export let datetime: string | Date;
+  export let datetime: string | Date;
 
-    const myDatetime = new Date(datetime);
+  const myDatetime = new Date(datetime);
 
-    const date = myDatetime.toLocaleString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
 
-    const time = myDatetime.toLocaleString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-    });
+  const date = myDatetime.toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+  });
+
+  const time = myDatetime.toLocaleString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+  });
 </script>
 
 {date}
