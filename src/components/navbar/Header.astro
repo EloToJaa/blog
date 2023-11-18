@@ -2,11 +2,11 @@
 import MenuToggle from "./MenuToggle.astro";
 import HeaderLinks from "./HeaderLinks.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+import SearchLogo from "~icons/ic/baseline-search";
 import Hr from "@components/Hr.astro";
-import Icon from "astro-icon";
 ---
 
-<header class="py-3" >
+<header class="py-3">
   <div class="flex justify-between flex-wrap">
     <div class="my-auto flex w-1/2">
       <a
@@ -29,7 +29,8 @@ import Icon from "astro-icon";
       <div class="flex w-min mx-auto md:mx-0 md:w-max gap-x-2">
         <button aria-label="search">
           <a href="/search" title="Search">
-            <Icon name="ic:baseline-search" class="h-8 hover:text-blue-700"/>
+            <!-- <Icon name="ic:baseline-search" class="h-8 hover:text-blue-700" /> -->
+            <SearchLogo />
           </a>
         </button>
         <ThemeToggle />
@@ -38,7 +39,7 @@ import Icon from "astro-icon";
   </div>
 </header>
 <div class="mb-8">
-  <Hr noPadding/>
+  <Hr noPadding />
 </div>
 
 <script>

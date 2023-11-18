@@ -2,6 +2,7 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "baseUrl": "src",
+    "types": ["unplugin-icons/types/astro"],
     "paths": {
       "@": ["/"],
       "@config": ["config.ts"],

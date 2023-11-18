@@ -6,49 +6,48 @@ const iconClass = "h-8 hover:text-blue-700";
 
 <button id="theme-button" aria-live="polite" aria-label="auto">
   <div id="light" class="hidden">
-    <Icon name="ic:round-light-mode" class={iconClass}/>
+    <!-- <Icon name="ic:round-light-mode" class={iconClass}/> -->
   </div>
   <div id="dark" class="hidden">
-    <Icon name="ic:round-dark-mode" class={iconClass}/>
+    <!-- <Icon name="ic:round-dark-mode" class={iconClass}/> -->
   </div>
 </button>
 
 <script>
-function onLoad() {
-  const darkIcon = document.getElementById("dark");
-  const lightIcon = document.getElementById("light");
+  function onLoad() {
+    const darkIcon = document.getElementById("dark");
+    const lightIcon = document.getElementById("light");
 
-  const changeIcon = (theme: string) => {
-    if (theme === "dark") {
-      lightIcon?.classList.add("hidden");
-      darkIcon?.classList.remove("hidden");
-    } else {
-      lightIcon?.classList.remove("hidden");
-      darkIcon?.classList.add("hidden");
-    }
-  }
+    const changeIcon = (theme: string) => {
+      if (theme === "dark") {
+        lightIcon?.classList.add("hidden");
+        darkIcon?.classList.remove("hidden");
+      } else {
+        lightIcon?.classList.remove("hidden");
+        darkIcon?.classList.add("hidden");
+      }
+    };
 
-  const preferedTheme = window.matchMedia("(prefers-color-scheme: dark)")
-    .matches
-    ? "dark"
-    : "light";
-  let currentTheme =
-    localStorage.getItem("theme") ?? preferedTheme ?? "dark";
-
-  document.documentElement.setAttribute("data-theme", currentTheme);
-
-  changeIcon(currentTheme);
-
-  const themeButton = document.getElementById("theme-button");
-  themeButton?.addEventListener("click", () => {
-    currentTheme = currentTheme === "dark" ? "light" : "dark";
+    const preferedTheme = window.matchMedia("(prefers-color-scheme: dark)")
+      .matches
+      ? "dark"
+      : "light";
+    let currentTheme = localStorage.getItem("theme") ?? preferedTheme ?? "dark";
 
     document.documentElement.setAttribute("data-theme", currentTheme);
-    localStorage.setItem("theme", currentTheme);
 
     changeIcon(currentTheme);
-  });
-}
 
-onLoad();
+    const themeButton = document.getElementById("theme-button");
+    themeButton?.addEventListener("click", () => {
+      currentTheme = currentTheme === "dark" ? "light" : "dark";
+
+      document.documentElement.setAttribute("data-theme", currentTheme);
+      localStorage.setItem("theme", currentTheme);
+
+      changeIcon(currentTheme);
+    });
+  }
+
+  onLoad();
 </script>
