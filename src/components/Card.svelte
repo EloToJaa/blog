@@ -17,6 +17,8 @@
       {title}
     </h3>
   </a>
-  <Datetime datetime={pubDatetime} />
+  <Datetime datetime={pubDatetime}>
+    <slot />
+  </Datetime>
   <p>{description}</p>
 </li>

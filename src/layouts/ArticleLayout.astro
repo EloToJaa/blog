@@ -3,6 +3,7 @@ import Datetime from "@components/Datetime.svelte";
 import Headings from "@components/Headings.astro";
 import type { MarkdownHeading } from "astro";
 import type { CollectionEntry } from "astro:content";
+import Calendar from "~icons/material-symbols/calendar-month-outline-rounded";
 import MainLayout from "./MainLayout.astro";
 
 export interface Props {
@@ -19,7 +20,9 @@ const { post, headings } = Astro.props;
       class="prose lg:prose-xl prose-h1:mb-4 prose-h2:mt-4 prose-h2:mb-2 dark:prose-invert text-justify grow"
     >
       <h1>{post.data.title}</h1>
-      <Datetime datetime={post.data.pubDatetime} size="lg" />
+      <Datetime datetime={post.data.pubDatetime} size="lg">
+        <Calendar style="font-size: 1em" />
+      </Datetime>
       <slot />
     </article>
     <Headings headings={headings} />

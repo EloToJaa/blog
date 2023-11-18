@@ -1,15 +1,14 @@
 ---
-import Icon from "astro-icon";
-
-const iconClass = "h-8 hover:text-blue-700";
+import LightMode from "~icons/ic/round-light-mode";
+import DarkMode from "~icons/ic/round-dark-mode";
 ---
 
 <button id="theme-button" aria-live="polite" aria-label="auto">
   <div id="light" class="hidden">
-    <!-- <Icon name="ic:round-light-mode" class={iconClass}/> -->
+    <LightMode />
   </div>
   <div id="dark" class="hidden">
-    <!-- <Icon name="ic:round-dark-mode" class={iconClass}/> -->
+    <DarkMode />
   </div>
 </button>
 

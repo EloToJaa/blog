@@ -16,6 +16,8 @@ export default defineConfig({
     plugins: [
       Icons({
         compiler: "astro",
+        defaultStyle: "font-size: 1.5em",
+        defaultClass: "hover:text-blue-700",
       }),
     ],
   },
@@ -36,10 +38,6 @@ export default defineConfig({
     },
     redirects: {
       "/github": "https://github.com/elotojaa/",
-      "/x/old-page": {
-        status: 302,
-        destination: "/new-page",
-      },
     },
   },
 });

@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import Calendar from "~icons/material-symbols/calendar-month-outline-rounded";
 import Card from "./Card.svelte";
 
 export interface Props {
@@ -16,7 +17,11 @@ const { posts, sectionName, header } = Astro.props;
   <ul>
     {
       posts.map(post => {
-        return <Card href={`/blog/${post.slug}`} frontmatter={post.data} />;
+        return (
+          <Card href={`/blog/${post.slug}`} frontmatter={post.data}>
+            <Calendar style="font-size: 1em" />
+          </Card>
+        );
       })
     }
   </ul>
