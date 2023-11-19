@@ -12,7 +12,7 @@ const { headings } = Astro.props;
     {
       headings.map(heading => (
         <>
-          {heading.depth < 10 && (
+          {heading.depth >= 1 && heading.depth <= 2 && (
             <>
               {[...Array(heading.depth - 1)].map((x, i) => (
                 <>&nbsp;&nbsp;</>

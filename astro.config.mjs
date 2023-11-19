@@ -28,6 +28,7 @@ export default defineConfig({
     sitemap(),
   ],
   markdown: {
+    syntaxHighlight: "shiki",
     shikiConfig: {
       experimentalThemes: {
         light: "github-light",
@@ -35,9 +36,6 @@ export default defineConfig({
       },
       langs: [],
       wrap: true,
-    },
-    redirects: {
-      "/github": "https://github.com/elotojaa/",
     },
   },
 });
