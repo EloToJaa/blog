@@ -1,5 +1,4 @@
 import mdx from "@astrojs/mdx";
-import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
@@ -7,12 +6,12 @@ import { defineConfig } from "astro/config";
 import Icons from "unplugin-icons/vite";
 import removeH1 from "/src/plugins/removeH1.ts";
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
   output: "hybrid",
-  adapter: node({
-    mode: "standalone",
-  }),
+  adapter: cloudflare({ mode: "directory" }),
   vite: {
     plugins: [
       Icons({
@@ -24,7 +23,9 @@ export default defineConfig({
   },
   integrations: [
     svelte(),
-    tailwind({ applyBaseStyles: false }),
+    tailwind({
+      applyBaseStyles: false,
+    }),
     mdx(),
     sitemap(),
   ],
