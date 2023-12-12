@@ -18,7 +18,7 @@ export default defineConfig({
       Icons({
         compiler: "astro",
         defaultStyle: "font-size: 1.5em",
-        defaultClass: "hover:text-blue-700",
+        defaultClass: "hover:text-accent",
       }),
     ],
   },

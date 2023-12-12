@@ -1,7 +1,9 @@
 ---
+import SearchPosts from "@components/SearchPosts.svelte";
 import MainLayout from "../layouts/MainLayout.astro";
 ---
 
 <MainLayout title="search">
   <h1>Search</h1>
+  <SearchPosts limit={5} client:load />
 </MainLayout>
