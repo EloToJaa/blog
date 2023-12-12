@@ -23,6 +23,13 @@ def test():
 ##### Heading 5
 #### Heading 4
 ##### Heading 5
+```py
+def test():
+    print("Hello world")
+    print("Hello world")
+    print("Hello world")
+    print("Hello world")
+```
 ##### Heading 5
 #### Heading 4
 ##### Heading 5
@@ -31,6 +38,13 @@ def test():
 ## Heading 2
 ### Heading 3
 #### Heading 4
+```py
+def test():
+    print("Hello world")
+    print("Hello world")
+    print("Hello world")
+    print("Hello world")
+```
 ##### Heading 5
 ##### Heading 5
 #### Heading 4
