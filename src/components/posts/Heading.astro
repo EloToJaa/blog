@@ -11,7 +11,7 @@ const { heading } = Astro.props;
   {heading.depth >= 1 && heading.depth <= 4 ? (
       <li>
         {[...Array(heading.depth - 2)].map(_ => (
-          <span>&nbsp;&nbsp;</span>
+          <>&nbsp;&nbsp;</>
         ))}
         <a href={`#${heading.slug}`}>{heading.text}</a>
       </li>
