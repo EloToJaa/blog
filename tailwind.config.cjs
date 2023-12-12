@@ -10,8 +10,14 @@ module.exports = {
   darkMode: "class",
   daisyui: {
     themes: [
-      "light",
-      "dark",
+      {
+        dark: {
+          ...require("daisyui/src/theming/themes")["night"],
+        },
+        light: {
+          ...require("daisyui/src/theming/themes")["fantasy"],
+        }
+      }
     ]
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
