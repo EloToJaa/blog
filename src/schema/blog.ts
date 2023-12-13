@@ -15,14 +15,15 @@ export const blogSchema = z
 
 export type BlogFrontmatter = z.infer<typeof blogSchema>;
 
-export const authorSchema = z
-  .object({
-    name: z.string(),
-    avatar: z.string().url().optional(),
-    twitter: z.string().url().optional(),
-    github: z.string().url().optional(),
-    website: z.string().url().optional(),
-  })
-  .strict();
+export type PostSearch = {
+  href: string;
+  frontmatter: BlogFrontmatter;
+};
 
-export type AuthorFrontmatter = z.infer<typeof authorSchema>;
+export const postSearchSchema = z.object({
+  q: z.string().max(200).default(""),
+  limit: z
+    .string()
+    .transform(l => z.number().min(1).max(50).default(5).safeParse(l))
+    .transform(l => (l.success ? l.data : 5)),
+});

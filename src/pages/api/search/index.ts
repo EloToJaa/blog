@@ -1,3 +1,4 @@
+import { postSearchSchema } from "@schema/blog";
 import BlogCollection from "@utils/blog";
 import type { APIRoute } from "astro";
 import Fuse from "fuse.js";
@@ -19,12 +20,24 @@ const fuse = new Fuse(blogCollection.getPosts(), {
   threshold: 0.6,
 });
 
+const responseOptions = {
+  headers: {
+    "content-type": "application/json",
+  },
+};
+
 export const GET: APIRoute = async ({ url }) => {
-  const searchPhrase = url.searchParams.get("q") || "";
-  const limit = Math.min(
-    parseInt(url.searchParams.get("limit") || "5", 10),
-    50
+  const result = postSearchSchema.safeParse(
+    Object.fromEntries(url.searchParams.entries())
   );
+  console.log(result);
+  if (!result.success) {
+    return new Response(
+      JSON.stringify({ error: result.error.issues }),
+      responseOptions
+    );
+  }
+  const { q: searchPhrase, limit } = result.data;
 
   const results = fuse
     .search(searchPhrase, {
@@ -35,9 +48,5 @@ export const GET: APIRoute = async ({ url }) => {
       href: `/blog/${result.item.slug}`,
     }));
 
-  return new Response(JSON.stringify({ results }), {
-    headers: {
-      "content-type": "application/json",
-    },
-  });
+  return new Response(JSON.stringify({ results }), responseOptions);
 };
