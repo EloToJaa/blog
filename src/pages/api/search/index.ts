@@ -2,6 +2,8 @@ import BlogCollection from "@utils/blog";
 import type { APIRoute } from "astro";
 import Fuse from "fuse.js";
 
+export const prerender = false;
+
 export const GET: APIRoute = async ({ url }) => {
   const blogCollection = new BlogCollection();
   await blogCollection.getCollection();
