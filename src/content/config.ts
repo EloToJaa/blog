@@ -1,5 +1,6 @@
+import { authorSchema } from "@schema/author";
+import { blogSchema } from "@schema/blog";
 import { defineCollection } from "astro:content";
-import { authorSchema, blogSchema } from "./_schemas";
 
 const blogCollection = defineCollection({
   type: "content",

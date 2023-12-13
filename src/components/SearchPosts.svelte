@@ -1,6 +1,6 @@
 <script lang="ts">
   import Card from "@components/posts/Card.svelte";
-  import type { PostSearch } from "@utils/types";
+  import type { PostSearch } from "@schema/blog";
   import { onMount } from "svelte";
 
   export let limit = 5;
