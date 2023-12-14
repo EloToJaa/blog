@@ -2,10 +2,10 @@
   import type { Repository } from "@octokit/graphql-schema";
   import { onMount } from "svelte";
 
+  export let pageSize = 5;
   let repositories: Repository[] = [];
   let after: string | null = null;
   let hasNextPage: boolean = true;
-  const pageSize = 10;
 
   const loadMoreRepositories = async () => {
     if (!hasNextPage) return;
@@ -24,6 +24,9 @@
 
       after = data.endCursor;
       hasNextPage = data.hasNextPage;
+
+      if (window.innerHeight >= document.body.offsetHeight)
+        loadMoreRepositories();
     }
   };
 
