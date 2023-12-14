@@ -22,9 +22,8 @@ const fuse = new Fuse(blogCollection.getPosts(), {
 });
 
 export const GET: APIRoute = async ({ url }) => {
-  const result = postSearchSchema.safeParse(
-    Object.fromEntries(url.searchParams.entries())
-  );
+  var data = Object.fromEntries(url.searchParams.entries());
+  const result = postSearchSchema.safeParse(data);
   console.log(result);
   if (!result.success) {
     return new Response(

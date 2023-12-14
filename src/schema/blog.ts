@@ -24,6 +24,9 @@ export const postSearchSchema = z.object({
   q: z.string().max(200).default(""),
   limit: z
     .string()
-    .transform(l => z.number().min(1).max(50).default(5).safeParse(l))
-    .transform(l => (l.success ? l.data : 5)),
+    .transform(Number)
+    .refine(n => n >= 1 && n <= 50, {
+      message: "limit must be between 1 and 50",
+    })
+    .default("5"),
 });

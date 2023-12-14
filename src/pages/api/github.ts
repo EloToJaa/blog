@@ -22,7 +22,7 @@ export const GET: APIRoute = async ({ url }) => {
 
   const response = await api.getAllRepositories(
     pageSize,
-    after == "" ? null : after
+    after === "" || after === "null" ? null : after
   );
 
   return new Response(JSON.stringify(response), apiJson);
