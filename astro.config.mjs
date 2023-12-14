@@ -7,6 +7,7 @@ import Icons from "unplugin-icons/vite";
 import removeH1 from "/src/plugins/removeH1.ts";
 
 import cloudflare from "@astrojs/cloudflare";
+import { REDIRECTS } from "@config";
 
 // https://astro.build/config
 export default defineConfig({
@@ -41,7 +42,5 @@ export default defineConfig({
     },
     remarkPlugins: [removeH1],
   },
-  redirects: {
-    "/github": "https://github.com/elotojaa",
-  },
+  redirects: REDIRECTS,
 });

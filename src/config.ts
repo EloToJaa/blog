@@ -17,4 +17,9 @@ export const NAVBAR = [
   },
 ];
 
+export const REDIRECTS = {
+  "/github": "https://github.com/elotojaa",
+  "/linkedin": "https://www.linkedin.com/in/elotoja/",
+};
+
 export const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
