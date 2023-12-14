@@ -15,7 +15,7 @@ const repos = await api.getAllRepositories();
       <ul>
         {repos.map(repo => (
           <li>
-            <a href={`projects/${repo.name.toLowerCase()}`}>{repo.name}</a>
+            <a href={`/projects/${repo.name.toLowerCase()}`}>{repo.name}</a>
             <p>{repo.description}</p>
           </li>
         ))}
