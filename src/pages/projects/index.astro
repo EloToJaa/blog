@@ -2,7 +2,7 @@
 import MainLayout from "@layouts/MainLayout.astro";
 import GithubApi from "@utils/githubApi";
 
-export const prerender = false;
+// export const prerender = false;
 
 const api = new GithubApi();
 const repos = await api.getAllRepositories();

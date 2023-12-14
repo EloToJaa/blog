@@ -1,21 +1,32 @@
 ---
 import MainLayout from "@layouts/MainLayout.astro";
+import type { RestEndpointMethodTypes } from "@octokit/rest";
 import GithubApi from "@utils/githubApi";
 
-export const prerender = false;
-
-export interface Params {
-  name: string;
+export interface Props {
+  repository: RestEndpointMethodTypes["repos"]["listForAuthenticatedUser"]["response"]["data"][0];
 }
-const { name } = Astro.params;
 
-const api = new GithubApi();
-const user = await api.getAuthenticatedUser();
-const repository = await api.getRepositoryInformation(user?.login!, name ?? "");
-if (!repository) {
-  return Astro.redirect("/status/404");
+export async function getStaticPaths() {
+  const api = new GithubApi();
+  const repositories = await api.getAllRepositories();
+
+  if (!repositories) {
+    return {
+      params: [],
+      props: [],
+    };
+  }
+
+  const repoResult = repositories.map(repository => ({
+    params: { name: repository.name.toLowerCase() },
+    props: { repository },
+  }));
+
+  return [...repoResult];
 }
-console.log(repository.full_name);
+
+const { repository } = Astro.props;
 ---
 
 <MainLayout title="About">

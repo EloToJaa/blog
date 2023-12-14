@@ -7,13 +7,13 @@
   let searchQuery = "";
   let results: PostSearch[] = [];
 
-  function handleInputChange(event: any) {
-    searchQuery = event.target.value;
-
+  const handleInputChange = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    searchQuery = target.value;
     updateURL();
-  }
+  };
 
-  function updateURL() {
+  const updateURL = () => {
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("q", searchQuery);
 
@@ -28,7 +28,7 @@
       .then(data => {
         results = data.results;
       });
-  }
+  };
 
   onMount(() => {
     const urlParams = new URLSearchParams(window.location.search);
