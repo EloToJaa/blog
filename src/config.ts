@@ -11,4 +11,8 @@ export const navbar = [
     title: "Contact",
     url: "/contact",
   },
+  {
+    title: "Projects",
+    url: "/projects",
+  },
 ];
