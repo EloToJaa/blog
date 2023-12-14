@@ -1,35 +1,24 @@
 ---
 import MainLayout from "@layouts/MainLayout.astro";
-import type { RestEndpointMethodTypes } from "@octokit/rest";
 import GithubApi from "@utils/githubApi";
 
-export interface Props {
-  repository: RestEndpointMethodTypes["repos"]["listForAuthenticatedUser"]["response"]["data"][0];
+export const prerender = false;
+
+export interface Params {
+  name: string;
 }
+const { name } = Astro.params;
 
-export async function getStaticPaths() {
-  const api = new GithubApi();
-  const repositories = await api.getAllRepositories();
-
-  if (!repositories) {
-    return {
-      params: [],
-      props: [],
-    };
-  }
-
-  const repoResult = repositories.map(repository => ({
-    params: { name: repository.name.toLowerCase() },
-    props: { repository },
-  }));
-
-  return [...repoResult];
+const api = new GithubApi();
+const user = await api.getAuthenticatedUser();
+const repository = await api.getRepositoryInformation(user ?? "", name ?? "");
+if (!repository || repository.visibility !== "PUBLIC") {
+  return Astro.redirect("/status/404");
 }
-
-const { repository } = Astro.props;
+console.log(repository.nameWithOwner);
 ---
 
 <MainLayout title="About">
-  <h1>{repository.full_name}</h1>
-  {repository.html_url && <a href={repository.html_url}>Github</a>}
+  <h1>{repository.nameWithOwner}</h1>
+  {repository.url && <a href={repository.url}>Github</a>}
 </MainLayout>

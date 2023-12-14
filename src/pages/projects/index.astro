@@ -1,25 +1,8 @@
 ---
+import Projects from "@components/Projects.svelte";
 import MainLayout from "@layouts/MainLayout.astro";
-import GithubApi from "@utils/githubApi";
-
-// export const prerender = false;
-
-const api = new GithubApi();
-const repos = await api.getAllRepositories();
 ---
 
 <MainLayout title="About">
-  <h1>Projects</h1>
-  {
-    repos && (
-      <ul>
-        {repos.map(repo => (
-          <li>
-            <a href={`/projects/${repo.name.toLowerCase()}`}>{repo.name}</a>
-            <p>{repo.description}</p>
-          </li>
-        ))}
-      </ul>
-    )
-  }
+  <Projects />
 </MainLayout>
