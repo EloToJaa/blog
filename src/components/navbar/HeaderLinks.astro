@@ -1,4 +1,5 @@
 ---
+import { navbar } from "@config";
 import cn from "../../utils/cn.js";
 
 export interface Props {
@@ -8,21 +9,6 @@ export interface Props {
 }
 
 const { ulClass = "", liClass = "", activeClass = "" } = Astro.props;
-
-const navbar = [
-  {
-    title: "Home",
-    url: "/",
-  },
-  {
-    title: "About",
-    url: "/about",
-  },
-  {
-    title: "Contact",
-    url: "/contact",
-  },
-];
 ---
 
 <ul class={ulClass}>
