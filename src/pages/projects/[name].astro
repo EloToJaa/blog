@@ -1,0 +1,24 @@
+---
+import MainLayout from "@layouts/MainLayout.astro";
+import GithubApi from "@utils/githubApi";
+
+export const prerender = false;
+
+export interface Params {
+  name: string;
+}
+const { name } = Astro.params;
+
+const api = new GithubApi();
+const user = await api.getAuthenticatedUser();
+const repository = await api.getRepositoryInformation(user?.login!, name ?? "");
+if (!repository) {
+  return Astro.redirect("/status/404");
+}
+console.log(repository.full_name);
+---
+
+<MainLayout title="About">
+  <h1>{repository.full_name}</h1>
+  {repository.html_url && <a href={repository.html_url}>Github</a>}
+</MainLayout>

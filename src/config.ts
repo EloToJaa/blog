@@ -1,4 +1,4 @@
-export const navbar = [
+export const NAVBAR = [
   {
     title: "Home",
     url: "/",
@@ -16,3 +16,5 @@ export const navbar = [
     url: "/projects",
   },
 ];
+
+export const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
