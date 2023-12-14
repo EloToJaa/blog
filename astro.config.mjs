@@ -41,4 +41,8 @@ export default defineConfig({
     },
     remarkPlugins: [removeH1],
   },
+  redirects: {
+    "/github": "https://github.com/elotojaa",
+    "/linkedin": "https://www.linkedin.com/in/elotoja/",
+  },
 });

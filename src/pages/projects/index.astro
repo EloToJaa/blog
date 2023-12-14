@@ -1,0 +1,8 @@
+---
+import Projects from "@components/Projects.svelte";
+import MainLayout from "@layouts/MainLayout.astro";
+---
+
+<MainLayout title="Projects">
+  <Projects pageSize={5} client:load />
+</MainLayout>

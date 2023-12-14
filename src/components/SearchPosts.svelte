@@ -5,15 +5,15 @@
 
   export let limit = 5;
   let searchQuery = "";
-  let results: PostSearch[] = [];
+  $: results = [] as PostSearch[];
 
-  function handleInputChange(event: any) {
-    searchQuery = event.target.value;
+  const handleInputChange = async (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    searchQuery = target.value;
+    await updateURL();
+  };
 
-    updateURL();
-  }
-
-  function updateURL() {
+  const updateURL = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("q", searchQuery);
 
@@ -23,18 +23,20 @@
       `${window.location.pathname}?${urlParams}`
     );
 
-    fetch(`/api/search?q=${searchQuery}&limit=${limit}`)
-      .then(res => res.json())
-      .then(data => {
-        results = data.results;
-      });
-  }
+    try {
+      const res = await fetch(`/api/search?q=${searchQuery}&limit=${limit}`);
+      const data = await res.json();
+      results = data.results;
+    } catch (error) {
+      console.error("Failed to fetch search results:", error);
+    }
+  };
 
-  onMount(() => {
+  onMount(async () => {
     const urlParams = new URLSearchParams(window.location.search);
     searchQuery = urlParams.get("q") || "";
 
-    updateURL();
+    await updateURL();
   });
 </script>
 

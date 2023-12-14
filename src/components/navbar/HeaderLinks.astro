@@ -1,4 +1,5 @@
 ---
+import { NAVBAR } from "@config";
 import cn from "../../utils/cn.js";
 
 export interface Props {
@@ -8,26 +9,11 @@ export interface Props {
 }
 
 const { ulClass = "", liClass = "", activeClass = "" } = Astro.props;
-
-const navbar = [
-  {
-    title: "Home",
-    url: "/",
-  },
-  {
-    title: "About",
-    url: "/about",
-  },
-  {
-    title: "Contact",
-    url: "/contact",
-  },
-];
 ---
 
 <ul class={ulClass}>
   {
-    navbar.map(item => (
+    NAVBAR.map(item => (
       <li class={cn(liClass, item.url === Astro.url.pathname && activeClass)}>
         <a href={item.url}>{item.title}</a>
       </li>
