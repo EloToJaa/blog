@@ -20,6 +20,10 @@ def test():
     print("Hello world")
 ```
 
+```sh title="test.sh" frame="terminal"
+bash test.sh
+```
+
 ### Heading 3
 
 #### Heading 4
