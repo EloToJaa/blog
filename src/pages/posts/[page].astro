@@ -1,0 +1,31 @@
+---
+import PostCards from "@components/posts/PostCards.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+import BlogCollection from "@utils/blog";
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  posts: CollectionEntry<"blog">[];
+  page: number;
+}
+
+export async function getStaticPaths() {
+  const blogCollection = new BlogCollection();
+  await blogCollection.getCollection();
+
+  const lastPage = blogCollection.lastPage();
+  const pages = Array.from({ length: lastPage }, (_, index) => index + 1);
+
+  return pages.map(page => ({
+    params: { page: page },
+    props: { posts: blogCollection.getPage(page) },
+  }));
+}
+
+const { posts } = Astro.props;
+const { page } = Astro.params;
+---
+
+<MainLayout title="Posts">
+  <PostCards posts={posts} sectionName="posts" header={`Page ${page}`} />
+</MainLayout>

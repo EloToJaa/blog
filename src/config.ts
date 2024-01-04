@@ -1,15 +1,11 @@
 export const NAVBAR = [
   {
-    title: "Home",
-    url: "/",
+    title: "Posts",
+    url: "/posts",
   },
   {
     title: "About",
     url: "/about",
-  },
-  {
-    title: "Contact",
-    url: "/contact",
   },
   {
     title: "Projects",

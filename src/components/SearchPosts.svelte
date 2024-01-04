@@ -49,7 +49,7 @@
 />
 
 <section id="search" class="mt-8">
-  <h2>Results</h2>
+  <h3>Found {results.length} post{results.length == 1 ? "" : "s"}</h3>
   <ul>
     {#each results as result (result.href)}
       <Card href={result.href} frontmatter={result.frontmatter}>
