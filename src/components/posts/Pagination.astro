@@ -1,0 +1,16 @@
+---
+export interface Props {
+  pages: number[];
+  currentPage: number;
+}
+
+const { pages, currentPage } = Astro.props;
+---
+
+{
+  pages.map(page => (
+    <a href={`?page=${page}`} class={`cp ${page === currentPage ? "cpa" : ""}`}>
+      {page}
+    </a>
+  ))
+}
