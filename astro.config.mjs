@@ -10,6 +10,7 @@ import removeH1 from "/src/plugins/removeH1.ts";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://elotoja.com",
   output: "hybrid",
   adapter: cloudflare({
     mode: "directory",
