@@ -69,7 +69,7 @@ class GithubApi {
       };
     } catch (error) {
       if (error instanceof Error) {
-        console.log("Error message:", error.message);
+        console.error("Error message:", error.message);
       }
       return null;
     }
@@ -89,7 +89,7 @@ class GithubApi {
       return response.viewer.login;
     } catch (error) {
       if (error instanceof Error) {
-        console.log("Error message:", error.message);
+        console.error("Error message:", error.message);
       }
       return null;
     }
@@ -120,7 +120,7 @@ class GithubApi {
       return response.repository;
     } catch (error) {
       if (error instanceof Error) {
-        console.log("Error message:", error.message);
+        console.error("Error message:", error.message);
       }
       return null;
     }

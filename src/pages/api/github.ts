@@ -11,7 +11,6 @@ export const GET: APIRoute = async ({ url }) => {
   const result = githubGetReposSchema.safeParse(
     Object.fromEntries(url.searchParams.entries())
   );
-  console.log(result);
   if (!result.success) {
     return new Response(
       JSON.stringify({ error: result.error.issues }),
