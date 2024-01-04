@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
 import expressiveCode from "astro-expressive-code";
+import astroFontPicker from "astro-font-picker";
 import { defineConfig } from "astro/config";
 import Icons from "unplugin-icons/vite";
 import removeH1 from "/src/plugins/removeH1.ts";
@@ -40,6 +41,7 @@ export default defineConfig({
         "https://elotoja.com/linkedin",
       ],
     }),
+    astroFontPicker(),
   ],
   markdown: {
     remarkPlugins: [removeH1],
