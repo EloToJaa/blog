@@ -12,24 +12,14 @@ export interface Props {
   currentPage: number;
 }
 
-export async function getStaticPaths() {
-  const blogCollection = new BlogCollection();
-  await blogCollection.getCollection();
+const blogCollection = new BlogCollection();
+await blogCollection.getCollection();
 
-  const lastPage = blogCollection.lastPage(POSTS_PER_PAGE);
-  const pages = Array.from({ length: lastPage }, (_, index) => index + 1);
+const currentPage = 1;
+const lastPage = blogCollection.lastPage(POSTS_PER_PAGE);
 
-  return pages.map(page => ({
-    params: { page: page },
-    props: {
-      posts: blogCollection.getPage(page, POSTS_PER_PAGE),
-      pages,
-      currentPage: page,
-    },
-  }));
-}
-
-const { posts, pages, currentPage } = Astro.props;
+const posts = blogCollection.getPage(currentPage, POSTS_PER_PAGE);
+const pages = Array.from({ length: lastPage }, (_, index) => index + 1);
 ---
 
 <MainLayout title="Posts">
