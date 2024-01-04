@@ -34,7 +34,12 @@ export default defineConfig({
       themeCssSelector: theme => `[data-theme='${theme.type}']`,
     }),
     mdx(),
-    sitemap(),
+    sitemap({
+      customPages: [
+        "https://elotoja.com/github",
+        "https://elotoja.com/linkedin",
+      ],
+    }),
   ],
   markdown: {
     remarkPlugins: [removeH1],
