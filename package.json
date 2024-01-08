@@ -24,7 +24,7 @@
     "@types/mdast": "^4.0.3",
     "@types/unist": "^3.0.2",
     "astro": "^4.0.9",
-    "astro-expressive-code": "^0.30.1",
+    "astro-expressive-code": "^0.31.0",
     "astro-seo": "^0.8.0",
     "rehype-pretty-code": "^0.12.3",
     "svelte": "^4.2.8"
@@ -41,7 +41,7 @@
     "astro-font-picker": "^0.2.1",
     "autoprefixer": "^10.4.16",
     "clsx": "^2.1.0",
-    "cssnano": "^6.0.2",
+    "cssnano": "^6.0.3",
     "daisyui": "^4.5.0",
     "eslint": "^8.56.0",
     "eslint-plugin-astro": "^0.31.0",
