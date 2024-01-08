@@ -23,6 +23,24 @@ class BlogCollection {
     });
   }
 
+  public getPage(number: number, postsPerPage: number = 5) {
+    if (number < 1 || postsPerPage < 1) return [];
+    const firstPostIndex = (number - 1) * postsPerPage;
+    const lastPostIndex = firstPostIndex + postsPerPage - 1;
+
+    if (firstPostIndex >= this.posts.length) return [];
+
+    return this.posts.slice(
+      firstPostIndex,
+      Math.min(lastPostIndex + 1, this.posts.length)
+    );
+  }
+
+  public lastPage(postsPerPage: number = 5): number {
+    if (postsPerPage < 1) return 1;
+    return Math.floor((this.posts.length - 1) / postsPerPage) + 1;
+  }
+
   public getRecentPosts(number: number) {
     return this.posts.slice(0, number);
   }

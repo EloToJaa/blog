@@ -1,0 +1,28 @@
+---
+import Pagination from "@components/posts/Pagination.astro";
+import PostCards from "@components/posts/PostCards.astro";
+import { POSTS_PER_PAGE } from "@config";
+import MainLayout from "@layouts/MainLayout.astro";
+import BlogCollection from "@utils/blog";
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  posts: CollectionEntry<"blog">[];
+  pages: number[];
+  currentPage: number;
+}
+
+const blogCollection = new BlogCollection();
+await blogCollection.getCollection();
+
+const currentPage = 1;
+const lastPage = blogCollection.lastPage(POSTS_PER_PAGE);
+
+const posts = blogCollection.getPage(currentPage, POSTS_PER_PAGE);
+const pages = Array.from({ length: lastPage }, (_, index) => index + 1);
+---
+
+<MainLayout title="Posts">
+  <PostCards posts={posts} sectionName="posts" header={`Page ${currentPage}`} />
+  <Pagination pages={pages} currentPage={currentPage} />
+</MainLayout>

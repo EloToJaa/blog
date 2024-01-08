@@ -1,15 +1,11 @@
 export const NAVBAR = [
   {
-    title: "Home",
-    url: "/",
+    title: "Posts",
+    url: "/posts",
   },
   {
     title: "About",
     url: "/about",
-  },
-  {
-    title: "Contact",
-    url: "/contact",
   },
   {
     title: "Projects",
@@ -18,3 +14,4 @@ export const NAVBAR = [
 ];
 
 export const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
+export const POSTS_PER_PAGE = 1;

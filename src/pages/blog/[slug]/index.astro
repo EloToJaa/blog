@@ -12,12 +12,10 @@ export async function getStaticPaths() {
   await blogCollection.getCollection();
   const posts = blogCollection.getPosts();
 
-  const postResult = posts.map(post => ({
+  return posts.map(post => ({
     params: { slug: post.slug },
     props: { post },
   }));
-
-  return [...postResult];
 }
 
 const { post } = Astro.props;
