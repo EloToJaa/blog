@@ -106,16 +106,14 @@ class GithubApi {
           stargazerCount
           visibility
           repositoryTopics(first: 10) {
-            edges {
-              node {
-                topic {
-                  id
-                  name
-                  url
-                }
+      			nodes {
+            	url
+              id
+              topic {
+                name
               }
             }
-          }
+    			}
         }
       }
     `;
