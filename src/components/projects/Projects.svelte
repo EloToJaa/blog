@@ -46,6 +46,6 @@
 
 <h1>Projects</h1>
 
-{#each repositories as repository (repository.name)}
+{#each repositories as repository (repository.nameWithOwner)}
   <Project {repository} />
 {/each}
