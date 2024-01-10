@@ -38,7 +38,7 @@ class GithubApi {
     after: string | null = null
   ) {
     const query = `
-    query($after: String, $pageSize: Int) {
+    query ($after: String, $pageSize: Int) {
       viewer {
         repositories(first: $pageSize, privacy: PUBLIC, after: $after) {
           nodes {
@@ -47,6 +47,16 @@ class GithubApi {
             description
             url
             stargazerCount
+            repositoryTopics(first: 10) {
+              nodes {
+                url
+                id
+                topic {
+                  name
+                }
+              }
+              totalCount
+            }
           }
           pageInfo {
             endCursor
@@ -113,6 +123,7 @@ class GithubApi {
                 name
               }
             }
+            totalCount
     			}
         }
       }
