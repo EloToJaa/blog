@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Repository } from "@octokit/graphql-schema";
   import { onMount } from "svelte";
+  import Project from "./Project.svelte";
 
   export let pageSize = 5;
   let repositories: Repository[] = [];
@@ -44,8 +45,5 @@
 <h1>Projects</h1>
 
 {#each repositories as repository (repository.name)}
-  <div>
-    <h2>{repository.name}</h2>
-    <p>{repository.description}</p>
-  </div>
+  <Project {repository} />
 {/each}
