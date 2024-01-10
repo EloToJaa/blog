@@ -4,8 +4,6 @@
 
   export let repository: Repository;
 
-  $: console.log(repository);
-
   let topics: RepositoryTopic[] = (repository.repositoryTopics.nodes ?? [])
     .filter(t => !!t)
     .map(t => t as RepositoryTopic);
