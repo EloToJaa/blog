@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { BlogFrontmatter } from "@content/_schemas";
+  import type { BlogFrontmatter } from "@schema/blog";
   import Datetime from "../datetime/Datetime.svelte";
 
   export let href: string;
@@ -20,5 +20,5 @@
   <Datetime datetime={pubDatetime}>
     <slot />
   </Datetime>
-  <p>{description}</p>
+  <p class="text-justify">{description}</p>
 </li>

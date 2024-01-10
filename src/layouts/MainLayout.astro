@@ -15,10 +15,12 @@ const { title } = Astro.props;
   </head>
   <body>
     <div class="container mx-auto font-main">
-      <Header />
-      <main class="mt-3">
-        <slot />
-      </main>
+      <div class="w-full md:w-3/4 mx-auto">
+        <Header />
+        <main class="mt-3">
+          <slot />
+        </main>
+      </div>
     </div>
   </body>
 </html>
