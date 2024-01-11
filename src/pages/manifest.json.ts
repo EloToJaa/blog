@@ -24,7 +24,6 @@ export async function GET() {
         src: "/icons/icon-192.png",
         type: "image/png",
         sizes: "192x192",
-        purpose: "any",
       },
       {
         src: "/icons/icon-512.png",
