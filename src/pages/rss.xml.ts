@@ -18,6 +18,7 @@ export async function GET(context: APIContext) {
       description: post.data.description,
       link: `/blog/${post.slug}`,
       pubDate: post.data.pubDatetime,
+      categories: post.data.tags,
     })) as RSSFeedItem[],
     customData: `<language>en-us</language>`,
   });
