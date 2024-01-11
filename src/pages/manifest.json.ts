@@ -9,6 +9,23 @@ export async function GET() {
     background_color: "#ffffff",
     theme_color: "#000000",
     display: "standalone",
+    icons: [
+      {
+        src: "/images/favicon.svg",
+        type: "image/svg+xml",
+        sizes: "32x32",
+      },
+      {
+        src: "/images/icon-192.png",
+        type: "image/svg+xml",
+        sizes: "192x192",
+      },
+      {
+        src: "/images/icon-512.png",
+        type: "image/svg+xml",
+        sizes: "512x512",
+      },
+    ],
   };
 
   return new Response(JSON.stringify(manifest), apiJson);
