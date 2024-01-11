@@ -6,7 +6,6 @@ export async function GET(context: APIContext) {
   const blogCollection = new BlogCollection();
   await blogCollection.getCollection();
   const posts = blogCollection.getPosts();
-  console.log(posts);
 
   return rss({
     title: "EloToJa's Blog",
@@ -15,6 +14,7 @@ export async function GET(context: APIContext) {
     site: context.site ?? "",
     items: posts.map(post => ({
       title: post.data.title,
+      author: post.data.author.slug,
       description: post.data.description,
       link: `/blog/${post.slug}`,
       pubDate: post.data.pubDatetime,
