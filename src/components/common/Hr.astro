@@ -8,6 +8,6 @@ export interface Props {
 const { noPadding = false, ariaHidden = true } = Astro.props;
 ---
 
-<div class={cn("mx-auto", noPadding ? "px-0" : "px-4")}>
+<div class={cn("mx-auto", noPadding ? "-mx-3" : "mx-0")}>
   <hr class="border-secondary border-2" aria-hidden={ariaHidden} />
 </div>
