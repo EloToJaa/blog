@@ -16,23 +16,23 @@ export async function GET() {
         sizes: "32x32",
       },
       {
-        src: "/images/icon-512.svg",
+        src: "/icons/icon-512.svg",
         type: "image/svg+xml",
         sizes: "512x512",
       },
       {
-        src: "/images/icon-192.png",
+        src: "/icons/icon-192.png",
         type: "image/png",
         sizes: "192x192",
         purpose: "any",
       },
       {
-        src: "/images/icon-512.png",
+        src: "/icons/icon-512.png",
         type: "image/png",
         sizes: "512x512",
       },
       {
-        src: "/images/maskable_icon.png",
+        src: "/icons/maskable_icon.png",
         type: "image/png",
         sizes: "192x192",
         purpose: "maskable",
