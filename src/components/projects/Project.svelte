@@ -12,11 +12,11 @@
 <div class="mt-4">
   <h2>{repository.nameWithOwner}</h2>
 
-  <div class="flex flex-row">
+  <div class="flex flex-row flex-wrap">
     {#each topics as topic (topic.id)}
       <Topic {topic} />
     {/each}
   </div>
 
-  <p class="text-justify mt-2">{repository.description ?? ""}</p>
+  <p class="mt-2">{repository.description ?? ""}</p>
 </div>

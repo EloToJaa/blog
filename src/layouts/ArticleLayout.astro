@@ -17,7 +17,7 @@ const { post, headings } = Astro.props;
 <MainLayout title={post.data.title}>
   <div class="flex justify-around mt-3">
     <article
-      class="prose lg:prose-xl prose-h1:mb-4 prose-h2:mt-4 prose-h2:mb-2 dark:prose-invert text-justify grow"
+      class="prose lg:prose-xl prose-h1:mb-4 prose-h2:mt-4 prose-h2:mb-2 dark:prose-invert grow"
     >
       <h1>{post.data.title}</h1>
       <Datetime datetime={post.data.pubDatetime} size="lg">

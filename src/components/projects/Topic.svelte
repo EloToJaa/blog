@@ -6,7 +6,7 @@
 
 <a
   role="button"
-  class="btn btn-sm btn-outline btn-primary mr-2"
+  class="btn btn-sm btn-outline btn-primary mb-2 mr-2"
   href={topic.url}
 >
   {topic.topic.name}

@@ -20,5 +20,5 @@
   <Datetime datetime={pubDatetime}>
     <slot />
   </Datetime>
-  <p class="text-justify">{description}</p>
+  <p>{description}</p>
 </li>
