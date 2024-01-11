@@ -20,7 +20,7 @@ export default defineConfig({
     plugins: [
       Icons({
         compiler: "astro",
-        defaultStyle: "font-size: 1.5em",
+        defaultStyle: "font-size: 2em",
         defaultClass: "hover:text-accent",
       }),
     ],

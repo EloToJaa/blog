@@ -1,6 +1,6 @@
 ---
 import RssIcon from "~icons/mdi/rss-box";
-import NewTabA from "./NewTabA.astro";
+import NewTabIcon from "./NewTabIcon.astro";
 
 export type Props = {
   name: string;
@@ -12,8 +12,8 @@ const { name } = Astro.props;
 <div class="flex">
   <h1>{name}</h1>
   <div class="my-auto ml-2">
-    <NewTabA href="/rss.xml">
+    <NewTabIcon href="/rss.xml" description="Click to show RSS feed">
       <RssIcon />
-    </NewTabA>
+    </NewTabIcon>
   </div>
 </div>
