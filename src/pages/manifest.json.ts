@@ -32,7 +32,7 @@ export async function GET() {
         sizes: "512x512",
       },
       {
-        src: "/images/icon-512.png",
+        src: "/images/maskable_icon.png",
         type: "image/png",
         sizes: "192x192",
         purpose: "maskable",
