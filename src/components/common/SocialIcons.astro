@@ -1,0 +1,30 @@
+---
+import DiscordIcon from "~icons/mdi/discord";
+import GithubIcon from "~icons/mdi/github";
+import LinkedinIcon from "~icons/mdi/linkedin";
+import RedditIcon from "~icons/mdi/reddit";
+import TwitterIcon from "~icons/mdi/twitter-circle";
+import HackTheBoxIcon from "~icons/simple-icons/hackthebox";
+import NewTabA from "./NewTabA.astro";
+---
+
+<div class="my-auto flex">
+  <NewTabA href="/github">
+    <GithubIcon />
+  </NewTabA>
+  <NewTabA href="/twitter">
+    <TwitterIcon />
+  </NewTabA>
+  <NewTabA href="/reddit">
+    <RedditIcon />
+  </NewTabA>
+  <NewTabA href="/discord">
+    <DiscordIcon />
+  </NewTabA>
+  <NewTabA href="/linkedin">
+    <LinkedinIcon />
+  </NewTabA>
+  <NewTabA href="/hackthebox">
+    <HackTheBoxIcon />
+  </NewTabA>
+</div>
