@@ -18,5 +18,5 @@
     {/each}
   </div>
 
-  <p class="mt-2">{repository.description ?? ""}</p>
+  <p>{repository.description ?? ""}</p>
 </div>
