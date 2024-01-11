@@ -1,8 +1,8 @@
 ---
-export interface Props {
+export type Props = {
   pages: number[];
   currentPage: number;
-}
+};
 
 const { pages, currentPage } = Astro.props;
 const firstPage = pages[0];

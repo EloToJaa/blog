@@ -1,9 +1,9 @@
 ---
 import type { MarkdownHeading } from "astro";
 import Heading from "./Heading.astro";
-export interface Props {
+export type Props = {
   headings: MarkdownHeading[];
-}
+};
 
 const { headings } = Astro.props;
 ---

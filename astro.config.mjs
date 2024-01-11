@@ -35,19 +35,10 @@ export default defineConfig({
       themeCssSelector: theme => `[data-theme='${theme.type}']`,
     }),
     mdx(),
-    sitemap({
-      customPages: [
-        "https://elotoja.com/github",
-        "https://elotoja.com/linkedin",
-      ],
-    }),
+    sitemap(),
     astroFontPicker(),
   ],
   markdown: {
     remarkPlugins: [removeH1],
-  },
-  redirects: {
-    "/github": "https://github.com/elotojaa",
-    "/linkedin": "https://www.linkedin.com/in/elotoja/",
   },
 });

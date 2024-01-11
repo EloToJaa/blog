@@ -2,9 +2,9 @@
 import Header from "../components/navbar/Header.astro";
 import MainHead from "./MainHead.astro";
 
-export interface Props {
+export type Props = {
   title: string;
-}
+};
 
 const { title } = Astro.props;
 ---

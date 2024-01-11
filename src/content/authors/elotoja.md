@@ -1,5 +1,11 @@
 ---
 name: Łukasz Budziak
+github: https://github.com/elotojaa
+twitter: https://twitter.com/elotoja_
+reddit: https://www.reddit.com/user/EloToJa_
+discord: https://discordapp.com/users/308939544407834625
+linkedin: https://www.linkedin.com/in/elotoja/
+hackthebox: https://app.hackthebox.com/users/690879
 ---
 
 I am an experienced software engineer. I like to explore different
