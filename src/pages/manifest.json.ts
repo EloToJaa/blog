@@ -24,11 +24,18 @@ export async function GET() {
         src: "/images/icon-192.png",
         type: "image/png",
         sizes: "192x192",
+        purpose: "any",
       },
       {
         src: "/images/icon-512.png",
         type: "image/png",
         sizes: "512x512",
+      },
+      {
+        src: "/images/icon-512.png",
+        type: "image/png",
+        sizes: "192x192",
+        purpose: "maskable",
       },
     ],
   };
