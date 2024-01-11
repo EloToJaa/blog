@@ -16,12 +16,12 @@ export async function GET() {
         sizes: "32x32",
       },
       {
-        src: "/icon-192.png",
+        src: "/icon-192.svg",
         type: "image/svg+xml",
         sizes: "192x192",
       },
       {
-        src: "/icon-512.png",
+        src: "/icon-512.svg",
         type: "image/svg+xml",
         sizes: "512x512",
       },
