@@ -16,13 +16,18 @@ export async function GET() {
         sizes: "32x32",
       },
       {
-        src: "/icon-192.svg",
+        src: "/images/icon-512.svg",
         type: "image/svg+xml",
+        sizes: "512x512",
+      },
+      {
+        src: "/images/icon-192.svg",
+        type: "image/png",
         sizes: "192x192",
       },
       {
-        src: "/icon-512.svg",
-        type: "image/svg+xml",
+        src: "/images/icon-512.svg",
+        type: "image/png",
         sizes: "512x512",
       },
     ],
