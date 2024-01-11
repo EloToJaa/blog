@@ -1,0 +1,18 @@
+---
+export type Props = {
+  href: string;
+  description: string;
+};
+
+const { href, description } = Astro.props;
+---
+
+<a
+  role="button"
+  target="_blank"
+  rel="noopener noreferrer"
+  href={href}
+  aria-label={description}
+>
+  <slot />
+</a>

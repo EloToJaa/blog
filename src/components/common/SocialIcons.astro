@@ -1,30 +1,61 @@
 ---
+import type { AuthorFrontmatter } from "@schema/author";
 import DiscordIcon from "~icons/mdi/discord";
 import GithubIcon from "~icons/mdi/github";
 import LinkedinIcon from "~icons/mdi/linkedin";
 import RedditIcon from "~icons/mdi/reddit";
 import TwitterIcon from "~icons/mdi/twitter-circle";
 import HackTheBoxIcon from "~icons/simple-icons/hackthebox";
-import NewTabA from "./NewTabA.astro";
+import NewTabIcon from "./NewTabIcon.astro";
+
+export type Props = {
+  author: AuthorFrontmatter;
+};
+
+const { author } = Astro.props;
 ---
 
-<div class="my-auto flex">
-  <NewTabA href="/github">
-    <GithubIcon />
-  </NewTabA>
-  <NewTabA href="/twitter">
-    <TwitterIcon />
-  </NewTabA>
-  <NewTabA href="/reddit">
-    <RedditIcon />
-  </NewTabA>
-  <NewTabA href="/discord">
-    <DiscordIcon />
-  </NewTabA>
-  <NewTabA href="/linkedin">
-    <LinkedinIcon />
-  </NewTabA>
-  <NewTabA href="/hackthebox">
-    <HackTheBoxIcon />
-  </NewTabA>
+<div class="my-auto flex flex-wrap">
+  {
+    author.github && (
+      <NewTabIcon href={author.github} description="Go to github">
+        <GithubIcon />
+      </NewTabIcon>
+    )
+  }
+  {
+    author.twitter && (
+      <NewTabIcon href={author.twitter} description="Go to twitter">
+        <TwitterIcon />
+      </NewTabIcon>
+    )
+  }
+  {
+    author.reddit && (
+      <NewTabIcon href={author.reddit} description="Go to reddit">
+        <RedditIcon />
+      </NewTabIcon>
+    )
+  }
+  {
+    author.discord && (
+      <NewTabIcon href={author.discord} description="Go to discord">
+        <DiscordIcon />
+      </NewTabIcon>
+    )
+  }
+  {
+    author.linkedin && (
+      <NewTabIcon href={author.linkedin} description="Go to Linkedin">
+        <LinkedinIcon />
+      </NewTabIcon>
+    )
+  }
+  {
+    author.hackthebox && (
+      <NewTabIcon href={author.hackthebox} description="Go to HackTheBox">
+        <HackTheBoxIcon />
+      </NewTabIcon>
+    )
+  }
 </div>

@@ -3,9 +3,9 @@ import ArticleLayout from "@layouts/ArticleLayout.astro";
 import BlogCollection from "@utils/blog";
 import { type CollectionEntry } from "astro:content";
 
-export interface Props {
+export type Props = {
   post: CollectionEntry<"blog">;
-}
+};
 
 export async function getStaticPaths() {
   const blogCollection = new BlogCollection();

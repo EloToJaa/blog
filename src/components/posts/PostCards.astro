@@ -3,11 +3,11 @@ import type { CollectionEntry } from "astro:content";
 import Calendar from "~icons/material-symbols/calendar-month-outline-rounded";
 import Card from "./Card.svelte";
 
-export interface Props {
+export type Props = {
   posts: CollectionEntry<"blog">[];
   sectionName: string;
   header: string;
-}
+};
 
 const { posts, sectionName, header } = Astro.props;
 ---

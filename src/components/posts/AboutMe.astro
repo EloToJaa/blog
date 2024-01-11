@@ -1,18 +1,16 @@
 ---
 import NameHeader from "@components/common/NameHeader.astro";
 import SocialIcons from "@components/common/SocialIcons.astro";
+import { getEntry } from "astro:content";
+
+const author = await getEntry("authors", "elotoja");
+const { Content } = await author.render();
 ---
 
 <section id="about-me" class="mb-8">
   <div class="flex justify-between">
-    <NameHeader />
-    <SocialIcons />
+    <NameHeader name={author.data.name} />
+    <SocialIcons author={author.data} />
   </div>
-  <p>
-    I am an experienced software engineer. I like to explore different
-    technologies and try out different tools. I am familiar with many
-    programming languages. I like to participate in CTF competitions with my
-    team StormChasers as well as in competetive programming competitions. I also
-    love teaching other people programming and cybersecurity.
-  </p>
+  <Content />
 </section>
