@@ -1,10 +1,16 @@
 ---
 import RssIcon from "~icons/mdi/rss-box";
 import NewTabA from "./NewTabA.astro";
+
+export interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
 ---
 
 <div class="flex">
-  <h1>Łukasz Budziak</h1>
+  <h1>{name}</h1>
   <div class="my-auto ml-2">
     <NewTabA href="/rss.xml">
       <RssIcon />
