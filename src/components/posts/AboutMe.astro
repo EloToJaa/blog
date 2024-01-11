@@ -8,9 +8,9 @@ const { Content } = await author.render();
 ---
 
 <section id="about-me" class="mb-8">
-  <div class="flex justify-between">
-    <NameHeader name={author.data.name} />
+  <NameHeader name={author.data.name} />
+  <Content />
+  <div class="mt-3">
     <SocialIcons author={author.data} />
   </div>
-  <Content />
 </section>
