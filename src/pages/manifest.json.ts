@@ -11,17 +11,17 @@ export async function GET() {
     display: "standalone",
     icons: [
       {
-        src: "/images/favicon.svg",
+        src: "/favicon.svg",
         type: "image/svg+xml",
         sizes: "32x32",
       },
       {
-        src: "/images/icon-192.png",
+        src: "/icon-192.png",
         type: "image/svg+xml",
         sizes: "192x192",
       },
       {
-        src: "/images/icon-512.png",
+        src: "/icon-512.png",
         type: "image/svg+xml",
         sizes: "512x512",
       },
