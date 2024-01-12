@@ -8,8 +8,6 @@
   let after: string | null = null;
   let hasNextPage: boolean = true;
 
-  $: console.log(repositories);
-
   const loadMoreRepositories = async () => {
     if (!hasNextPage) return;
 

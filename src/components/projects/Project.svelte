@@ -1,22 +1,21 @@
 <script lang="ts">
-  import type { Repository, RepositoryTopic } from "@octokit/graphql-schema";
-  import Topic from "./Topic.svelte";
+  import type { Repository } from "@octokit/graphql-schema";
+  import OpenOnGithub from "./OpenOnGithub.svelte";
+  import Topics from "./Topics.svelte";
 
   export let repository: Repository;
-
-  let topics: RepositoryTopic[] = (repository.repositoryTopics.nodes ?? [])
-    .filter(t => !!t)
-    .map(t => t as RepositoryTopic);
 </script>
 
 <div class="mt-4">
-  <h2>{repository.nameWithOwner}</h2>
-
-  <div class="flex flex-row flex-wrap">
-    {#each topics as topic (topic.id)}
-      <Topic {topic} />
-    {/each}
+  <div class="flex">
+    <OpenOnGithub url={repository.url} />
+    <h2>
+      <a href={`/projects/${repository.nameWithOwner.toLowerCase()}`}
+        >{repository.nameWithOwner}</a
+      >
+    </h2>
   </div>
 
+  <Topics topics={repository.repositoryTopics} />
   <p>{repository.description ?? ""}</p>
 </div>
