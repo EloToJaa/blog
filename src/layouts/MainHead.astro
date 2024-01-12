@@ -12,11 +12,6 @@ const { title } = Astro.props;
 ---
 
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width" />
-<link rel="sitemap" href="/sitemap-index.xml" />
-<link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#000000" />
-<meta name="generator" content={Astro.generator} />
 <SEO
   title={SITE_INFO.name}
   description={SITE_INFO.description}
@@ -24,8 +19,35 @@ const { title } = Astro.props;
     creator: "@elotoja_",
   }}
   extend={{
-    link: [{ rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
-    meta: [],
+    link: [
+      {
+        rel: "icon",
+        href: "/favicon.svg",
+        type: "image/svg+xml",
+      },
+      {
+        rel: "sitemap",
+        href: "/sitemap-index.xml",
+      },
+      {
+        rel: "manifest",
+        href: "/manifest.json",
+      },
+    ],
+    meta: [
+      {
+        name: "viewport",
+        content: "width=device-width",
+      },
+      {
+        name: "theme-color",
+        content: "#000000",
+      },
+      {
+        name: "generator",
+        content: Astro.generator,
+      },
+    ],
   }}
 />
 <title>{title}</title>
