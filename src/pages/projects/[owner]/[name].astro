@@ -7,9 +7,6 @@ import GithubIcon from "~icons/mdi/github";
 
 export const prerender = false;
 
-export interface Params {
-  name: string;
-}
 const { owner, name } = Astro.params;
 
 const api = new GithubApi();
