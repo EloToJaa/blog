@@ -1,4 +1,5 @@
 ---
+import { SITE_INFO } from "@config";
 import "@fontsource-variable/fira-code";
 import { SEO } from "astro-seo";
 import "../base.css";
@@ -17,8 +18,8 @@ const { title } = Astro.props;
 <meta name="theme-color" content="#000000" />
 <meta name="generator" content={Astro.generator} />
 <SEO
-  title="EloToJa"
-  description="A heavily optimized blog made with astro"
+  title={SITE_INFO.name}
+  description={SITE_INFO.description}
   twitter={{
     creator: "@elotoja_",
   }}
