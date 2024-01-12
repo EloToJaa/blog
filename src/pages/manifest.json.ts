@@ -1,10 +1,11 @@
+import { SITE_INFO } from "@config";
 import { apiJson } from "@utils/api";
 
 export async function GET() {
   const manifest = {
-    short_name: "EloToJa",
-    name: "EloToJa's Blog",
-    description: "A blog about web development and other stuff",
+    short_name: SITE_INFO.short_name,
+    name: SITE_INFO.name,
+    description: SITE_INFO.description,
     start_url: "/",
     background_color: "#ffffff",
     theme_color: "#000000",

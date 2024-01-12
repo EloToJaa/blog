@@ -1,4 +1,5 @@
 import rss, { type RSSFeedItem } from "@astrojs/rss";
+import { SITE_INFO } from "@config";
 import BlogCollection from "@utils/blog";
 import type { APIContext } from "astro";
 
@@ -8,8 +9,8 @@ export async function GET(context: APIContext) {
   const posts = blogCollection.getPosts();
 
   return rss({
-    title: "EloToJa's Blog",
-    description: "A blog about web development and other stuff",
+    title: SITE_INFO.name,
+    description: SITE_INFO.description,
     // https://docs.astro.build/en/reference/api-reference/#contextsite
     site: context.site ?? "",
     items: posts.map(post => ({
