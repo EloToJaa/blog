@@ -14,6 +14,7 @@ const { owner, name } = Astro.params;
 
 const api = new GithubApi();
 const repository = await api.getRepositoryInformation(owner ?? "", name ?? "");
+console.log(owner, name);
 if (!repository || repository.visibility !== "PUBLIC") {
   return Astro.redirect("/status/404");
 }
