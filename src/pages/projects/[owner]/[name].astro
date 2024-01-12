@@ -1,0 +1,39 @@
+---
+import NewTabIcon from "@components/common/NewTabIcon.astro";
+import Topics from "@components/projects/Topics.svelte";
+import MainLayout from "@layouts/MainLayout.astro";
+import GithubApi from "@utils/githubApi";
+import GithubIcon from "~icons/mdi/github";
+
+export const prerender = false;
+
+const { owner, name } = Astro.params;
+
+const api = new GithubApi();
+const repository = await api.getRepositoryInformation(owner ?? "", name ?? "");
+console.log(owner, name);
+if (!repository || repository.visibility !== "PUBLIC") {
+  return Astro.redirect("/status/404");
+}
+---
+
+<MainLayout title="About">
+  <div class="flex">
+    <div class="my-auto">
+      {
+        repository.url && (
+          <NewTabIcon
+            href={repository.url}
+            description="Open project on Github"
+          >
+            <GithubIcon />
+          </NewTabIcon>
+        )
+      }
+    </div>
+    <h1>{repository.nameWithOwner}</h1>
+  </div>
+
+  <Topics topics={repository.repositoryTopics} />
+  <p>{repository.description ?? ""}</p>
+</MainLayout>
