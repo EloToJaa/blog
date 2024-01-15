@@ -7,8 +7,6 @@
   let searchQuery = "";
   $: results = [] as PostSearch[];
 
-  let searchInputElement: HTMLInputElement;
-
   const handleInputChange = async (event: Event) => {
     const target = event.target as HTMLInputElement;
     searchQuery = target.value;
@@ -35,8 +33,6 @@
   };
 
   onMount(async () => {
-    searchInputElement.focus();
-
     const urlParams = new URLSearchParams(window.location.search);
     searchQuery = urlParams.get("q") || "";
 
@@ -46,7 +42,6 @@
 
 <input
   type="text"
-  bind:this={searchInputElement}
   bind:value={searchQuery}
   on:input={handleInputChange}
   placeholder="Search..."

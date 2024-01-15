@@ -1,5 +1,6 @@
 ---
 import Hr from "@components/common/Hr.astro";
+import ReadMore from "@components/common/ReadMore.astro";
 import AboutMe from "@components/posts/AboutMe.astro";
 import PostCards from "@components/posts/PostCards.astro";
 import BlogCollection from "@utils/blog";
@@ -18,5 +19,7 @@ const recentPosts = blogCollection.getRecentPosts(3);
   <PostCards posts={featuredPosts} sectionName="featured" header="Featured" />
   <Hr noPadding />
 
-  <PostCards posts={recentPosts} sectionName="recent" header="Recent" />
+  <PostCards posts={recentPosts} sectionName="recent" header="Recent">
+    <ReadMore href="/posts">All posts</ReadMore>
+  </PostCards>
 </MainLayout>
