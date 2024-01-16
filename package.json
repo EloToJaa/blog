@@ -35,7 +35,7 @@
     "@divriots/jampack": "^0.23.2",
     "@iconify/json": "^2.2.168",
     "@octokit/graphql": "^7.0.2",
-    "@octokit/graphql-schema": "^14.47.0",
+    "@octokit/graphql-schema": "^14.47.1",
     "@sveltejs/vite-plugin-svelte": "^3.0.1",
     "@tailwindcss/typography": "^0.5.10",
     "astro-font-picker": "^0.2.1",
