@@ -47,3 +47,28 @@
 {#each repositories as repository (repository.nameWithOwner)}
   <Project {repository} />
 {/each}
+
+<div class="mt-4"></div>
+
+{#if hasNextPage}
+  <button
+    class="btn btn-circle btn-primary sticky bottom-4 left-1/2"
+    on:click={loadMoreRepositories}
+    aria-label="Load more projects"
+    ><svg
+      class="hover:"
+      style="font-size: 2em"
+      viewBox="0 0 24 24"
+      width="1.2em"
+      height="1.2em"
+      data-astro-source-file="~icons/material-symbols/fitbit-arrow-downward.astro"
+      data-astro-source-loc="5:117"
+      ><path
+        fill="currentColor"
+        d="m12 18l-6-6l1.4-1.4l3.6 3.575V6h2v8.175l3.6-3.575L18 12l-6 6Z"
+        data-astro-source-file="~icons/material-symbols/fitbit-arrow-downward.astro"
+        data-astro-source-loc="5:117"
+      ></path></svg
+    ></button
+  >
+{/if}
