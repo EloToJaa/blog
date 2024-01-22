@@ -3,6 +3,7 @@ import Datetime from "@components/datetime/Datetime.svelte";
 // import TableOfContents from "@components/posts/TableOfContents.astro";
 import "@styles/asides.css";
 import "@styles/props.css";
+import { generateToC } from "@utils/generateToC";
 import type { MarkdownHeading } from "astro";
 import type { CollectionEntry } from "astro:content";
 import Calendar from "~icons/material-symbols/calendar-month-outline-rounded";
@@ -14,6 +15,13 @@ export type Props = {
 };
 
 const { post, headings } = Astro.props;
+console.log(headings);
+console.log(
+  generateToC(headings, {
+    minHeadingLevel: 1,
+    maxHeadingLevel: 5,
+  })
+);
 ---
 
 <MainLayout title={post.data.title}>
