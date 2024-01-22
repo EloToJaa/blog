@@ -9,7 +9,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 const blogCollection = new BlogCollection();
 await blogCollection.getCollection();
 const featuredPosts = blogCollection.getFeaturedPosts();
-const recentPosts = blogCollection.getRecentPosts(3);
+const recentPosts = blogCollection.getRecentPosts(4);
 ---
 
 <MainLayout title="Home">

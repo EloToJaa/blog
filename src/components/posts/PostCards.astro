@@ -14,7 +14,7 @@ const { posts, sectionName, header } = Astro.props;
 
 <section id={sectionName} class="my-8">
   <h2>{header}</h2>
-  <ul>
+  <ul class="grid grid-cols-2">
     {
       posts.map(post => {
         return (
