@@ -13,27 +13,24 @@ export type Props = {
   post: CollectionEntry<"blog">;
 };
 
-const { post, headings } = Astro.props;
-// console.log(headings);
-// console.log(
-//   generateToC(headings, {
-//     minHeadingLevel: 1,
-//     maxHeadingLevel: 5,
-//   })
-// );
+const { post } = Astro.props;
 ---
 
 <MainLayout title={post.data.title}>
-  <div class="flex justify-around mt-3">
+  <div class="flex justify-between mt-3">
     <article
-      class="prose lg:prose-xl prose-h1:mb-4 prose-h2:mt-4 prose-h2:mb-2 dark:prose-invert grow"
+      class="prose lg:prose-xl prose-h1:mb-4 prose-h2:mt-4 prose-h2:mb-2 dark:prose-invert"
     >
       <h1>{post.data.title}</h1>
       <Datetime datetime={post.data.pubDatetime} size="lg">
-        <Calendar style="font-size: 1em" />
+        <Calendar style="font-size: 1em" class="hover:" />
       </Datetime>
       <slot />
     </article>
-    <Toc client:load />
+    <div class="min-w-44 md:block hidden">
+      <Toc breakpoint={768} client:load>
+        <h2 class="text-lg" slot="title">On this page</h2>
+      </Toc>
+    </div>
   </div>
 </MainLayout>
