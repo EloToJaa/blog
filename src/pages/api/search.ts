@@ -24,13 +24,14 @@ const fuse = new Fuse(blogCollection.getPosts(), {
 export const GET: APIRoute = async ({ url }) => {
   var data = Object.fromEntries(url.searchParams.entries());
   const result = postSearchSchema.safeParse(data);
+  console.log(result);
   if (!result.success) {
     return new Response(
       JSON.stringify({ error: result.error.issues }),
       apiJson
     );
   }
-  const { q: searchPhrase, limit } = result.data;
+  const { q: searchPhrase, limit, tags } = result.data;
 
   const results = fuse
     .search(searchPhrase, {
@@ -41,5 +42,12 @@ export const GET: APIRoute = async ({ url }) => {
       href: `/blog/${result.item.slug}`,
     }));
 
-  return new Response(JSON.stringify({ results }), apiJson);
+  if (tags.length === 0)
+    return new Response(JSON.stringify({ results }), apiJson);
+
+  const filteredResults = results.filter(result => {
+    return tags.some(tag => result.frontmatter.tags.includes(tag));
+  });
+
+  return new Response(JSON.stringify({ results: filteredResults }), apiJson);
 };
