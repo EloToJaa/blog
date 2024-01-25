@@ -1,5 +1,6 @@
 <script lang="ts">
   export let datetime: string | Date;
+  export let showTime: boolean = true;
 
   const myDatetime = new Date(datetime);
 
@@ -17,6 +18,8 @@
 </script>
 
 {date}
-<span aria-hidden="true">|</span>
-<span class="sr-only">&nbsp;at&nbsp;</span>
-{time}
+{#if showTime}
+  <span aria-hidden="true">|</span>
+  <span class="sr-only">&nbsp;at&nbsp;</span>
+  {time}
+{/if}
