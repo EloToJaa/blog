@@ -7,6 +7,7 @@ import expressiveCode from "astro-expressive-code";
 import astroFontPicker from "astro-font-picker";
 import { defineConfig } from "astro/config";
 import Icons from "unplugin-icons/vite";
+import { starlightAsides } from "/src/plugins/asides.ts";
 import removeH1 from "/src/plugins/removeH1.ts";
 
 // https://astro.build/config
@@ -39,6 +40,6 @@ export default defineConfig({
     astroFontPicker(),
   ],
   markdown: {
-    remarkPlugins: [removeH1],
+    remarkPlugins: [removeH1, ...starlightAsides()],
   },
 });
