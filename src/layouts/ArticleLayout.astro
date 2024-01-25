@@ -1,10 +1,10 @@
 ---
 import Datetime from "@components/datetime/Datetime.svelte";
+import TableOfContents from "@components/posts/TableOfContents.svelte";
 import "@styles/asides.css";
 import "@styles/props.css";
 import type { MarkdownHeading } from "astro";
 import type { CollectionEntry } from "astro:content";
-import Toc from "svelte-toc";
 import Calendar from "~icons/material-symbols/calendar-month-outline-rounded";
 import MainLayout from "./MainLayout.astro";
 
@@ -27,10 +27,12 @@ const { post } = Astro.props;
       </Datetime>
       <slot />
     </article>
-    <div class="min-w-44 md:block hidden">
-      <Toc breakpoint={768} client:load>
-        <h2 class="text-lg" slot="title">On this page</h2>
-      </Toc>
-    </div>
+    <TableOfContents client:load />
   </div>
 </MainLayout>
+
+<!-- <style>
+  aside .toc .mobile > nav {
+    background: black !important;
+  }
+</style> -->
