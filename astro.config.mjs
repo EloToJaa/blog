@@ -4,7 +4,6 @@ import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
 import expressiveCode from "astro-expressive-code";
-import astroFontPicker from "astro-font-picker";
 import { defineConfig } from "astro/config";
 import Icons from "unplugin-icons/vite";
 import { starlightAsides } from "/src/plugins/asides.ts";
@@ -37,7 +36,6 @@ export default defineConfig({
     }),
     mdx(),
     sitemap(),
-    astroFontPicker(),
   ],
   markdown: {
     remarkPlugins: [removeH1, ...starlightAsides()],
