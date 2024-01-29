@@ -30,7 +30,7 @@
     "svelte": "^4.2.9"
   },
   "devDependencies": {
-    "@astrojs/node": "^8.0.0",
+    "@astrojs/node": "^8.1.0",
     "@astrojs/tailwind": "^5.1.0",
     "@divriots/jampack": "^0.23.2",
     "@iconify/json": "^2.2.174",
