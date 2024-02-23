@@ -29,4 +29,17 @@ export const postSearchSchema = z.object({
       message: "limit must be between 1 and 50",
     })
     .default("5"),
+  tags: z
+    .string()
+    .transform((s): string[] => {
+      try {
+        return JSON.parse(s);
+      } catch (e) {
+        return [];
+      }
+    })
+    .refine(a => Array.isArray(a), {
+      message: "tags must be an array",
+    })
+    .default("[]"),
 });

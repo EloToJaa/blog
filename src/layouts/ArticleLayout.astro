@@ -1,6 +1,5 @@
 ---
 import Datetime from "@components/datetime/Datetime.svelte";
-import TableOfContents from "@components/posts/TableOfContents.svelte";
 import "@styles/asides.css";
 import "@styles/props.css";
 import type { MarkdownHeading } from "astro";
@@ -19,14 +18,21 @@ const { post } = Astro.props;
 <MainLayout title={post.data.title}>
   <div class="flex justify-between mt-3">
     <article
-      class="prose lg:prose-xl prose-h1:mb-4 prose-h2:mt-4 prose-h2:mb-2 dark:prose-invert"
+      class="prose lg:prose-xl prose-h1:mb-4 prose-h2:mt-4 prose-h2:mb-2 dark:prose-invert max-w-none"
     >
       <h1>{post.data.title}</h1>
-      <Datetime datetime={post.data.pubDatetime} size="lg">
+
+      <Datetime datetime={post.data.pubDatetime} size="lg" showTime={false}>
         <Calendar style="font-size: 1em" class="hover:" />
       </Datetime>
+      <a
+        role="button"
+        class="btn btn-sm btn-outline btn-primary mb-2 mr-2"
+        href={post.data.tags[0]}
+      >
+        {post.data.tags[0]}
+      </a>
       <slot />
     </article>
-    <TableOfContents client:load />
   </div>
 </MainLayout>
