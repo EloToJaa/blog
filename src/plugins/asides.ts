@@ -7,15 +7,6 @@ import remarkDirective from "remark-directive";
 import type { Plugin, Transformer } from "unified";
 import { remove } from "unist-util-remove";
 import { visit } from "unist-util-visit";
-// import type { StarlightConfig } from "../types";
-// import type { createTranslationSystemFromFs } from "../utils/translations-fs";
-// import { pathToLocale } from "./shared/pathToLocale";
-
-// interface AsidesOptions {
-//   starlightConfig: { locales: StarlightConfig["locales"] };
-//   astroConfig: { root: AstroConfig["root"]; srcDir: AstroConfig["srcDir"] };
-//   useTranslations: ReturnType<typeof createTranslationSystemFromFs>;
-// }
 
 /** Hacky function that generates an mdast HTML tree ready for conversion to HTML by rehype. */
 function h(el: string, attrs: Properties = {}, children: any[] = []): P {
