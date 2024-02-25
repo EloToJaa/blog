@@ -1,0 +1,14 @@
+---
+import type { TocItem } from "@utils/generateToC";
+import TocElement from "./TocElement.astro";
+
+export type Props = {
+  items: TocItem[];
+};
+
+const { items } = Astro.props;
+---
+
+<ul>
+  {items.map(item => <TocElement item={item} />)}
+</ul>

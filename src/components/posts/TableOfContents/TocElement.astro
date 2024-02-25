@@ -1,0 +1,19 @@
+---
+import type { TocItem } from "@utils/generateToC";
+import TocList from "./TocList.astro";
+
+export type Props = {
+  item: TocItem;
+};
+
+const { item } = Astro.props;
+---
+
+<li>
+  <a href={`#${item.slug}`}>{item.text}</a>
+  {
+    item.children && item.children.length > 0 && (
+      <TocList items={item.children} />
+    )
+  }
+</li>

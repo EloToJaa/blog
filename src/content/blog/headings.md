@@ -4,7 +4,7 @@ pubDatetime: 2019-02-01T00:02:00.000Z
 title: "Testing headings"
 featured: true
 draft: false
-tags: ["others"]
+tags: ["others", "others-2", "others-3"]
 description: "This is a post to test headings"
 ---
 

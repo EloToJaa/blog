@@ -1,0 +1,15 @@
+---
+export type Props = {
+  tags: string[];
+};
+
+const { tags } = Astro.props;
+---
+
+{
+  tags.map(tag => (
+    <span class="text-secondary hover:underline decoration-dashed mr-2">
+      {`#${tag}`}
+    </span>
+  ))
+}

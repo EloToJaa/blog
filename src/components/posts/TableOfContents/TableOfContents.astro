@@ -1,0 +1,53 @@
+---
+import { generateToC } from "@utils/generateToC";
+import type { MarkdownHeading } from "astro";
+import TocList from "./TocList.astro";
+import { slugify } from "@utils/slugify";
+import DropDown from "~icons/material-symbols/arrow-circle-down-outline-rounded";
+
+export type Props = {
+  title: string;
+  headings: MarkdownHeading[];
+  minHeadingLevel: number;
+  maxHeadingLevel: number;
+};
+
+const { title, headings, minHeadingLevel, maxHeadingLevel } = Astro.props;
+
+headings.unshift({
+  depth: 1,
+  slug: slugify(title),
+  text: title,
+});
+const items = generateToC(headings, { minHeadingLevel, maxHeadingLevel });
+---
+
+<nav class="" aria-label="Table Of Contents">
+  <div class="flex">
+    <button
+      id="toc-toggle"
+      aria-live="polite"
+      aria-label="Table Of Contents toggle"
+    >
+      <DropDown />
+    </button>
+    <h2>Table of Contents</h2>
+  </div>
+  <div class="toc-items">
+    <TocList items={items} />
+  </div>
+</nav>
+
+<script>
+  const tocToggle = document.getElementById("toc-toggle");
+  const tocItems = document.getElementById("toc-items");
+
+  console.log(tocToggle, tocItems);
+
+  tocToggle?.addEventListener("click", () => {
+    console.log("click");
+    if (tocItems === null) return;
+
+    // TODO: hide list
+  });
+</script>
