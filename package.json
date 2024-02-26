@@ -35,7 +35,7 @@
     "@divriots/jampack": "^0.23.3",
     "@iconify/json": "^2.2.186",
     "@octokit/graphql": "^7.0.2",
-    "@octokit/graphql-schema": "^14.56.0",
+    "@octokit/graphql-schema": "^14.57.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.17",
