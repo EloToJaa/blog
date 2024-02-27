@@ -9,6 +9,6 @@ export type Props = {
 const { items } = Astro.props;
 ---
 
-<ul>
+<ul class="list-none">
   {items.map(item => <TocElement item={item} />)}
 </ul>

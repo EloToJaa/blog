@@ -3,7 +3,8 @@ import { generateToC } from "@utils/generateToC";
 import type { MarkdownHeading } from "astro";
 import TocList from "./TocList.astro";
 import { slugify } from "@utils/slugify";
-import DropDown from "~icons/material-symbols/arrow-circle-down-outline-rounded";
+import DropDownActive from "~icons/material-symbols/arrow-circle-down-outline-rounded";
+import DropDownInactive from "~icons/material-symbols/arrow-circle-right-outline-rounded";
 
 export type Props = {
   title: string;
@@ -22,16 +23,22 @@ headings.unshift({
 const items = generateToC(headings, { minHeadingLevel, maxHeadingLevel });
 ---
 
-<nav class="" aria-label="Table Of Contents">
+<nav class="my-2" aria-label="Table Of Contents">
   <div class="flex">
     <button
       id="toc-toggle"
       aria-live="polite"
       aria-label="Table Of Contents toggle"
+      class="swap swap-rotate"
     >
-      <DropDown />
+      <div class="swap-on">
+        <DropDownActive />
+      </div>
+      <div class="swap-off">
+        <DropDownInactive />
+      </div>
     </button>
-    <h2>Table of Contents</h2>
+    <span class="ml-1 my-auto text-2xl font-bold">Table of Contents</span>
   </div>
   <div id="toc-items" class="hidden">
     <TocList items={items} />
@@ -42,12 +49,11 @@ const items = generateToC(headings, { minHeadingLevel, maxHeadingLevel });
   const tocToggle = document.getElementById("toc-toggle");
   const tocItems = document.getElementById("toc-items");
 
-  console.log(tocToggle, tocItems);
-
   tocToggle?.addEventListener("click", () => {
     console.log("click");
     if (tocItems === null) return;
 
     tocItems.classList.toggle("hidden");
+    tocToggle.classList.toggle("swap-active");
   });
 </script>

@@ -32,8 +32,8 @@ const { post, headings } = Astro.props;
       <TableOfContents
         title={post.data.title}
         headings={headings}
-        minHeadingLevel={1}
-        maxHeadingLevel={6}
+        minHeadingLevel={2}
+        maxHeadingLevel={4}
       />
       <slot />
     </article>

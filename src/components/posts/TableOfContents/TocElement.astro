@@ -10,6 +10,7 @@ const { item } = Astro.props;
 ---
 
 <li>
+  <span>{item.numbers.join(".")}</span>
   <a href={`#${item.slug}`}>{item.text}</a>
   {
     item.children && item.children.length > 0 && (
