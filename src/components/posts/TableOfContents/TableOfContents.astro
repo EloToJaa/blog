@@ -33,7 +33,7 @@ const items = generateToC(headings, { minHeadingLevel, maxHeadingLevel });
     </button>
     <h2>Table of Contents</h2>
   </div>
-  <div class="toc-items">
+  <div id="toc-items" class="hidden">
     <TocList items={items} />
   </div>
 </nav>
@@ -48,6 +48,6 @@ const items = generateToC(headings, { minHeadingLevel, maxHeadingLevel });
     console.log("click");
     if (tocItems === null) return;
 
-    // TODO: hide list
+    tocItems.classList.toggle("hidden");
   });
 </script>
