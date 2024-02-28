@@ -43,7 +43,7 @@ dependencies:
     version: 0.8.2(prettier@3.2.5)(typescript@5.3.3)
   rehype-pretty-code:
     specifier: ^0.13.0
-    version: 0.13.0(shiki@1.1.6)
+    version: 0.13.0(shiki@1.1.7)
   svelte:
     specifier: ^4.2.12
     version: 4.2.12
@@ -62,8 +62,8 @@ devDependencies:
     specifier: ^2.2.187
     version: 2.2.187
   '@octokit/graphql':
-    specifier: ^8.0.0
-    version: 8.0.0
+    specifier: ^8.0.1
+    version: 8.0.1
   '@octokit/graphql-schema':
     specifier: ^14.57.0
     version: 14.57.0
@@ -1324,8 +1324,8 @@ packages:
       graphql-tag: 2.12.6(graphql@16.8.1)
     dev: true
 
-  /@octokit/graphql@8.0.0:
-    resolution: {integrity: sha512-9B2HwWSb12ldwrp6pC8BFTsSCeidW7do0lMgWNH65IXRVteN503JJSWPH1VEM+qP8+/Ka1pw3MTs+3Q6Bjqukw==}
+  /@octokit/graphql@8.0.1:
+    resolution: {integrity: sha512-lLDb6LhC1gBj2CxEDa5Xk10+H/boonhs+3Mi6jpRyetskDKNHe6crMeKmUE2efoLofMP8ruannLlCUgpTFmVzQ==}
     engines: {node: '>= 18'}
     dependencies:
       '@octokit/request': 9.0.0
@@ -1469,10 +1469,6 @@ packages:
     os: [win32]
     requiresBuild: true
     optional: true
-
-  /@shikijs/core@1.1.6:
-    resolution: {integrity: sha512-kt9hhvrWTm0EPtRDIsoAZnSsFlIDBVBBI5CQewpA/NZCPin+MOKRXg+JiWc4y+8fZ/v0HzfDhu/UC+OTZGMt7A==}
-    dev: false
 
   /@shikijs/core@1.1.7:
     resolution: {integrity: sha512-gTYLUIuD1UbZp/11qozD3fWpUTuMqPSf3svDMMrL0UmlGU7D9dPw/V1FonwAorCUJBltaaESxq90jrSjQyGixg==}
@@ -5838,7 +5834,7 @@ packages:
       hast-util-from-html: 2.0.1
       unified: 11.0.4
 
-  /rehype-pretty-code@0.13.0(shiki@1.1.6):
+  /rehype-pretty-code@0.13.0(shiki@1.1.7):
     resolution: {integrity: sha512-+22dz1StXlF7dlMyOySNaVxgcGhMI4BCxq0JxJJPWYGiKsI6cu5jyuIKGHXHvH18D8sv1rdKtvsY9UEfN3++SQ==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -5848,7 +5844,7 @@ packages:
       hast-util-to-string: 3.0.0
       parse-numeric-range: 1.3.0
       rehype-parse: 9.0.0
-      shiki: 1.1.6
+      shiki: 1.1.7
       unified: 11.0.4
       unist-util-visit: 5.0.0
     dev: false
@@ -6183,12 +6179,6 @@ packages:
   /shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
-
-  /shiki@1.1.6:
-    resolution: {integrity: sha512-j4pcpvaQWHb42cHeV+W6P+X/VcK7Y2ctvEham6zB8wsuRQroT6cEMIkiUmBU2Nqg2qnHZDH6ZyRdVldcy0l6xw==}
-    dependencies:
-      '@shikijs/core': 1.1.6
-    dev: false
 
   /shiki@1.1.7:
     resolution: {integrity: sha512-9kUTMjZtcPH3i7vHunA6EraTPpPOITYTdA5uMrvsJRexktqP0s7P3s9HVK80b4pP42FRVe03D7fT3NmJv2yYhw==}
