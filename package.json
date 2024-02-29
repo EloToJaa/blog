@@ -19,7 +19,7 @@
     "@astrojs/partytown": "^2.0.4",
     "@astrojs/rss": "^4.0.5",
     "@astrojs/sitemap": "^3.1.1",
-    "@astrojs/svelte": "^5.1.0",
+    "@astrojs/svelte": "^5.2.0",
     "@fontsource-variable/fira-code": "^5.0.16",
     "@types/mdast": "^4.0.3",
     "@types/unist": "^3.0.2",

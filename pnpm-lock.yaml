@@ -21,8 +21,8 @@ dependencies:
     specifier: ^3.1.1
     version: 3.1.1
   '@astrojs/svelte':
-    specifier: ^5.1.0
-    version: 5.1.0(astro@4.4.5)(svelte@4.2.12)(typescript@5.3.3)(vite@5.1.4)
+    specifier: ^5.2.0
+    version: 5.2.0(astro@4.4.5)(svelte@4.2.12)(typescript@5.3.3)(vite@5.1.4)
   '@fontsource-variable/fira-code':
     specifier: ^5.0.16
     version: 5.0.16
@@ -43,7 +43,7 @@ dependencies:
     version: 0.8.2(prettier@3.2.5)(typescript@5.3.3)
   rehype-pretty-code:
     specifier: ^0.13.0
-    version: 0.13.0(shiki@1.1.6)
+    version: 0.13.0(shiki@1.1.7)
   svelte:
     specifier: ^4.2.12
     version: 4.2.12
@@ -322,20 +322,21 @@ packages:
       zod: 3.22.4
     dev: false
 
-  /@astrojs/svelte@5.1.0(astro@4.4.5)(svelte@4.2.12)(typescript@5.3.3)(vite@5.1.4):
-    resolution: {integrity: sha512-1f0wkFkHs+1vcCliaEB1j9SYEU/n5ZYTAASv5Rkq6nvjNFRrnPuXLQCYIYFqdGGqFm6UPdgKpJBFbFFeQlr4yA==}
+  /@astrojs/svelte@5.2.0(astro@4.4.5)(svelte@4.2.12)(typescript@5.3.3)(vite@5.1.4):
+    resolution: {integrity: sha512-GmwbXks2WMkmAfl0rlPM/2gA1RtmZzjGV2mOceV3g7QNyjIsSYBPKrlEnSFnuR+YMvlAtWdbMFBsb3gtGxnTTg==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       astro: ^4.0.0
       svelte: ^4.0.0 || ^5.0.0-next.56
+      typescript: ^5.3.3
     dependencies:
       '@sveltejs/vite-plugin-svelte': 3.0.2(svelte@4.2.12)(vite@5.1.4)
       astro: 4.4.5(typescript@5.3.3)
       svelte: 4.2.12
       svelte2tsx: 0.6.27(svelte@4.2.12)(typescript@5.3.3)
+      typescript: 5.3.3
     transitivePeerDependencies:
       - supports-color
-      - typescript
       - vite
     dev: false
 
@@ -1469,10 +1470,6 @@ packages:
     os: [win32]
     requiresBuild: true
     optional: true
-
-  /@shikijs/core@1.1.6:
-    resolution: {integrity: sha512-kt9hhvrWTm0EPtRDIsoAZnSsFlIDBVBBI5CQewpA/NZCPin+MOKRXg+JiWc4y+8fZ/v0HzfDhu/UC+OTZGMt7A==}
-    dev: false
 
   /@shikijs/core@1.1.7:
     resolution: {integrity: sha512-gTYLUIuD1UbZp/11qozD3fWpUTuMqPSf3svDMMrL0UmlGU7D9dPw/V1FonwAorCUJBltaaESxq90jrSjQyGixg==}
@@ -5838,7 +5835,7 @@ packages:
       hast-util-from-html: 2.0.1
       unified: 11.0.4
 
-  /rehype-pretty-code@0.13.0(shiki@1.1.6):
+  /rehype-pretty-code@0.13.0(shiki@1.1.7):
     resolution: {integrity: sha512-+22dz1StXlF7dlMyOySNaVxgcGhMI4BCxq0JxJJPWYGiKsI6cu5jyuIKGHXHvH18D8sv1rdKtvsY9UEfN3++SQ==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -5848,7 +5845,7 @@ packages:
       hast-util-to-string: 3.0.0
       parse-numeric-range: 1.3.0
       rehype-parse: 9.0.0
-      shiki: 1.1.6
+      shiki: 1.1.7
       unified: 11.0.4
       unist-util-visit: 5.0.0
     dev: false
@@ -6183,12 +6180,6 @@ packages:
   /shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
-
-  /shiki@1.1.6:
-    resolution: {integrity: sha512-j4pcpvaQWHb42cHeV+W6P+X/VcK7Y2ctvEham6zB8wsuRQroT6cEMIkiUmBU2Nqg2qnHZDH6ZyRdVldcy0l6xw==}
-    dependencies:
-      '@shikijs/core': 1.1.6
-    dev: false
 
   /shiki@1.1.7:
     resolution: {integrity: sha512-9kUTMjZtcPH3i7vHunA6EraTPpPOITYTdA5uMrvsJRexktqP0s7P3s9HVK80b4pP42FRVe03D7fT3NmJv2yYhw==}
