@@ -19,7 +19,7 @@ import Hr from "@components/common/Hr.astro";
     <div class="md:hidden my-auto mr-3 flex">
       <MenuToggle />
     </div>
-    <div id="navbar" class="hidden md:flex w-full md:w-3/4 justify-end">
+    <navbar id="navbar" class="hidden md:flex w-full md:w-3/4 justify-end">
       <nav class="mx-auto w-min md:mx-0 md:w-max">
         <HeaderLinks
           ulClass="menu menu-vertical md:menu-horizontal p-2 rounded-box text-lg"
@@ -35,7 +35,7 @@ import Hr from "@components/common/Hr.astro";
         </button>
         <ThemeToggle />
       </div>
-    </div>
+    </navbar>
   </div>
 </header>
 <div class="mb-8">
@@ -43,21 +43,7 @@ import Hr from "@components/common/Hr.astro";
 </div>
 
 <script>
-  function toggleMenu(open: boolean) {
-    if (open) {
-      hamburgerOpen?.classList.add("hidden");
-      hamburgerClose?.classList.remove("hidden");
-      navbar?.classList.remove("hidden");
-    } else {
-      hamburgerOpen?.classList.remove("hidden");
-      hamburgerClose?.classList.add("hidden");
-      navbar?.classList.add("hidden");
-    }
-  }
-
   let open = false;
-  const hamburgerOpen = document.getElementById("hamburger-open");
-  const hamburgerClose = document.getElementById("hamburger-close");
   const navbar = document.getElementById("navbar");
   const menuButton = document.getElementById("hamburger-button");
 
@@ -65,6 +51,7 @@ import Hr from "@components/common/Hr.astro";
     open = !open;
     menuButton?.setAttribute("aria-expanded", open.toString());
     menuButton?.setAttribute("aria-label", open ? "close menu" : "open menu");
-    toggleMenu(open);
+    menuButton?.classList.toggle("swap-active");
+    navbar?.classList.toggle("hidden");
   });
 </script>

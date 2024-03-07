@@ -1,7 +1,10 @@
 ---
 import Datetime from "@components/datetime/Datetime.svelte";
+import TableOfContents from "@components/posts/TableOfContents/TableOfContents.astro";
+import Tags from "@components/posts/Tags.astro";
 import "@styles/asides.css";
 import "@styles/props.css";
+import { slugify } from "@utils/slugify";
 import type { MarkdownHeading } from "astro";
 import type { CollectionEntry } from "astro:content";
 import Calendar from "~icons/material-symbols/calendar-month-outline-rounded";
@@ -12,7 +15,7 @@ export type Props = {
   post: CollectionEntry<"blog">;
 };
 
-const { post } = Astro.props;
+const { post, headings } = Astro.props;
 ---
 
 <MainLayout title={post.data.title}>
@@ -20,18 +23,18 @@ const { post } = Astro.props;
     <article
       class="prose lg:prose-xl prose-h1:mb-4 prose-h2:mt-4 prose-h2:mb-2 dark:prose-invert max-w-none"
     >
-      <h1>{post.data.title}</h1>
+      <h1 id={slugify(post.data.title)}>{post.data.title}</h1>
 
       <Datetime datetime={post.data.pubDatetime} size="lg" showTime={false}>
         <Calendar style="font-size: 1em" class="hover:" />
       </Datetime>
-      <a
-        role="button"
-        class="btn btn-sm btn-outline btn-primary mb-2 mr-2"
-        href={post.data.tags[0]}
-      >
-        {post.data.tags[0]}
-      </a>
+      <Tags tags={post.data.tags} />
+      <TableOfContents
+        title={post.data.title}
+        headings={headings}
+        minHeadingLevel={2}
+        maxHeadingLevel={4}
+      />
       <slot />
     </article>
   </div>
