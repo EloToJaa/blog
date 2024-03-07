@@ -10,8 +10,11 @@ const { item } = Astro.props;
 ---
 
 <li>
-  <span>{item.numbers.join(".")}</span>
-  <a href={`#${item.slug}`}>{item.text}</a>
+  <span class="font-bold">{item.numbers.join(".")}</span>
+  <a
+    href={`#${item.slug}`}
+    class="text-secondary hover:underline decoration-dashed">{item.text}</a
+  >
   {
     item.children && item.children.length > 0 && (
       <TocList items={item.children} />
