@@ -23,7 +23,7 @@
     "@fontsource-variable/fira-code": "^5.0.17",
     "@types/mdast": "^4.0.3",
     "@types/unist": "^3.0.2",
-    "astro": "^4.4.13",
+    "astro": "^4.5.2",
     "astro-expressive-code": "^0.33.4",
     "astro-seo": "^0.8.3",
     "rehype-pretty-code": "^0.13.0",
