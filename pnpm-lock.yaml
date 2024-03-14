@@ -65,8 +65,8 @@ devDependencies:
     specifier: ^8.0.1
     version: 8.0.1
   '@octokit/graphql-schema':
-    specifier: ^15.1.0
-    version: 15.1.0
+    specifier: ^15.3.0
+    version: 15.3.0
   '@sveltejs/vite-plugin-svelte':
     specifier: ^3.0.2
     version: 3.0.2(svelte@4.2.12)(vite@5.1.4)
@@ -1343,8 +1343,8 @@ packages:
       universal-user-agent: 7.0.2
     dev: true
 
-  /@octokit/graphql-schema@15.1.0:
-    resolution: {integrity: sha512-Q4sAgTphHqFeMeKIR5fA6kJECpTsikvyBbRaZfFGcqVJ30WqcovI4MfyTMiGgE7TWHWHQhdAIc38QhvB08E/sg==}
+  /@octokit/graphql-schema@15.3.0:
+    resolution: {integrity: sha512-yGj0haNZY1/4DZO72KpJdOzvKQFYPUkD5d6PdntPSbekABUoOdStAtEsOtuwZz52cPrbQEEoZ0wN7aemA1y8PA==}
     dependencies:
       graphql: 16.8.1
       graphql-tag: 2.12.6(graphql@16.8.1)
