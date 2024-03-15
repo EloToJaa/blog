@@ -1,3 +1,4 @@
+import BlogCollection from "@utils/blog";
 import { reference, z } from "astro:content";
 
 export const blogSchema = z
@@ -20,6 +21,8 @@ export type PostSearch = {
   frontmatter: BlogFrontmatter;
 };
 
+const tagsSchema = z.array(z.string());
+
 export const postSearchSchema = z.object({
   q: z.string().max(200).default(""),
   limit: z
@@ -38,8 +41,26 @@ export const postSearchSchema = z.object({
         return [];
       }
     })
-    .refine(a => Array.isArray(a), {
-      message: "tags must be an array",
+    .superRefine(async (val, ctx) => {
+      const result = tagsSchema.safeParse(val);
+      if (!result.success) {
+        for (const issue of result.error.issues) {
+          ctx.addIssue(issue);
+        }
+        return false;
+      }
+      const blogCollection = new BlogCollection();
+      await blogCollection.getCollection();
+      const tags = blogCollection.getTags();
+      for (const tag of val) {
+        if (!tags.includes(tag)) {
+          ctx.addIssue({
+            code: "custom",
+            message: `Tag ${tag} does not exist`,
+            path: ctx.path,
+          });
+        }
+      }
     })
     .default("[]"),
 });

@@ -3,9 +3,16 @@
   import type { PostSearch } from "@schema/blog";
   import { onMount } from "svelte";
 
+  // type Tag = {
+  //   label: string;
+  //   value: string;
+  // };
+
   export let limit = 5;
   let searchQuery = "";
+  let tags = [] as string[];
   $: results = [] as PostSearch[];
+  // $: items = [] as Tag[];
 
   const handleInputChange = async (event: Event) => {
     const target = event.target as HTMLInputElement;
@@ -24,7 +31,9 @@
     );
 
     try {
-      const res = await fetch(`/api/search?q=${searchQuery}&limit=${limit}`);
+      const res = await fetch(
+        `/api/search?q=${searchQuery}&limit=${limit}&tags=${JSON.stringify(tags)}`
+      );
       const data = await res.json();
       results = data.results;
     } catch (error) {
@@ -32,10 +41,31 @@
     }
   };
 
+  // const getItems = async () => {
+  //   try {
+  //     const res = await fetch("/api/tags");
+  //     const data = await res.json();
+  //     const allTags = data.tags as string[];
+  //     const tags = allTags.map(
+  //       tag =>
+  //         ({
+  //           label: tag,
+  //           value: tag,
+  //         }) as Tag
+  //     );
+  //     items = [...items, ...tags];
+  //     console.log("tags", tags);
+  //   } catch (error) {
+  //     console.error("Failed to fetch tags:", error);
+  //   }
+  // };
+
   onMount(async () => {
     const urlParams = new URLSearchParams(window.location.search);
     searchQuery = urlParams.get("q") || "";
+    tags = urlParams.get("tags") ? JSON.parse(urlParams.get("tags")!) : tags;
 
+    // await getItems();
     await updateURL();
   });
 </script>
@@ -47,6 +77,8 @@
   placeholder="Search..."
   class="input input-bordered input-primary input-lg w-full border-4 font-semibold text-2xl"
 />
+
+<!-- <Select {items} label="Tags" /> -->
 
 <section id="search" class="mt-8">
   <h3>Found {results.length} post{results.length == 1 ? "" : "s"}</h3>

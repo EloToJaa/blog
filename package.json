@@ -23,17 +23,18 @@
     "@fontsource-variable/fira-code": "^5.0.17",
     "@types/mdast": "^4.0.3",
     "@types/unist": "^3.0.2",
-    "astro": "^4.5.3",
-    "astro-expressive-code": "^0.33.4",
+    "astro": "^4.5.4",
+    "astro-expressive-code": "^0.33.5",
     "astro-seo": "^0.8.3",
     "rehype-pretty-code": "^0.13.0",
-    "svelte": "^4.2.12"
+    "svelte": "^4.2.12",
+    "svelte-select": "^5.8.3"
   },
   "devDependencies": {
     "@astrojs/node": "^8.2.3",
     "@astrojs/tailwind": "^5.1.0",
     "@divriots/jampack": "^0.23.3",
-    "@iconify/json": "^2.2.191",
+    "@iconify/json": "^2.2.192",
     "@octokit/graphql": "^8.0.1",
     "@octokit/graphql-schema": "^15.3.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
