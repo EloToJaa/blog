@@ -24,7 +24,7 @@
     "@types/mdast": "^4.0.3",
     "@types/unist": "^3.0.2",
     "astro": "^4.5.3",
-    "astro-expressive-code": "^0.33.4",
+    "astro-expressive-code": "^0.33.5",
     "astro-seo": "^0.8.3",
     "rehype-pretty-code": "^0.13.0",
     "svelte": "^4.2.12"
