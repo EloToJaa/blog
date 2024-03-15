@@ -59,8 +59,8 @@ devDependencies:
     specifier: ^0.23.3
     version: 0.23.3(react-dom@16.14.0)(react@16.14.0)
   '@iconify/json':
-    specifier: ^2.2.191
-    version: 2.2.191
+    specifier: ^2.2.192
+    version: 2.2.192
   '@octokit/graphql':
     specifier: ^8.0.1
     version: 8.0.1
@@ -1009,8 +1009,8 @@ packages:
     resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
     dev: false
 
-  /@iconify/json@2.2.191:
-    resolution: {integrity: sha512-s6gEvYgYCKce6qw6SXyLz7ChVKzhbCPiIsv3Fq/VLpYeYbU0ipFOeErIJP0dQwqTYydr9cxTvR6rPnHu6Sf3Fg==}
+  /@iconify/json@2.2.192:
+    resolution: {integrity: sha512-q03tWoVKoMRaTEUDOPWc8geSsKkMe+3D/kK4UZ7F7P3NYwr4h+GN/yT3+5Z68lnD0ajDmTuswfMKOi1DbVnEnw==}
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.2
