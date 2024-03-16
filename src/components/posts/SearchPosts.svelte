@@ -21,9 +21,17 @@
     await updateURL();
   };
 
+  const handleSelectChange = async (event: any) => {
+    const newTags = (event.detail ?? []) as Tag[];
+    tags = newTags.map(tag => tag.value);
+    await updateURL();
+  };
+
   const updateURL = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("q", searchQuery);
+    urlParams.set("tags", JSON.stringify(tags));
+    value = tags.map(tag => ({ label: tag, value: tag }));
 
     window.history.replaceState(
       {},
@@ -43,17 +51,17 @@
   };
 
   const loadOptions = async (filterText: string) => {
-    const res = await fetch("/api/tags");
+    const res = await fetch(`/api/tags?q=${filterText}`);
     const data = await res.json();
     const allTags = data.tags as string[];
-    const tags = allTags.map(
+    const loadedTags = allTags.map(
       tag =>
         ({
           value: tag,
           label: tag,
         }) as Tag
     );
-    return tags;
+    return loadedTags;
   };
 
   onMount(async () => {
@@ -73,7 +81,12 @@
   class="input input-bordered input-primary input-lg w-full border-4 font-semibold text-2xl"
 />
 
-<Select {loadOptions} multiple bind:value />
+<Select
+  {loadOptions}
+  multiple
+  bind:value
+  on:input={handleSelectChange}
+></Select>
 
 <section id="search" class="mt-8">
   <h3>Found {results.length} post{results.length == 1 ? "" : "s"}</h3>

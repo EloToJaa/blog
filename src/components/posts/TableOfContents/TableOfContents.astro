@@ -37,9 +37,11 @@ const items = generateToC(headings, { minHeadingLevel, maxHeadingLevel });
 				<DropDownInactive class="w-8 h-8" />
 			</div>
 		</button>
-		<span class="ml-1 my-auto text-2xl font-bold" id="table-of-contents"
-			>Table of Contents</span
-		>
+		<h2
+			class="not-prose ml-1 my-auto text-2xl font-bold"
+			id="table-of-contents">
+			Table of Contents
+		</h2>
 	</div>
 	<div id="toc-items" class="hidden">
 		<TocList items={items} />

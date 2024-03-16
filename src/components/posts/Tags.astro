@@ -1,15 +1,17 @@
 ---
 export type Props = {
-  tags: string[];
+	tags: string[];
 };
 
 const { tags } = Astro.props;
 ---
 
 {
-  tags.map(tag => (
-    <span class="text-secondary hover:underline decoration-dashed mr-2">
-      {`#${tag}`}
-    </span>
-  ))
+	tags.map(tag => (
+		<a
+			href={`/search?&tags=${JSON.stringify([tag])}`}
+			class="text-secondary mr-2 no-underline hover:underline decoration-dashed">
+			{`#${tag}`}
+		</a>
+	))
 }

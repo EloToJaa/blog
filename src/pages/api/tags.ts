@@ -7,9 +7,9 @@ export const prerender = false;
 const blogCollection = new BlogCollection();
 await blogCollection.getCollection();
 
-export const GET: APIRoute = () => {
-  return new Response(
-    JSON.stringify({ tags: blogCollection.getTags() }),
-    apiJson
-  );
+export const GET: APIRoute = ({ url }) => {
+  const data = Object.fromEntries(url.searchParams.entries());
+  const tags = blogCollection.getTags();
+  const filteredTags = tags.filter(tag => tag.includes(data.q));
+  return new Response(JSON.stringify({ tags: filteredTags }), apiJson);
 };
