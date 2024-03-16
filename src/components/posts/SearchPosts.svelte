@@ -51,17 +51,21 @@
   };
 
   const loadOptions = async (filterText: string) => {
-    const res = await fetch(`/api/tags?q=${filterText}`);
-    const data = await res.json();
-    const allTags = data.tags as string[];
-    const loadedTags = allTags.map(
-      tag =>
-        ({
-          value: tag,
-          label: tag,
-        }) as Tag
-    );
-    return loadedTags;
+    try {
+      const res = await fetch(`/api/tags?q=${filterText}`);
+      const data = await res.json();
+      const allTags = data.tags as string[];
+      const loadedTags = allTags.map(
+        tag =>
+          ({
+            value: tag,
+            label: tag,
+          }) as Tag
+      );
+      return loadedTags;
+    } catch (error) {
+      console.error("Failed to fetch tags:", error);
+    }
   };
 
   onMount(async () => {
@@ -81,11 +85,7 @@
   class="input input-bordered input-primary input-lg w-full border-4 font-semibold text-2xl"
 />
 
-<Select
-  {loadOptions}
-  multiple
-  bind:value
-  on:input={handleSelectChange}
+<Select {loadOptions} multiple bind:value on:input={handleSelectChange}
 ></Select>
 
 <section id="search" class="mt-8">
