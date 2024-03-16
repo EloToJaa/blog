@@ -8,7 +8,6 @@ const blogCollection = new BlogCollection();
 await blogCollection.getCollection();
 
 export const GET: APIRoute = () => {
-  console.log(blogCollection.getTags());
   return new Response(
     JSON.stringify({ tags: blogCollection.getTags() }),
     apiJson

@@ -2,17 +2,18 @@
   import Card from "@components/posts/Card.svelte";
   import type { PostSearch } from "@schema/blog";
   import { onMount } from "svelte";
+  import Select from "svelte-select";
 
-  // type Tag = {
-  //   label: string;
-  //   value: string;
-  // };
+  type Tag = {
+    label: string;
+    value: string;
+  };
 
   export let limit = 5;
   let searchQuery = "";
   let tags = [] as string[];
+  let value: Tag[] | undefined | null;
   $: results = [] as PostSearch[];
-  // $: items = [] as Tag[];
 
   const handleInputChange = async (event: Event) => {
     const target = event.target as HTMLInputElement;
@@ -41,31 +42,25 @@
     }
   };
 
-  // const getItems = async () => {
-  //   try {
-  //     const res = await fetch("/api/tags");
-  //     const data = await res.json();
-  //     const allTags = data.tags as string[];
-  //     const tags = allTags.map(
-  //       tag =>
-  //         ({
-  //           label: tag,
-  //           value: tag,
-  //         }) as Tag
-  //     );
-  //     items = [...items, ...tags];
-  //     console.log("tags", tags);
-  //   } catch (error) {
-  //     console.error("Failed to fetch tags:", error);
-  //   }
-  // };
+  const loadOptions = async (filterText: string) => {
+    const res = await fetch("/api/tags");
+    const data = await res.json();
+    const allTags = data.tags as string[];
+    const tags = allTags.map(
+      tag =>
+        ({
+          value: tag,
+          label: tag,
+        }) as Tag
+    );
+    return tags;
+  };
 
   onMount(async () => {
     const urlParams = new URLSearchParams(window.location.search);
     searchQuery = urlParams.get("q") || "";
     tags = urlParams.get("tags") ? JSON.parse(urlParams.get("tags")!) : tags;
 
-    // await getItems();
     await updateURL();
   });
 </script>
@@ -78,7 +73,7 @@
   class="input input-bordered input-primary input-lg w-full border-4 font-semibold text-2xl"
 />
 
-<!-- <Select {items} label="Tags" /> -->
+<Select {loadOptions} multiple bind:value />
 
 <section id="search" class="mt-8">
   <h3>Found {results.length} post{results.length == 1 ? "" : "s"}</h3>
