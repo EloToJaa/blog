@@ -34,7 +34,7 @@
     "@astrojs/node": "^8.2.3",
     "@astrojs/tailwind": "^5.1.0",
     "@divriots/jampack": "^0.23.3",
-    "@iconify/json": "^2.2.192",
+    "@iconify/json": "^2.2.193",
     "@octokit/graphql": "^8.0.1",
     "@octokit/graphql-schema": "^15.3.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
