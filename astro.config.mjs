@@ -33,6 +33,12 @@ export default defineConfig({
     expressiveCode({
       themes: ["github-dark", "github-light"],
       themeCssSelector: theme => `[data-theme='${theme.type}']`,
+      defaultProps: {
+        wrap: true,
+        overridesByLang: {
+          "bash,ps,sh": { preserveIndent: false },
+        },
+      },
     }),
     mdx(),
     sitemap(),
