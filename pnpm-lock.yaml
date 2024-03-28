@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@astrojs/cloudflare':
-    specifier: ^9.1.0
-    version: 9.1.0(astro@4.5.8)
+    specifier: ^9.2.1
+    version: 9.2.1(astro@4.5.8)
   '@astrojs/mdx':
     specifier: ^2.2.1
     version: 2.2.1(astro@4.5.8)
@@ -181,8 +181,8 @@ packages:
       - prettier-plugin-astro
     dev: false
 
-  /@astrojs/cloudflare@9.1.0(astro@4.5.8):
-    resolution: {integrity: sha512-w3wtV/joQLX5CQvpVx/6zn4V0ZVg5Y9gJkJ4vfgD1svC/hOMJACuVdkEN2a6HBsOUntXS3s36wJlDeIr7poF2g==}
+  /@astrojs/cloudflare@9.2.1(astro@4.5.8):
+    resolution: {integrity: sha512-IPsfuqy3r0OR0CvCdQw72J0iC4dhOW4WXByi2s3vAE3py8RQQtiyJXY8a4rAT/LRUz7WVlpzkm7FxORtmIeKVw==}
     peerDependencies:
       astro: ^4.2.0
     dependencies:
