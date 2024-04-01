@@ -2,6 +2,9 @@
   "name": "blog",
   "type": "module",
   "version": "1.0.0",
+  "trustedDependencies": [
+    "sharp"
+  ],
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
