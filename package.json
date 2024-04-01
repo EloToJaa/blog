@@ -3,7 +3,10 @@
   "type": "module",
   "version": "1.0.0",
   "trustedDependencies": [
-    "sharp"
+    "@swc/core",
+    "esbuild",
+    "sharp",
+    "workerd"
   ],
   "scripts": {
     "dev": "astro dev",
