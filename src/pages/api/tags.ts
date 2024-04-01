@@ -10,6 +10,9 @@ await blogCollection.getCollection();
 export const GET: APIRoute = ({ url }) => {
   const data = Object.fromEntries(url.searchParams.entries());
   const tags = blogCollection.getTags();
+  console.log(`q='${data.q}'`);
+  if (!data.q && data.q === "")
+    return new Response(JSON.stringify({ tags }), apiJson);
   const filteredTags = tags.filter(tag => tag.includes(data.q));
   return new Response(JSON.stringify({ tags: filteredTags }), apiJson);
 };

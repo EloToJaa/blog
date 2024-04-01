@@ -53,6 +53,7 @@
   const loadOptions = async (filterText: string) => {
     try {
       const res = await fetch(`/api/tags?q=${filterText}`);
+      console.log(res);
       const data = await res.json();
       const allTags = data.tags as string[];
       const loadedTags = allTags.map(
@@ -64,7 +65,7 @@
       );
       return loadedTags;
     } catch (error) {
-      console.error("Failed to fetch tags:", error);
+      return [];
     }
   };
 
