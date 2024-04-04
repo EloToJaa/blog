@@ -662,7 +662,7 @@ packages:
       parse5: 7.1.2
       parse5-htmlparser2-tree-adapter: 7.0.0
       parse5-parser-stream: 7.1.2
-      undici: 5.28.3
+      undici: 5.28.4
       whatwg-mimetype: 3.0.0
     dev: true
 
@@ -692,7 +692,7 @@ packages:
       sharp: 0.33.2
       svgo: 3.2.0
       table: 6.8.1
-      undici: 5.28.3
+      undici: 5.28.4
       unpic: 3.17.0
     transitivePeerDependencies:
       - '@swc/helpers'
@@ -4819,7 +4819,7 @@ packages:
       glob-to-regexp: 0.4.1
       source-map-support: 0.5.21
       stoppable: 1.1.0
-      undici: 5.28.3
+      undici: 5.28.4
       workerd: 1.20231030.0
       ws: 8.16.0
       youch: 3.3.3
@@ -6747,8 +6747,8 @@ packages:
     resolution: {integrity: sha512-Hhy+BhRBleFjpJ2vchUNN40qgkh0366FWJGqVLYBHev0vpHTrXSA0ryT+74UiW6KWsldNurQMKGqCm1M2zBciQ==}
     dev: true
 
-  /undici@5.28.3:
-    resolution: {integrity: sha512-3ItfzbrhDlINjaP0duwnNsKpDQk3acHI3gVJ1z4fmwMK31k5G9OVIAMLSIaP6w4FaGkaAkN6zaQO9LUvZ1t7VA==}
+  /undici@5.28.4:
+    resolution: {integrity: sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==}
     engines: {node: '>=14.0'}
     dependencies:
       '@fastify/busboy': 2.1.0
