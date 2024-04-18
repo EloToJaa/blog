@@ -30,7 +30,7 @@
     "@types/mdast": "^4.0.3",
     "@types/unist": "^3.0.2",
     "astro": "^4.5.12",
-    "astro-expressive-code": "^0.33.5",
+    "astro-expressive-code": "^0.35.2",
     "astro-seo": "^0.8.3",
     "svelte": "^4.2.12",
     "svelte-select": "^5.8.3"
