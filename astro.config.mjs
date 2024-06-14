@@ -4,7 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
 import expressiveCode from "astro-expressive-code";
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import Icons from "unplugin-icons/vite";
 import { starlightAsides } from "/src/plugins/asides.ts";
 import removeH1 from "/src/plugins/removeH1.ts";
@@ -45,5 +45,16 @@ export default defineConfig({
   ],
   markdown: {
     remarkPlugins: [removeH1, ...starlightAsides()],
+  },
+  experimental: {
+    env: {
+      schema: {
+        GITHUB_TOKEN: envField.string({
+          context: "server",
+          access: "secret",
+          required: true,
+        }),
+      },
+    },
   },
 });
