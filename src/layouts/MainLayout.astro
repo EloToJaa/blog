@@ -1,28 +1,30 @@
 ---
 import Footer from "@components/footer/Footer.astro";
 import Header from "@components/header/Header.astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import MainHead from "./MainHead.astro";
 
 export type Props = {
-  title: string;
+	title: string;
 };
 
 const { title } = Astro.props;
 ---
 
 <html lang="en">
-  <head>
-    <MainHead title={title} />
-  </head>
-  <body>
-    <div class="container mx-auto font-main">
-      <div class="w-full lg:w-3/4 mx-auto">
-        <Header />
-        <main class="mt-3 mx-3 text-justify">
-          <slot />
-        </main>
-        <Footer />
-      </div>
-    </div>
-  </body>
+	<head>
+		<MainHead title={title} />
+	</head>
+	<body>
+		<SpeedInsights />
+		<div class="container mx-auto font-main">
+			<div class="w-full lg:w-3/4 mx-auto">
+				<Header />
+				<main class="mt-3 mx-3 text-justify">
+					<slot />
+				</main>
+				<Footer />
+			</div>
+		</div>
+	</body>
 </html>
