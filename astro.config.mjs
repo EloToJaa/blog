@@ -1,4 +1,3 @@
-import cloudflare from "@astrojs/cloudflare";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
@@ -9,13 +8,13 @@ import Icons from "unplugin-icons/vite";
 import { starlightAsides } from "/src/plugins/asides.ts";
 import removeH1 from "/src/plugins/removeH1.ts";
 
+import vercel from "@astrojs/vercel/serverless";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://elotoja.com",
   output: "hybrid",
-  adapter: cloudflare({
-    mode: "directory",
-  }),
+  adapter: vercel(),
   vite: {
     plugins: [
       Icons({
@@ -36,7 +35,9 @@ export default defineConfig({
       defaultProps: {
         wrap: true,
         overridesByLang: {
-          "bash,ps,sh": { preserveIndent: false },
+          "bash,ps,sh": {
+            preserveIndent: false,
+          },
         },
       },
     }),
@@ -47,6 +48,7 @@ export default defineConfig({
     remarkPlugins: [removeH1, ...starlightAsides()],
   },
   experimental: {
+    actions: true,
     env: {
       schema: {
         GITHUB_TOKEN: envField.string({
