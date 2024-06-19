@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && jampack ./dist",
+    "build": "astro build",
     "preview": "astro preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -38,7 +38,6 @@
   "devDependencies": {
     "@astrojs/node": "^8.3.1",
     "@astrojs/tailwind": "^5.1.0",
-    "@divriots/jampack": "^0.24.4",
     "@iconify/json": "^2.2.220",
     "@octokit/graphql": "^8.1.1",
     "@octokit/graphql-schema": "^15.20.0",
