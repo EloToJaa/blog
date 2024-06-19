@@ -14,7 +14,12 @@ import vercel from "@astrojs/vercel/serverless";
 export default defineConfig({
   site: "https://elotoja.com",
   output: "hybrid",
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+    imageService: true,
+  }),
   vite: {
     plugins: [
       Icons({
