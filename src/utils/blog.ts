@@ -54,6 +54,10 @@ class BlogCollection {
       tags.every(tag => post.data.tags.includes(tag))
     );
   }
+
+  public getTags() {
+    return Array.from(new Set(this.posts.map(post => post.data.tags).flat()));
+  }
 }
 
 export default BlogCollection;

@@ -2,9 +2,17 @@
   import Card from "@components/posts/Card.svelte";
   import type { PostSearch } from "@schema/blog";
   import { onMount } from "svelte";
+  import Select from "svelte-select";
+
+  type Tag = {
+    label: string;
+    value: string;
+  };
 
   export let limit = 5;
   let searchQuery = "";
+  let tags = [] as string[];
+  let value: Tag[] | undefined | null;
   $: results = [] as PostSearch[];
 
   const handleInputChange = async (event: Event) => {
@@ -13,9 +21,17 @@
     await updateURL();
   };
 
+  const handleSelectChange = async (event: any) => {
+    const newTags = (event.detail ?? []) as Tag[];
+    tags = newTags.map(tag => tag.value);
+    await updateURL();
+  };
+
   const updateURL = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("q", searchQuery);
+    urlParams.set("tags", JSON.stringify(tags));
+    value = tags.map(tag => ({ label: tag, value: tag }));
 
     window.history.replaceState(
       {},
@@ -24,7 +40,9 @@
     );
 
     try {
-      const res = await fetch(`/api/search?q=${searchQuery}&limit=${limit}`);
+      const res = await fetch(
+        `/api/search?q=${searchQuery}&limit=${limit}&tags=${JSON.stringify(tags)}`
+      );
       const data = await res.json();
       results = data.results;
     } catch (error) {
@@ -32,9 +50,29 @@
     }
   };
 
+  const loadOptions = async (filterText: string) => {
+    try {
+      const res = await fetch(`/api/tags?q=${filterText}`);
+      console.log(res);
+      const data = await res.json();
+      const allTags = data.tags as string[];
+      const loadedTags = allTags.map(
+        tag =>
+          ({
+            value: tag,
+            label: tag,
+          }) as Tag
+      );
+      return loadedTags;
+    } catch (error) {
+      return [];
+    }
+  };
+
   onMount(async () => {
     const urlParams = new URLSearchParams(window.location.search);
     searchQuery = urlParams.get("q") || "";
+    tags = urlParams.get("tags") ? JSON.parse(urlParams.get("tags")!) : tags;
 
     await updateURL();
   });
@@ -47,6 +85,9 @@
   placeholder="Search..."
   class="input input-bordered input-primary input-lg w-full border-4 font-semibold text-2xl"
 />
+
+<Select {loadOptions} multiple bind:value on:input={handleSelectChange}
+></Select>
 
 <section id="search" class="mt-8">
   <h3>Found {results.length} post{results.length == 1 ? "" : "s"}</h3>

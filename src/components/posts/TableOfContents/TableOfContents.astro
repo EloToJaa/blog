@@ -3,57 +3,59 @@ import { generateToC } from "@utils/generateToC";
 import type { MarkdownHeading } from "astro";
 import TocList from "./TocList.astro";
 import { slugify } from "@utils/slugify";
-import DropDownActive from "~icons/material-symbols/arrow-circle-down-outline-rounded";
-import DropDownInactive from "~icons/material-symbols/arrow-circle-right-outline-rounded";
+import DropDownActive from "~icons/ic/sharp-arrow-drop-down";
+import DropDownInactive from "~icons/ic/sharp-arrow-right";
 
 export type Props = {
-  title: string;
-  headings: MarkdownHeading[];
-  minHeadingLevel: number;
-  maxHeadingLevel: number;
+	title: string;
+	headings: MarkdownHeading[];
+	minHeadingLevel: number;
+	maxHeadingLevel: number;
 };
 
 const { title, headings, minHeadingLevel, maxHeadingLevel } = Astro.props;
 
 headings.unshift({
-  depth: 1,
-  slug: slugify(title),
-  text: title,
+	depth: 1,
+	slug: slugify(title),
+	text: title,
 });
 const items = generateToC(headings, { minHeadingLevel, maxHeadingLevel });
 ---
 
 <nav class="my-2" aria-label="Table Of Contents">
-  <div class="flex">
-    <button
-      id="toc-toggle"
-      aria-live="polite"
-      aria-label="Table Of Contents toggle"
-      class="swap swap-rotate"
-    >
-      <div class="swap-on">
-        <DropDownActive class="w-8 h-8" />
-      </div>
-      <div class="swap-off">
-        <DropDownInactive class="w-8 h-8" />
-      </div>
-    </button>
-    <span class="ml-1 my-auto text-2xl font-bold">Table of Contents</span>
-  </div>
-  <div id="toc-items" class="hidden">
-    <TocList items={items} />
-  </div>
+	<div class="flex">
+		<button
+			id="toc-toggle"
+			aria-live="polite"
+			aria-label="Table Of Contents toggle"
+			class="swap swap-rotate">
+			<div class="swap-on">
+				<DropDownActive class="w-8 h-8" />
+			</div>
+			<div class="swap-off">
+				<DropDownInactive class="w-8 h-8" />
+			</div>
+		</button>
+		<h2
+			class="not-prose ml-1 my-auto text-2xl font-bold"
+			id="table-of-contents">
+			Table of Contents
+		</h2>
+	</div>
+	<div id="toc-items" class="hidden">
+		<TocList items={items} />
+	</div>
 </nav>
 
 <script>
-  const tocToggle = document.getElementById("toc-toggle");
-  const tocItems = document.getElementById("toc-items");
+	const tocToggle = document.getElementById("toc-toggle");
+	const tocItems = document.getElementById("toc-items");
 
-  tocToggle?.addEventListener("click", () => {
-    console.log("click");
-    if (tocItems === null) return;
+	tocToggle?.addEventListener("click", () => {
+		if (tocItems === null) return;
 
-    tocItems.classList.toggle("hidden");
-    tocToggle.classList.toggle("swap-active");
-  });
+		tocItems.classList.toggle("hidden");
+		tocToggle.classList.toggle("swap-active");
+	});
 </script>

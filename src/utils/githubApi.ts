@@ -1,6 +1,6 @@
-import { GITHUB_TOKEN } from "@config";
 import { graphql } from "@octokit/graphql";
 import type { Repository, User } from "@octokit/graphql-schema";
+import { getSecret } from "astro:env/server";
 
 export type AllRepositories = {
   viewer: {
@@ -28,7 +28,7 @@ class GithubApi {
   constructor() {
     this.graphqlWithAuth = graphql.defaults({
       headers: {
-        authorization: `token ${GITHUB_TOKEN}`,
+        authorization: `token ${getSecret("GITHUB_TOKEN")}`,
       },
     });
   }
