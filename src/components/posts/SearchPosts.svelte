@@ -1,8 +1,8 @@
 <script lang="ts">
   import Card from "@components/posts/Card.svelte";
   import type { PostSearch } from "@schema/blog";
+  import { actions } from "astro:actions";
   import { onMount } from "svelte";
-  import Select from "svelte-select";
 
   type Tag = {
     label: string;
@@ -21,12 +21,6 @@
     await updateURL();
   };
 
-  const handleSelectChange = async (event: any) => {
-    const newTags = (event.detail ?? []) as Tag[];
-    tags = newTags.map(tag => tag.value);
-    await updateURL();
-  };
-
   const updateURL = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("q", searchQuery);
@@ -39,34 +33,12 @@
       `${window.location.pathname}?${urlParams}`
     );
 
-    try {
-      const res = await fetch(
-        `/api/search?q=${searchQuery}&limit=${limit}&tags=${JSON.stringify(tags)}`
-      );
-      const data = await res.json();
-      results = data.results;
-    } catch (error) {
-      console.error("Failed to fetch search results:", error);
-    }
-  };
-
-  const loadOptions = async (filterText: string) => {
-    try {
-      const res = await fetch(`/api/tags?q=${filterText}`);
-      console.log(res);
-      const data = await res.json();
-      const allTags = data.tags as string[];
-      const loadedTags = allTags.map(
-        tag =>
-          ({
-            value: tag,
-            label: tag,
-          }) as Tag
-      );
-      return loadedTags;
-    } catch (error) {
-      return [];
-    }
+    const data = await actions.search({
+      searchPhrase: searchQuery,
+      limit,
+      tags,
+    });
+    results = data.results;
   };
 
   onMount(async () => {
@@ -85,9 +57,6 @@
   placeholder="Search..."
   class="input input-bordered input-primary input-lg w-full border-4 font-semibold text-2xl"
 />
-
-<Select {loadOptions} multiple bind:value on:input={handleSelectChange}
-></Select>
 
 <section id="search" class="mt-8">
   <h3>Found {results.length} post{results.length == 1 ? "" : "s"}</h3>

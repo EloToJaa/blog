@@ -34,8 +34,7 @@
     "astro": "^4.10.3",
     "astro-expressive-code": "^0.35.3",
     "astro-seo": "^0.8.4",
-    "svelte": "^4.2.18",
-    "svelte-select": "^5.8.3"
+    "svelte": "^4.2.18"
   },
   "devDependencies": {
     "@astrojs/node": "^8.3.1",

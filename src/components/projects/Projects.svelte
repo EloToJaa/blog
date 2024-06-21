@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Repository } from "@octokit/graphql-schema";
+  import { actions } from "astro:actions";
   import { onMount } from "svelte";
   import Project from "./Project.svelte";
 
@@ -11,16 +12,12 @@
   const loadMoreRepositories = async () => {
     if (!hasNextPage) return;
 
-    const response = await fetch(
-      `/api/github?after=${after}&pageSize=${pageSize}`
-    );
-    const data = (await response.json()) as {
-      repositories: Repository[];
-      endCursor: string;
-      hasNextPage: boolean;
-    };
+    const data = await actions.github({
+      after,
+      pageSize,
+    });
 
-    if (response) {
+    if (data) {
       repositories = [...repositories, ...data.repositories];
 
       after = data.endCursor;
