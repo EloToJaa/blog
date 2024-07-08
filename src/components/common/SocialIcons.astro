@@ -9,53 +9,54 @@ import HackTheBoxIcon from "~icons/simple-icons/hackthebox";
 import NewTabIcon from "./NewTabIcon.astro";
 
 export type Props = {
-  author: AuthorFrontmatter;
+	author: AuthorFrontmatter;
+	small?: boolean;
 };
 
-const { author } = Astro.props;
+const { author, small = false } = Astro.props;
 ---
 
-<div class="my-auto flex flex-wrap">
-  {
-    author.github && (
-      <NewTabIcon href={author.github} description="Go to github">
-        <GithubIcon />
-      </NewTabIcon>
-    )
-  }
-  {
-    author.twitter && (
-      <NewTabIcon href={author.twitter} description="Go to twitter">
-        <TwitterIcon />
-      </NewTabIcon>
-    )
-  }
-  {
-    author.reddit && (
-      <NewTabIcon href={author.reddit} description="Go to reddit">
-        <RedditIcon />
-      </NewTabIcon>
-    )
-  }
-  {
-    author.discord && (
-      <NewTabIcon href={author.discord} description="Go to discord">
-        <DiscordIcon />
-      </NewTabIcon>
-    )
-  }
-  {
-    author.linkedin && (
-      <NewTabIcon href={author.linkedin} description="Go to Linkedin">
-        <LinkedinIcon />
-      </NewTabIcon>
-    )
-  }
-  {
-    author.hackthebox && (
-      <NewTabIcon href={author.hackthebox} description="Go to HackTheBox">
-        <HackTheBoxIcon />
-      </NewTabIcon>
-    )
-  }
+<div class="my-auto flex flex-wrap justify-center">
+	{
+		author.github && (
+			<NewTabIcon href={author.github} description="Go to github">
+				<GithubIcon />
+			</NewTabIcon>
+		)
+	}
+	{
+		author.twitter && (
+			<NewTabIcon href={author.twitter} description="Go to twitter">
+				<TwitterIcon />
+			</NewTabIcon>
+		)
+	}
+	{
+		author.reddit && !small && (
+			<NewTabIcon href={author.reddit} description="Go to reddit">
+				<RedditIcon />
+			</NewTabIcon>
+		)
+	}
+	{
+		author.discord && !small && (
+			<NewTabIcon href={author.discord} description="Go to discord">
+				<DiscordIcon />
+			</NewTabIcon>
+		)
+	}
+	{
+		author.linkedin && !small && (
+			<NewTabIcon href={author.linkedin} description="Go to Linkedin">
+				<LinkedinIcon />
+			</NewTabIcon>
+		)
+	}
+	{
+		author.hackthebox && !small && (
+			<NewTabIcon href={author.hackthebox} description="Go to HackTheBox">
+				<HackTheBoxIcon />
+			</NewTabIcon>
+		)
+	}
 </div>
