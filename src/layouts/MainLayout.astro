@@ -17,14 +17,16 @@ const { title } = Astro.props;
 	</head>
 	<body>
 		<SpeedInsights />
-		<Header />
-		<div class="container mx-auto font-main">
-			<div class="w-full">
-				<main class="mt-3 mx-3 text-justify">
-					<slot />
-				</main>
+		<div class="grid grid-cols-1 content-between min-h-screen">
+			<div>
+				<Header />
+				<div class="container mx-auto font-main">
+					<main class="mt-3 mx-3 text-justify">
+						<slot />
+					</main>
+				</div>
 			</div>
+			<Footer />
 		</div>
-		<Footer />
 	</body>
 </html>
