@@ -45,10 +45,6 @@ class BlogCollection {
     return this.posts.slice(0, number);
   }
 
-  public getFeaturedPosts() {
-    return this.posts.filter(post => post.data.featured);
-  }
-
   public getPostsByTags(tags: string[]) {
     return this.posts.filter(post =>
       tags.every(tag => post.data.tags.includes(tag))

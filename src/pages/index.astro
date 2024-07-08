@@ -8,18 +8,14 @@ import MainLayout from "../layouts/MainLayout.astro";
 
 const blogCollection = new BlogCollection();
 await blogCollection.getCollection();
-const featuredPosts = blogCollection.getFeaturedPosts();
 const recentPosts = blogCollection.getRecentPosts(4);
 ---
 
 <MainLayout title="Home">
-  <AboutMe />
-  <Hr noPadding />
+	<AboutMe />
+	<Hr noPadding />
 
-  <PostCards posts={featuredPosts} sectionName="featured" header="Featured" />
-  <Hr noPadding />
-
-  <PostCards posts={recentPosts} sectionName="recent" header="Recent">
-    <ReadMore href="/posts">All posts</ReadMore>
-  </PostCards>
+	<PostCards posts={recentPosts} sectionName="recent" header="Recent">
+		<ReadMore href="/posts">All posts</ReadMore>
+	</PostCards>
 </MainLayout>
