@@ -7,10 +7,6 @@ export const NAVBAR = [
     title: "About",
     url: "/about",
   },
-  {
-    title: "Projects",
-    url: "/projects",
-  },
 ];
 
 export const SITE_INFO = {
