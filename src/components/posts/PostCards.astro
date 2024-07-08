@@ -1,30 +1,32 @@
 ---
+import Hr from "@components/common/Hr.astro";
 import type { CollectionEntry } from "astro:content";
 import Calendar from "~icons/material-symbols/calendar-month-outline-rounded";
 import Card from "./Card.svelte";
 
 export type Props = {
-  posts: CollectionEntry<"blog">[];
-  sectionName: string;
-  header: string;
+	posts: CollectionEntry<"blog">[];
+	sectionName: string;
 };
 
-const { posts, sectionName, header } = Astro.props;
+const { posts, sectionName } = Astro.props;
 ---
 
 <section id={sectionName} class="my-8">
-  <h2>{header}</h2>
-  <ul class="grid grid-cols-1 lg:grid-cols-2">
-    {
-      posts.map(post => {
-        return (
-          <Card href={`/blog/${post.slug}`} frontmatter={post.data}>
-            <Calendar style="font-size: 1em" class="hover:" />
-          </Card>
-        );
-      })
-    }
-  </ul>
+	<ul>
+		{
+			posts.map(post => {
+				return (
+					<>
+						<Hr />
+						<Card href={`/blog/${post.slug}`} frontmatter={post.data}>
+							<Calendar style="font-size: 1em" class="hover:" />
+						</Card>
+					</>
+				);
+			})
+		}
+	</ul>
 
-  <slot />
+	<slot />
 </section>

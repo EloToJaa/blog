@@ -1,5 +1,4 @@
 ---
-import Hr from "@components/common/Hr.astro";
 import ReadMore from "@components/common/ReadMore.astro";
 import AboutMe from "@components/posts/AboutMe.astro";
 import PostCards from "@components/posts/PostCards.astro";
@@ -13,9 +12,8 @@ const recentPosts = blogCollection.getRecentPosts(4);
 
 <MainLayout title="Home">
 	<AboutMe />
-	<Hr noPadding />
 
-	<PostCards posts={recentPosts} sectionName="recent" header="Recent">
+	<PostCards posts={recentPosts} sectionName="posts">
 		<ReadMore href="/posts">All posts</ReadMore>
 	</PostCards>
 </MainLayout>

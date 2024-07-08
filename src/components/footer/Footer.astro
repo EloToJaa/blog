@@ -1,5 +1,4 @@
 ---
-import Hr from "@components/common/Hr.astro";
 import RssIcon from "@components/common/RssIcon.astro";
 import SocialIcons from "@components/common/SocialIcons.astro";
 import { getEntry } from "astro:content";
@@ -7,17 +6,16 @@ import { getEntry } from "astro:content";
 const author = await getEntry("authors", "elotoja");
 ---
 
-<div class="mt-8"></div>
-<Hr />
-
-<footer class="flex flex-wrap justify-between py-2 px-2 space-y-2">
-	<div class="my-auto pr-2">
-		<span>Copyright © 2024</span>
-		<span>|</span>
-		<span>All rights reserved</span>
-	</div>
-	<div class="my-auto pb-2 flex">
-		<SocialIcons author={author.data} small />
-		<RssIcon />
+<footer class="bg-base-200">
+	<div class="container mx-auto flex flex-wrap justify-between py-1 space-y-2">
+		<div class="my-auto pr-2">
+			<span>Copyright © 2024</span>
+			<span>|</span>
+			<span>All rights reserved</span>
+		</div>
+		<div class="my-auto pb-2 flex">
+			<SocialIcons author={author.data} small />
+			<RssIcon />
+		</div>
 	</div>
 </footer>
