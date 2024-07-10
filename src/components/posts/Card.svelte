@@ -1,11 +1,12 @@
 <script lang="ts">
   import type { BlogFrontmatter } from "@schema/blog";
   import Datetime from "../datetime/Datetime.svelte";
+  import Tags from "./Tags.svelte";
 
   export let href: string;
   export let frontmatter: BlogFrontmatter;
 
-  const { title, description, pubDatetime } = frontmatter;
+  const { title, description, pubDatetime, tags } = frontmatter;
 </script>
 
 <div class="my-4">
@@ -17,8 +18,11 @@
       {title}
     </h2>
   </a>
-  <Datetime datetime={pubDatetime} showTime={false}>
-    <slot />
-  </Datetime>
   <p>{description}</p>
+  <div class="flex justify-between">
+    <Datetime datetime={pubDatetime} showTime={false} />
+    <Tags {tags}>
+      <slot />
+    </Tags>
+  </div>
 </div>

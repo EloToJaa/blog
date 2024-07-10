@@ -8,8 +8,7 @@
   export let showTime: boolean = true;
 </script>
 
-<div class={cn("flex items-center space-x-2 opacity-80 mb-3", className)}>
-  <slot />
+<div class={cn("flex", className)}>
   <span class="sr-only">Posted on:</span>
   <span
     class={cn("font-semibold", {

@@ -1,6 +1,7 @@
 ---
 import Hr from "@components/common/Hr.astro";
 import type { CollectionEntry } from "astro:content";
+import TagsIcon from "~icons/bi/tags-fill";
 import Card from "./Card.svelte";
 
 export type Props = {
@@ -17,7 +18,9 @@ const { posts, sectionName } = Astro.props;
 			posts.map(post => {
 				return (
 					<>
-						<Card href={`/blog/${post.slug}`} frontmatter={post.data} />
+						<Card href={`/blog/${post.slug}`} frontmatter={post.data}>
+							<TagsIcon style="font-size: 0.85em" class="hover:" />
+						</Card>
 						<Hr />
 					</>
 				);
