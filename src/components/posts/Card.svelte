@@ -8,7 +8,7 @@
   const { title, description, pubDatetime } = frontmatter;
 </script>
 
-<li class="my-4">
+<div class="my-4">
   <a
     {href}
     class="inline-block text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
@@ -21,4 +21,4 @@
     <slot />
   </Datetime>
   <p>{description}</p>
-</li>
+</div>

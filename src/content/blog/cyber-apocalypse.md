@@ -3,7 +3,7 @@ author: elotoja
 pubDatetime: 2024-03-20T00:00:00.000Z
 title: "Cyber Apocalypse 2024: Hacker Royale"
 draft: false
-tags: ["ctf", "writeup", "hack-the-box", "cyber-apocalypse-2024"]
+tags: ["ctf", "Writeup", "HackTheBox", "CyberApocalypse"]
 description: "This is a test post."
 ---
 

@@ -49,7 +49,7 @@ function s(el: string, attrs: Properties = {}, children: any[] = []): P {
  *   <section class="starlight-aside__content">
  *     <p>Astro helps you build faster websites with “Islands Architecture”.</p>
  *   </section>
- * </Aside>
+ * </aside>
  * ```
  */
 function remarkAsides(): Plugin<[], Root> {
