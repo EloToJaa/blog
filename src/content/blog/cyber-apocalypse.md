@@ -276,7 +276,6 @@ print(flag)
 
 In this chalenge we were given a source code named `source.py` and `output.txt`.
 
-
 #### Solution
 
 The above source code is trying to implement [TEA](https://en.wikipedia.org/wiki/Tiny_Encryption_Algorithm). We can simply follow the wikipedia example. Below is the function that we can use to decrypt it. I just added the solve code to the `source.py` file.
@@ -623,7 +622,7 @@ for i in range(1000):
     char = conn.recvline().decode().strip()
     print(f'Index {i}: {char}')
     flag += char
-    
+
     with open('chars.txt', 'w') as f:
         f.write(flag)
 ```
