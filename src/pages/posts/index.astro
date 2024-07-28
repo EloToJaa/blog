@@ -4,13 +4,6 @@ import PostCards from "@components/posts/PostCards.astro";
 import { POSTS_PER_PAGE } from "@config";
 import MainLayout from "@layouts/MainLayout.astro";
 import BlogCollection from "@utils/blog";
-import type { CollectionEntry } from "astro:content";
-
-export type Props = {
-	posts: CollectionEntry<"blog">[];
-	pages: number[];
-	currentPage: number;
-};
 
 const blogCollection = new BlogCollection();
 await blogCollection.getCollection();
