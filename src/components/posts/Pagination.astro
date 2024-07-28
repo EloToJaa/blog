@@ -1,40 +1,42 @@
 ---
 export type Props = {
-  pages: number[];
-  currentPage: number;
+	lastPage: number;
+	currentPage: number;
 };
 
-const { pages, currentPage } = Astro.props;
+const { lastPage, currentPage } = Astro.props;
+
+const pages = Array.from({ length: lastPage }, (_, index) => index + 1);
+
 const firstPage = pages[0];
-const lastPage = pages[pages.length - 1];
 ---
 
 <div class="join join-horizontal">
-  {
-    currentPage > firstPage ? (
-      <a href={`/posts/${currentPage - 1}`}>
-        <button class="btn btn-primary join-item">Previous</button>
-      </a>
-    ) : (
-      <button class="btn btn-primary btn-disabled join-item">Previous</button>
-    )
-  }
+	{
+		currentPage > firstPage ? (
+			<a href={`/posts/${currentPage - 1}`}>
+				<button class="btn btn-primary join-item">Previous</button>
+			</a>
+		) : (
+			<button class="btn btn-primary btn-disabled join-item">Previous</button>
+		)
+	}
 
-  {
-    pages.map(page => (
-      <a href={`/posts/${page}`}>
-        <button class="btn btn-secondary join-item">{page}</button>
-      </a>
-    ))
-  }
+	{
+		pages.map(page => (
+			<a href={`/posts/${page}`}>
+				<button class="btn btn-secondary join-item">{page}</button>
+			</a>
+		))
+	}
 
-  {
-    currentPage < lastPage ? (
-      <a href={`/posts/${currentPage + 1}`}>
-        <button class="btn btn-primary join-item">Next</button>
-      </a>
-    ) : (
-      <button class="btn btn-primary btn-disabled join-item">Next</button>
-    )
-  }
+	{
+		currentPage < lastPage ? (
+			<a href={`/posts/${currentPage + 1}`}>
+				<button class="btn btn-primary join-item">Next</button>
+			</a>
+		) : (
+			<button class="btn btn-primary btn-disabled join-item">Next</button>
+		)
+	}
 </div>

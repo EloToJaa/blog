@@ -7,9 +7,9 @@ import BlogCollection from "@utils/blog";
 import type { CollectionEntry } from "astro:content";
 
 export type Props = {
-  posts: CollectionEntry<"blog">[];
-  pages: number[];
-  currentPage: number;
+	posts: CollectionEntry<"blog">[];
+	pages: number[];
+	currentPage: number;
 };
 
 const blogCollection = new BlogCollection();
@@ -19,10 +19,10 @@ const currentPage = 1;
 const lastPage = blogCollection.lastPage(POSTS_PER_PAGE);
 
 const posts = blogCollection.getPage(currentPage, POSTS_PER_PAGE);
-const pages = Array.from({ length: lastPage }, (_, index) => index + 1);
 ---
 
 <MainLayout title="Posts">
-  <PostCards posts={posts} sectionName="posts" header={`Page ${currentPage}`} />
-  <Pagination pages={pages} currentPage={currentPage} />
+	<h1 class="mt-8">Page {currentPage}</h1>
+	<PostCards posts={posts} sectionName="posts" />
+	<Pagination lastPage={lastPage} currentPage={currentPage} />
 </MainLayout>
