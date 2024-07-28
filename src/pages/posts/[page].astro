@@ -7,32 +7,32 @@ import BlogCollection from "@utils/blog";
 import type { CollectionEntry } from "astro:content";
 
 export type Props = {
-  posts: CollectionEntry<"blog">[];
-  pages: number[];
-  currentPage: number;
+	posts: CollectionEntry<"blog">[];
+	pages: number[];
+	currentPage: number;
 };
 
 export async function getStaticPaths() {
-  const blogCollection = new BlogCollection();
-  await blogCollection.getCollection();
+	const blogCollection = new BlogCollection();
+	await blogCollection.getCollection();
 
-  const lastPage = blogCollection.lastPage(POSTS_PER_PAGE);
-  const pages = Array.from({ length: lastPage }, (_, index) => index + 1);
+	const lastPage = blogCollection.lastPage(POSTS_PER_PAGE);
+	const pages = Array.from({ length: lastPage }, (_, index) => index + 1);
 
-  return pages.map(page => ({
-    params: { page: page },
-    props: {
-      posts: blogCollection.getPage(page, POSTS_PER_PAGE),
-      pages,
-      currentPage: page,
-    },
-  }));
+	return pages.map(page => ({
+		params: { page: page },
+		props: {
+			posts: blogCollection.getPage(page, POSTS_PER_PAGE),
+			pages,
+			currentPage: page,
+		},
+	}));
 }
 
 const { posts, pages, currentPage } = Astro.props;
 ---
 
 <MainLayout title="Posts">
-  <PostCards posts={posts} sectionName="posts" header={`Page ${currentPage}`} />
-  <Pagination pages={pages} currentPage={currentPage} />
+	<PostCards posts={posts} sectionName="posts" />
+	<Pagination pages={pages} currentPage={currentPage} />
 </MainLayout>
