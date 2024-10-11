@@ -52,7 +52,4 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [removeH1, ...starlightAsides()],
   },
-  experimental: {
-    actions: true,
-  },
 });
