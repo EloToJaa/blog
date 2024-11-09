@@ -34,6 +34,7 @@
     "astro": "4.16.10",
     "astro-expressive-code": "^0.38.3",
     "astro-seo": "^0.8.4",
+    "prettier-plugin-svelte": "^3.2.7",
     "svelte": "^5.1.13"
   },
   "devDependencies": {
@@ -64,9 +65,11 @@
     "unist-util-visit": "^5.0.0",
     "unplugin-icons": "^0.20.1"
   },
+  "overrides": {
+    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6"
+  },
   "module": "index.ts",
   "peerDependencies": {
     "typescript": "^5.0.0"
   }
 }
-
