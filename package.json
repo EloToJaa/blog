@@ -34,7 +34,6 @@
     "astro": "4.16.10",
     "astro-expressive-code": "^0.38.3",
     "astro-seo": "^0.8.4",
-    "prettier-plugin-svelte": "^3.2.7",
     "svelte": "^5.1.13"
   },
   "devDependencies": {
@@ -56,6 +55,9 @@
     "fuse.js": "^7.0.0",
     "hastscript": "^9.0.0",
     "mdast-util-directive": "^3.0.0",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-sort-imports": "^1.8.6",
+    "prettier-plugin-svelte": "^3.2.7",
     "prettier-plugin-tailwindcss": "^0.6.8",
     "remark-directive": "^3.0.0",
     "tailwind-merge": "^2.5.4",
