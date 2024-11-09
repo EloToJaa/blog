@@ -5,28 +5,28 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 import MainHead from "./MainHead.astro";
 
 export type Props = {
-	title: string;
+  title: string;
 };
 
 const { title } = Astro.props;
 ---
 
 <html lang="en">
-	<head>
-		<MainHead title={title} />
-	</head>
-	<body>
-		<SpeedInsights />
-		<div class="grid grid-cols-1 content-between min-h-screen">
-			<div>
-				<Header />
-				<div class="container mx-auto font-main">
-					<main class="mt-3 mx-3 text-justify">
-						<slot />
-					</main>
-				</div>
-			</div>
-			<Footer />
-		</div>
-	</body>
+  <head>
+    <MainHead title={title} />
+  </head>
+  <body>
+    <SpeedInsights />
+    <div class="grid grid-cols-1 content-between min-h-screen">
+      <div>
+        <Header />
+        <div class="container mx-auto font-main">
+          <main class="mt-3 mx-3 text-justify">
+            <slot />
+          </main>
+        </div>
+      </div>
+      <Footer />
+    </div>
+  </body>
 </html>

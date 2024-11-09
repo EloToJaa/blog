@@ -12,7 +12,7 @@
     "prettier-plugin-tailwindcss",
     "prettier-plugin-svelte",
     "prettier-plugin-astro",
-    "prettier-plugin-sort-imports"
+    "@trivago/prettier-plugin-sort-imports"
   ],
   "tailwindConfig": "./tailwind.config.cjs",
   "tailwindFunctions": ["cn"]

@@ -7,19 +7,19 @@ import BlogCollection from "@utils/blog";
 import type { GetStaticPaths } from "astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
-	const blogCollection = new BlogCollection();
-	await blogCollection.getCollection();
+  const blogCollection = new BlogCollection();
+  await blogCollection.getCollection();
 
-	return paginate(blogCollection.getPosts(), {
-		pageSize: POSTS_PER_PAGE,
-	});
+  return paginate(blogCollection.getPosts(), {
+    pageSize: POSTS_PER_PAGE,
+  });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
 ---
 
 <MainLayout title="Posts">
-	<h1 class="mt-8">Page {page.currentPage}</h1>
-	<PostCards posts={page.data} sectionName="posts" />
-	<Pagination lastPage={page.lastPage} currentPage={page.currentPage} />
+  <h1 class="mt-8">Page {page.currentPage}</h1>
+  <PostCards posts={page.data} sectionName="posts" />
+  <Pagination lastPage={page.lastPage} currentPage={page.currentPage} />
 </MainLayout>

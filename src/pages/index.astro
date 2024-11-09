@@ -11,9 +11,9 @@ const recentPosts = blogCollection.getRecentPosts(4);
 ---
 
 <MainLayout title="Home">
-	<AboutMe />
+  <AboutMe />
 
-	<PostCards posts={recentPosts} sectionName="posts">
-		<ReadMore href="/posts">All posts</ReadMore>
-	</PostCards>
+  <PostCards posts={recentPosts} sectionName="posts">
+    <ReadMore href="/posts">All posts</ReadMore>
+  </PostCards>
 </MainLayout>

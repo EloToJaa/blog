@@ -15,7 +15,7 @@ const posts = blogCollection.getPage(currentPage, POSTS_PER_PAGE);
 ---
 
 <MainLayout title="Posts">
-	<h1 class="mt-8">Page {currentPage}</h1>
-	<PostCards posts={posts} sectionName="posts" />
-	<Pagination lastPage={lastPage} currentPage={currentPage} />
+  <h1 class="mt-8">Page {currentPage}</h1>
+  <PostCards posts={posts} sectionName="posts" />
+  <Pagination lastPage={lastPage} currentPage={currentPage} />
 </MainLayout>

@@ -1,16 +1,16 @@
 ---
 import cn from "@utils/cn";
 export type Props = {
-	noPadding?: boolean;
-	ariaHidden?: boolean;
+  noPadding?: boolean;
+  ariaHidden?: boolean;
 };
 
 const { noPadding = false, ariaHidden = true } = Astro.props;
 ---
 
 <div class={cn("mx-auto", noPadding ? "-mx-3" : "mx-0")}>
-	<hr
-		class="border-base-content border-1 border-dashed"
-		aria-hidden={ariaHidden}
-	/>
+  <hr
+    class="border-base-content border-1 border-dashed"
+    aria-hidden={ariaHidden}
+  />
 </div>

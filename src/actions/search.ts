@@ -1,6 +1,6 @@
 import BlogCollection from "@utils/blog";
-import { defineAction } from 'astro:actions';
-import { z } from 'astro:schema';
+import { defineAction } from "astro:actions";
+import { z } from "astro:schema";
 import Fuse from "fuse.js";
 
 const blogCollection = new BlogCollection();
