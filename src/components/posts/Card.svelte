@@ -2,9 +2,17 @@
   import type { BlogFrontmatter } from "@schema/blog";
   import Datetime from "../datetime/Datetime.svelte";
   import Tags from "./Tags.svelte";
+  import type { Snippet } from "svelte";
 
-  export let href: string;
-  export let frontmatter: BlogFrontmatter;
+  let {
+    href,
+    frontmatter,
+    children,
+  }: {
+    href: string;
+    frontmatter: BlogFrontmatter;
+    children: Snippet;
+  } = $props();
 
   const { title, description, pubDatetime, tags } = frontmatter;
 </script>
@@ -22,7 +30,7 @@
   <div class="flex justify-between">
     <Datetime datetime={pubDatetime} showTime={false} />
     <Tags {tags}>
-      <slot />
+      {@render children()}
     </Tags>
   </div>
 </div>

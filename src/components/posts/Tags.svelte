@@ -1,10 +1,18 @@
 <script lang="ts">
-  export let tags: string[];
+  import type { Snippet } from "svelte";
+
+  let {
+    tags,
+    children,
+  }: {
+    tags: string[];
+    children: Snippet;
+  } = $props();
 </script>
 
 {#if tags.length > 0}
   <div class="flex space-x-1">
-    <slot />
+    {@render children()}
     {#each tags as tag, i}
       <a
         href={`/search?&tags=${JSON.stringify([tag])}`}

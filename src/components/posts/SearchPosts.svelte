@@ -9,11 +9,11 @@
     value: string;
   };
 
-  export let limit = 5;
-  let searchQuery = "";
-  let tags = [] as string[];
-  let value: Tag[] | undefined | null;
-  $: results = [] as PostSearch[];
+  let { limit }: { limit: number } = $props();
+  let searchQuery = $state<string>("");
+  let tags = $state<string[]>([]);
+  let value = $state<Tag[]>([]);
+  let results = $state<PostSearch[]>([]);
 
   const handleInputChange = async (event: Event) => {
     const target = event.target as HTMLInputElement;
@@ -38,7 +38,7 @@
       limit,
       tags,
     });
-    results = data.results;
+    results = data.data?.results || [];
   };
 
   onMount(async () => {
@@ -53,7 +53,7 @@
 <input
   type="text"
   bind:value={searchQuery}
-  on:input={handleInputChange}
+  oninput={handleInputChange}
   placeholder="Search..."
   class="input input-bordered input-primary input-lg w-full border-4 font-semibold text-2xl"
 />

@@ -1,6 +1,11 @@
 <script lang="ts">
-  export let datetime: string | Date;
-  export let showTime: boolean = true;
+  let {
+    datetime,
+    showTime = true,
+  }: {
+    datetime: string;
+    showTime?: boolean;
+  } = $props();
 
   const myDatetime = new Date(datetime);
 

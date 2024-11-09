@@ -2,10 +2,17 @@
   import cn from "@utils/cn";
   import FormattedDatetime from "./FormattedDatetime.svelte";
 
-  export let datetime: string | Date;
-  export let size: "sm" | "lg" = "sm";
-  export let className: string = "";
-  export let showTime: boolean = true;
+  let {
+    datetime,
+    size = "sm",
+    className = "",
+    showTime = true,
+  }: {
+    datetime: string | Date;
+    size?: "sm" | "lg";
+    className?: string;
+    showTime?: boolean;
+  } = $props();
 </script>
 
 <div class={cn("flex", className)}>
