@@ -30,7 +30,7 @@
   <div class="flex justify-between">
     <Datetime datetime={pubDatetime} showTime={false} />
     <Tags {tags}>
-      {@render children()}
+      {@render children?.()}
     </Tags>
   </div>
 </div>
