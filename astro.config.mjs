@@ -4,7 +4,7 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel";
 import expressiveCode from "astro-expressive-code";
 import { defineConfig } from "astro/config";
 import Icons from "unplugin-icons/vite";
@@ -12,7 +12,7 @@ import Icons from "unplugin-icons/vite";
 // https://astro.build/config
 export default defineConfig({
   site: "https://elotoja.com",
-  output: "hybrid",
+  output: "static",
   adapter: vercel({
     webAnalytics: {
       enabled: true,
