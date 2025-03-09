@@ -1,14 +1,14 @@
 <script lang="ts">
-  import cn from "@utils/cn";
   import FormattedDatetime from "./FormattedDatetime.svelte";
+  import cn from "@utils/cn";
 
-  let {
+  const {
     datetime,
     size = "sm",
     className = "",
     showTime = true,
   }: {
-    datetime: string | Date;
+    datetime: string;
     size?: "sm" | "lg";
     className?: string;
     showTime?: boolean;
