@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { BlogFrontmatter } from "@schema/blog";
   import Datetime from "../datetime/Datetime.svelte";
   import Tags from "./Tags.svelte";
+  import type { BlogFrontmatter } from "@schema/blog";
   import type { Snippet } from "svelte";
 
-  let {
+  const {
     href,
     frontmatter,
     children,
@@ -27,7 +27,7 @@
     </h2>
   </a>
   <p>{description}</p>
-  <div class="flex justify-between">
+  <div class="flex flex-wrap justify-between">
     <Datetime datetime={pubDatetime} showTime={false} />
     <Tags {tags}>
       {@render children?.()}

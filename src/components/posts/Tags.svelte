@@ -11,7 +11,7 @@
 </script>
 
 {#if tags.length > 0}
-  <div class="flex space-x-1">
+  <div class="flex flex-wrap space-x-1">
     {@render children?.()}
     {#each tags as tag, i}
       <a
