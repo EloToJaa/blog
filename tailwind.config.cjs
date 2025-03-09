@@ -33,9 +33,9 @@ module.exports = {
           error: "#ed0030",    
           "error-content": "#140001",
         },
-        light: {
-          ...require("daisyui/src/theming/themes")["fantasy"],
-        }
+        // light: {
+        //   ...require("daisyui/src/theming/themes")["fantasy"],
+        // }
       }
     ]
   },
