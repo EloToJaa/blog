@@ -8,9 +8,12 @@ export type Props = {
 const { href } = Astro.props;
 ---
 
-<a href={href} class="flex items-center justify-center hover:text-accent">
-  <span class="text-2xl font-bold my-auto pr-1">
-    <slot />
-  </span>
-  <ForwardArrowIcon class="hover:" />
-</a>
+<div class="mx-auto flex justify-center mt-4">
+  <a href={href} class="flex hover:text-accent">
+    <span class="text-2xl font-bold my-auto pr-1">
+      <slot />
+    </span>
+
+    <ForwardArrowIcon class="hover:" />
+  </a>
+</div>
