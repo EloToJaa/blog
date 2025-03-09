@@ -12,7 +12,7 @@
 
 {#if tags.length > 0}
   <div class="flex flex-wrap space-x-1">
-    {@render children?.()}
+    <div class="mt-0.5">{@render children?.()}</div>
     {#each tags as tag, i}
       <a
         href={`/search?&tags=${JSON.stringify([tag])}`}

@@ -28,7 +28,10 @@
   </a>
   <p>{description}</p>
   <div class="flex flex-wrap justify-between">
-    <Datetime datetime={pubDatetime} showTime={false} />
+    <div class="mr-4">
+      <Datetime datetime={pubDatetime} showTime={false} />
+    </div>
+
     <Tags {tags}>
       {@render children?.()}
     </Tags>
