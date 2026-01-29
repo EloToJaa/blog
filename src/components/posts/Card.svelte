@@ -17,19 +17,19 @@
   const { title, description, pubDatetime, tags } = frontmatter;
 </script>
 
-<div class="my-4">
+<div class="group relative my-4 p-5 rounded-xl border border-base-300 bg-base-100 shadow-sm hover:shadow-lg hover:border-primary/50 transition-all duration-300">
   <a
     {href}
-    class="inline-block text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
+    class="block text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
   >
-    <h2 class="my-0.5 text-2xl font-medium decoration-dashed hover:underline">
+    <h2 class="my-0.5 text-2xl font-semibold decoration-dashed group-hover:underline group-hover:text-primary transition-colors duration-200">
       {title}
     </h2>
   </a>
-  <p>{description}</p>
-  <div class="flex flex-wrap justify-between">
-    <div class="mr-4">
-      <Datetime datetime={pubDatetime} showTime={false} />
+  <p class="text-base-content/80 mt-2 line-clamp-2">{description}</p>
+  <div class="flex flex-wrap justify-between items-center mt-4 pt-3 border-t border-base-200">
+    <div class="mr-4 text-sm text-base-content/60">
+      <Datetime datetime={pubDatetime.toISOString()} showTime={false} />
     </div>
 
     <Tags {tags}>

@@ -1,0 +1,34 @@
+---
+import SocialIcons from "@components/common/SocialIcons.astro";
+import { getEntry } from "astro:content";
+import ArrowDown from "~icons/ic/baseline-keyboard-arrow-down";
+
+const author = await getEntry("authors", "elotoja");
+---
+
+<section class="hero min-h-[60vh] flex flex-col justify-center items-center text-center px-4 py-12 animate-fade-in-up">
+  <div class="hero-content max-w-3xl">
+    <h1 class="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+      {author.data.name}
+    </h1>
+    <div class="text-xl md:text-2xl text-base-content/80 mb-6 leading-relaxed">
+      <p>Welcome to my personal blog where I share my thoughts on technology, programming, and cybersecurity.</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-4 mb-8">
+      <a href="/posts" class="btn btn-primary btn-lg">
+        Read Blog
+      </a>
+      <a href="/about" class="btn btn-outline btn-lg">
+        About Me
+      </a>
+    </div>
+    <div class="mt-4">
+      <SocialIcons author={author.data} />
+    </div>
+  </div>
+  <div class="mt-8 animate-bounce">
+    <a href="#posts" class="text-base-content/50 hover:text-primary transition-colors" aria-label="Scroll to posts">
+      <ArrowDown class="w-8 h-8" />
+    </a>
+  </div>
+</section>

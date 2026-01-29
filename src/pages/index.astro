@@ -1,6 +1,6 @@
 ---
 import ReadMore from "@components/common/ReadMore.astro";
-import AboutMe from "@components/posts/AboutMe.astro";
+import Hero from "@components/posts/Hero.astro";
 import PostCards from "@components/posts/PostCards.astro";
 import BlogCollection from "@utils/blog";
 import MainLayout from "../layouts/MainLayout.astro";
@@ -11,7 +11,7 @@ const recentPosts = blogCollection.getRecentPosts(4);
 ---
 
 <MainLayout title="Home">
-  <AboutMe />
+  <Hero />
 
   <PostCards posts={recentPosts} sectionName="posts">
     <ReadMore href="/posts">All posts</ReadMore>

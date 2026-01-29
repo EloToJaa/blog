@@ -1,5 +1,4 @@
 ---
-import Hr from "@components/common/Hr.astro";
 import type { CollectionEntry } from "astro:content";
 import TagsIcon from "~icons/bi/tags-fill";
 import Card from "./Card.svelte";
@@ -12,21 +11,21 @@ export type Props = {
 const { posts, sectionName } = Astro.props;
 ---
 
-<section id={sectionName} class="mb-8">
-  <>
+<section id={sectionName} class="mb-12">
+  <h2 class="text-3xl font-bold mb-6 text-center">Latest Posts</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     {
-      posts.map(post => {
+      posts.map((post, index) => {
         return (
-          <>
-            <Card href={`/blog/${post.slug}`} frontmatter={post.data}>
-              <TagsIcon style="font-size: 0.85em" class="hover:" />
-            </Card>
-            <Hr />
-          </>
+          <Card href={`/blog/${post.slug}`} frontmatter={post.data}>
+            <TagsIcon style="font-size: 0.85em" class="hover:" />
+          </Card>
         );
       })
     }
-  </>
+  </div>
 
-  <slot />
+  <div class="mt-8 text-center">
+    <slot />
+  </div>
 </section>

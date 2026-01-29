@@ -19,23 +19,31 @@ const { post, headings } = Astro.props;
 ---
 
 <MainLayout title={post.data.title}>
-  <div class="flex justify-between mt-3">
+  <div class="flex flex-col lg:flex-row justify-between gap-8 mt-6">
     <article
-      class="prose lg:prose-xl prose-h1:mb-4 prose-h2:mt-4 prose-h2:mb-2 dark:prose-invert max-w-none"
+      class="prose lg:prose-xl prose-h1:mb-6 prose-h2:mt-8 prose-h2:mb-4 prose-h3:mt-6 prose-h3:mb-3 prose-p:my-4 prose-li:my-1 dark:prose-invert max-w-none flex-1"
     >
-      <h1 id={slugify(post.data.title)} class="text-left">{post.data.title}</h1>
+      <h1 id={slugify(post.data.title)} class="text-left mb-4">{post.data.title}</h1>
 
-      <Datetime datetime={post.data.pubDatetime} size="lg" showTime={false}>
-        <Calendar style="font-size: 1em" class="hover:" />
-      </Datetime>
-      <Tags tags={post.data.tags} />
+      <div class="flex flex-wrap items-center gap-4 mb-6 text-base-content/70 not-prose">
+        <Datetime datetime={post.data.pubDatetime.toISOString()} size="lg" showTime={false}>
+          <Calendar style="font-size: 1em" class="hover:" />
+        </Datetime>
+        <Tags tags={post.data.tags}>
+          <span></span>
+        </Tags>
+      </div>
+      
       <TableOfContents
         title={post.data.title}
         headings={headings}
         minHeadingLevel={2}
         maxHeadingLevel={4}
       />
-      <slot />
+      
+      <div class="mt-8">
+        <slot />
+      </div>
     </article>
   </div>
 </MainLayout>
