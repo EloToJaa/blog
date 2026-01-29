@@ -1,5 +1,5 @@
 {
-  description = "EloToJa's NixOS configuration";
+  description = "EloToJa's blog flake";
 
   outputs = {flake-parts, ...} @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
