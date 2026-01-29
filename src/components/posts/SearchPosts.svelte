@@ -122,7 +122,7 @@
               class="btn btn-ghost btn-xs btn-circle -mr-1"
               aria-label={`Remove tag ${tag}`}
             >
-              <CloseIcon class="w-3 h-3" />
+              <CloseIcon class="size-3" />
             </button>
           </span>
         {/each}
