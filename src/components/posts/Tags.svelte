@@ -14,12 +14,14 @@
   <div class="flex flex-wrap space-x-1">
     <div class="mt-0.5">{@render children?.()}</div>
     {#each tags as tag, i}
-      <a
-        href={`/search?&tags=${JSON.stringify([tag])}`}
-        class="text-skin-accent text-sm my-auto"
+      <button
+        type="button"
+        onclick={() =>
+          (window.location.href = `/search?&tags=${JSON.stringify([tag])}`)}
+        class="text-skin-accent text-sm my-auto hover:underline cursor-pointer bg-transparent border-0 p-0"
       >
         {tag}{i < tags.length - 1 ? "," : ""}
-      </a>
+      </button>
     {/each}
   </div>
 {/if}

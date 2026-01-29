@@ -19,7 +19,6 @@ const { page } = Astro.props;
 ---
 
 <MainLayout title="Posts">
-  <h1 class="mt-8">Page {page.currentPage}</h1>
   <PostCards posts={page.data} sectionName="posts" />
   <Pagination lastPage={page.lastPage} currentPage={page.currentPage} />
 </MainLayout>

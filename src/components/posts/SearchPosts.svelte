@@ -103,7 +103,7 @@
         class="input input-bordered input-sm join-item rounded-l-lg"
         aria-label="Add tag filter"
       />
-      <button 
+      <button
         onclick={addTag}
         class="btn btn-primary btn-sm join-item rounded-r-lg"
         aria-label="Add tag"
@@ -111,7 +111,7 @@
         Add
       </button>
     </div>
-    
+
     {#if tags.length > 0}
       <div class="flex flex-wrap gap-2">
         {#each tags as tag}
@@ -139,7 +139,7 @@
       Found {results.length} post{results.length === 1 ? "" : "s"}
     {/if}
   </h2>
-  
+
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     {#if isLoading}
       <CardSkeleton count={limit} />

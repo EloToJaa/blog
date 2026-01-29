@@ -6,7 +6,9 @@ import SearchLogo from "~icons/ic/baseline-search";
 import RssIcon from "@components/common/RssIcon.astro";
 ---
 
-<header class="sticky top-0 z-50 py-2 bg-base-200/95 backdrop-blur-md shadow-sm border-b border-base-300 transition-all duration-300">
+<header
+  class="sticky top-0 z-50 py-2 bg-base-200/95 backdrop-blur-md shadow-sm border-b border-base-300 transition-all duration-300"
+>
   <div class="container mx-auto flex justify-between flex-wrap items-center">
     <div class="my-auto flex items-center w-1/4">
       <a
@@ -22,7 +24,10 @@ import RssIcon from "@components/common/RssIcon.astro";
     <div class="md:hidden my-auto mr-3 flex">
       <MenuToggle />
     </div>
-    <navbar id="navbar" class="hidden md:flex w-full md:w-3/4 justify-end items-center">
+    <navbar
+      id="navbar"
+      class="hidden md:flex w-full md:w-3/4 justify-end items-center"
+    >
       <nav class="mx-auto w-min md:mx-0 md:w-max">
         <HeaderLinks
           ulClass="menu menu-vertical md:menu-horizontal p-2 rounded-box text-lg gap-1"
@@ -31,13 +36,13 @@ import RssIcon from "@components/common/RssIcon.astro";
         />
       </nav>
       <div class="flex w-min mx-auto md:mx-0 md:w-max gap-x-3 items-center">
-        <a 
-          href="/search" 
+        <a
+          href="/search"
           title="Search posts"
-          class="btn btn-ghost btn-circle btn-sm hover:bg-base-300 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          class="btn btn-ghost btn-circle btn-sm hover:bg-base-300 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 size-6"
           aria-label="Search posts"
         >
-          <SearchLogo class="w-5 h-5" />
+          <SearchLogo class="size-6" />
         </a>
         <ThemeToggle />
       </div>

@@ -7,24 +7,27 @@ import DarkMode from "~icons/ic/round-dark-mode";
   id="theme-button"
   aria-live="polite"
   aria-label="Toggle theme"
-  class="swap swap-rotate"
+  class="btn btn-ghost btn-circle btn-sm size-6 p-0"
 >
-  <div class="swap-on">
-    <LightMode />
-  </div>
-  <div class="swap-off">
-    <DarkMode />
+  <div class="relative w-full h-full">
+    <LightMode id="light-icon" class="w-full h-full absolute inset-0" />
+    <DarkMode id="dark-icon" class="w-full h-full absolute inset-0" />
   </div>
 </button>
 
 <script>
   function onLoad() {
     const themeButton = document.getElementById("theme-button");
+    const lightIcon = document.getElementById("light-icon");
+    const darkIcon = document.getElementById("dark-icon");
+
     const changeIcon = (theme: string) => {
       if (theme === "dark") {
-        themeButton?.classList.remove("swap-active");
+        lightIcon?.classList.remove("hidden");
+        darkIcon?.classList.add("hidden");
       } else {
-        themeButton?.classList.add("swap-active");
+        lightIcon?.classList.add("hidden");
+        darkIcon?.classList.remove("hidden");
       }
     };
 

@@ -16,7 +16,7 @@ export type Props = {
 const { author, small = false } = Astro.props;
 ---
 
-<div class="my-auto flex flex-wrap justify-center">
+<div class="my-auto flex flex-wrap justify-center gap-2">
   {
     author.github && (
       <NewTabIcon href={author.github} description="Go to github">

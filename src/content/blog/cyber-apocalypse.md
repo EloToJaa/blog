@@ -11,7 +11,7 @@ description: "This is a test post."
 
 This year I took part in Hack The Box's Cyber Apocalypse 2024 CTF. I was part of the team called ETRAID. It was a great experience and I learned a lot from it. I will be sharing some of the writeups for the challenges I solved. I will not be providing the solutions for the challenges that were solved by my teammates.
 
-![Cyber Apocalypse Certificate](../../assets/images/cyber-apocalypse/Certificate-EloToJa-2024.jpg)
+<!-- ![Cyber Apocalypse Certificate](../../assets/images/cyber-apocalypse/Certificate-EloToJa-2024.jpg) -->
 
 ## Web
 
