@@ -37,12 +37,14 @@ without downloading a browser. Then install dependencies with
 | `bun run test:e2e:ui`     | Open Playwright's interactive test runner |
 | `bun run test:e2e:report` | Open the last browser test report         |
 
-Unit tests cover Svelte components and theme behavior alongside utilities in `src/**/*.test.ts`. Browser tests live in
-`tests/e2e`; Playwright starts an Astro development server on port 4321 and
-reuses an existing server locally. Outside Nix, install Chromium first with
+Unit tests cover Svelte components, theme behavior, Markdown, and search in
+`src/**/*.test.ts`. Browser tests live in `tests/e2e`; Playwright starts its
+own Astro server on port 4322 and refuses to reuse an existing server. Set
+`PLAYWRIGHT_PORT` to choose another port when running multiple worktrees.
+Outside Nix, install Chromium first with
 `bunx --no-install playwright install --with-deps chromium`.
 
-The GitHub Actions workflow runs the production build and both test suites on
+The GitHub Actions workflow runs lint, the production build, and both test suites on
 pull requests and pushes to `main`, and uploads browser reports on failure.
 
 ## Useful links

@@ -1,5 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const port = process.env.PLAYWRIGHT_PORT ?? "4322";
+const baseURL = `http://127.0.0.1:${port}`;
+
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: true,
@@ -8,7 +11,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
-    baseURL: "http://127.0.0.1:4321",
+    baseURL,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     launchOptions: {
@@ -17,9 +20,9 @@ export default defineConfig({
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
-    command: "bun run dev --host 127.0.0.1 --port 4321 --ignore-lock",
-    url: "http://127.0.0.1:4321",
-    reuseExistingServer: !process.env.CI,
+    command: `bun run dev --host 127.0.0.1 --port ${port} --ignore-lock`,
+    url: baseURL,
+    reuseExistingServer: false,
     env: { ASTRO_TELEMETRY_DISABLED: "1", PLAYWRIGHT_TEST: "1" },
   },
 });

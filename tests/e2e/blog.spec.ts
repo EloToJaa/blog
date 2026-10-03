@@ -159,3 +159,155 @@ test("search inputs filter posts, add and remove tags, and restore URL state", a
     page.getByText("No posts found matching your search.")
   ).toBeVisible();
 });
+
+test("updates a single page title and keeps theme controls working across navigation", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Toggle theme" }).click();
+  const theme = await page.locator("html").getAttribute("data-theme");
+  await page.getByRole("link", { name: "Posts", exact: true }).click();
+  await expect(page).toHaveTitle("Posts");
+  await expect(page.locator("title")).toHaveCount(1);
+  await expect(page.locator("html")).toHaveAttribute("data-theme", theme!);
+  await page.getByRole("button", { name: "Toggle theme" }).click();
+  await expect(page.locator("html")).toHaveAttribute(
+    "data-theme",
+    theme === "dark" ? "light" : "dark"
+  );
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute(
+    "data-theme",
+    theme === "dark" ? "light" : "dark"
+  );
+});
+
+test("reinitializes article table of contents after client navigation", async ({
+  page,
+}) => {
+  await page.goto("/blog/headings");
+  const toggle = page.getByRole("button", { name: "Table Of Contents toggle" });
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator("#toc-items")).toBeVisible();
+  await page.getByRole("link", { name: "Posts", exact: true }).click();
+  await page.getByRole("link", { name: "Testing headings" }).click();
+  await expect(page.locator("article h1")).toHaveCount(1);
+  await toggle.click();
+  await expect(page.locator("#toc-items")).toBeVisible();
+  await page
+    .getByRole("navigation", { name: "Table Of Contents" })
+    .getByRole("link", { name: "Heading 2", exact: true })
+    .first()
+    .click();
+  await expect(page).toHaveURL(/#heading-2$/);
+  await expect(page.locator("article #heading-2")).toBeVisible();
+});
+
+test("keeps the mobile menu usable on successive pages", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await page.getByRole("button", { name: "open menu", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: "close menu", exact: true })
+  ).toHaveAttribute("aria-expanded", "true");
+  await page.getByRole("link", { name: "Posts", exact: true }).click();
+  await page.getByRole("button", { name: "open menu", exact: true }).click();
+  await page.getByRole("link", { name: "About", exact: true }).click();
+  await expect(page).toHaveURL(/\/about\/?$/);
+  await expect(page.locator("#about-me")).toContainText(
+    "experienced software engineer"
+  );
+  await page.getByRole("button", { name: "open menu", exact: true }).click();
+  await expect(
+    page.getByRole("link", { name: "Posts", exact: true })
+  ).toBeVisible();
+});
+
+test("searches migrated entries and supports tag-only and malformed URL queries", async ({
+  page,
+}) => {
+  await page.goto("/search?tags=%5B%22others-2%22%5D");
+  await expect(
+    page.getByRole("heading", { name: "Found 1 post", exact: true })
+  ).toBeVisible();
+  await expect(
+    page.locator("#search").getByRole("link", { name: "Testing headings" })
+  ).toHaveAttribute("href", "/blog/headings");
+  await page.getByRole("button", { name: "Remove tag others-2" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Found 2 posts", exact: true })
+  ).toBeVisible();
+  await page
+    .getByRole("textbox", { name: "Search posts", exact: true })
+    .fill("Testing headings");
+  await expect(
+    page.getByRole("heading", { name: "Found 1 post", exact: true })
+  ).toBeVisible();
+  await page
+    .locator("#search")
+    .getByRole("link", { name: "Testing headings" })
+    .click();
+  await expect(page).toHaveURL(/\/blog\/headings\/?$/);
+  await page.goto("/search?tags=not-json");
+  await expect(
+    page.getByRole("heading", { name: "Found 2 posts", exact: true })
+  ).toBeVisible();
+});
+
+test("keeps the latest search results when an earlier response arrives last", async ({
+  page,
+}) => {
+  await page.goto("/search");
+  await expect(
+    page.getByRole("heading", { name: "Found 2 posts", exact: true })
+  ).toBeVisible();
+
+  let releaseEarlier!: () => void;
+  const earlierHeld = new Promise<void>(resolve => {
+    releaseEarlier = resolve;
+  });
+  let markEarlierStarted!: () => void;
+  const earlierStarted = new Promise<void>(resolve => {
+    markEarlierStarted = resolve;
+  });
+  await page.route(/\/_actions\/search\/?$/, async route => {
+    if (route.request().postDataJSON().searchPhrase !== "Testing headings") {
+      await route.continue();
+      return;
+    }
+    const response = await route.fetch();
+    markEarlierStarted();
+    await earlierHeld;
+    await route.fulfill({ response });
+  });
+
+  const input = page.getByRole("textbox", {
+    name: "Search posts",
+    exact: true,
+  });
+  await input.fill("Testing headings");
+  await earlierStarted;
+  await input.fill("zzzzzzzzzz");
+  await expect(
+    page.getByRole("heading", { name: "Found 0 posts", exact: true })
+  ).toBeVisible();
+
+  const earlierResponse = page.waitForResponse(
+    response =>
+      response.url().includes("/_actions/search") &&
+      response.request().postDataJSON().searchPhrase === "Testing headings"
+  );
+  releaseEarlier();
+  await (await earlierResponse).finished();
+  await page.evaluate(
+    () =>
+      new Promise<void>(resolve =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
+      )
+  );
+  await expect(
+    page.getByRole("heading", { name: "Found 0 posts", exact: true })
+  ).toBeVisible();
+  await expect(page.locator("#search").getByRole("link")).toHaveCount(0);
+});
