@@ -18,6 +18,11 @@ const { page } = Astro.props;
 ---
 
 <MainLayout title="Posts">
-  <PostCards posts={page.data} sectionName="posts" />
+  <div class="page-heading">
+    <p class="eyebrow">The notebook</p>
+    <h1>All posts</h1>
+    <p>Writeups, experiments, and things learned along the way.</p>
+  </div>
+  <PostCards posts={page.data} sectionName="posts" title="Writing" />
   <Pagination lastPage={page.lastPage} currentPage={page.currentPage} />
 </MainLayout>

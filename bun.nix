@@ -521,9 +521,9 @@
     url = "https://registry.npmjs.org/@fontsource-variable/fira-code/-/fira-code-5.3.0.tgz";
     hash = "sha512-ZhvHeknlicraKVSJBa1NrJnXDVByUkC407zwgELYfmnx3p9g8vwIPfQCxx8YD3K7dAeCdLuHJOHlpMfRsIcApQ==";
   };
-  "@fontsource-variable/inter@5.3.0" = fetchurl {
-    url = "https://registry.npmjs.org/@fontsource-variable/inter/-/inter-5.3.0.tgz";
-    hash = "sha512-OupL48va4JNofb97w6NYeF9S7W/kHNKM0Er8Dem5nqi4jeOLrVJDoE8tZEpnMJmtkvNbB1EIPPwHcdkF6b1oUA==";
+  "@fontsource-variable/source-sans-3@5.3.0" = fetchurl {
+    url = "https://registry.npmjs.org/@fontsource-variable/source-sans-3/-/source-sans-3-5.3.0.tgz";
+    hash = "sha512-dpi0GZk7EQe2tYpg6Q0Fx0OmUgnuGu+0rHPgtXqtKhglYmJuP7jZ12Mu1uN+NfRaJRY1Emn8AQJEWzmoZ4wa9g==";
   };
   "@humanfs/core@0.19.2" = fetchurl {
     url = "https://registry.npmjs.org/@humanfs/core/-/core-0.19.2.tgz";

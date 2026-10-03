@@ -1,20 +1,19 @@
 ---
 import { NAVBAR } from "@config";
-import cn from "@utils/cn.js";
-
-export type Props = {
-  ulClass?: string;
-  liClass?: string;
-  activeClass?: string;
-};
-
-const { ulClass = "", liClass = "", activeClass = "" } = Astro.props;
+export type Props = { ulClass?: string };
+const { ulClass } = Astro.props;
+const isActive = (url: string) =>
+  Astro.url.pathname === url ||
+  Astro.url.pathname.startsWith(`${url}/`) ||
+  (url === "/posts" && Astro.url.pathname.startsWith("/blog/"));
 ---
 
 <ul class={ulClass}>
   {NAVBAR.map(item => (
-    <li class={cn(liClass, item.url === Astro.url.pathname && activeClass)}>
-      <a href={item.url}>{item.title}</a>
+    <li>
+      <a href={item.url} aria-current={isActive(item.url) ? "page" : undefined}>
+        {item.title}
+      </a>
     </li>
   ))}
 </ul>

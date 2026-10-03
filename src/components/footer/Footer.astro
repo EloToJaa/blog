@@ -2,26 +2,20 @@
 import RssIcon from "@components/common/RssIcon.astro";
 import SocialIcons from "@components/common/SocialIcons.astro";
 import { getEntry } from "astro:content";
-
 const author = await getEntry("authors", "elotoja");
 ---
 
-<footer class="bg-muted border-t border-border mt-auto">
-  <div class="container mx-auto py-6 px-4">
-    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-      <div class="text-sm text-muted-foreground text-center md:text-left">
-        <span>
-          © {new Date().getUTCFullYear()} {author?.data?.name || "EloToJa"}
-        </span>
-        <span class="mx-2">|</span>
-        <span>All rights reserved</span>
-      </div>
-      <div class="flex items-center gap-3">
-        {author && <SocialIcons author={author.data} small />}
-        <div class="border-l border-border pl-3">
-          <RssIcon />
-        </div>
-      </div>
+<footer class="border-t border-border">
+  <div class="site-shell flex flex-wrap justify-between items-center gap-4 py-7">
+    <div class="text-sm muted">
+      <p>
+        © {new Date().getFullYear()} {author?.data.name ?? "EloToJa"}
+      </p>
+      <p class="text-xs mt-1">Notes on software & cybersecurity.</p>
+    </div>
+    <div class="flex items-center gap-2">
+      {author && <SocialIcons author={author.data} small />}
+      <RssIcon />
     </div>
   </div>
 </footer>

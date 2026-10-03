@@ -7,8 +7,8 @@ export async function GET() {
     name: SITE_INFO.name,
     description: SITE_INFO.description,
     start_url: "/",
-    background_color: "#ffffff",
-    theme_color: "#000000",
+    background_color: "#f7f9fc",
+    theme_color: "#3659ad",
     display: "standalone",
     icons: [
       {

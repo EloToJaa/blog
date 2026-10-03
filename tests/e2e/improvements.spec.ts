@@ -6,7 +6,7 @@ test("navigates to a rendered article with correct metadata", async ({ page }) =
   await expect(page).toHaveURL(/\/posts\/?$/);
   await page.getByRole("link", { name: article, exact: true }).click();
   await expect(page.getByRole("heading", { name: article, exact: true })).toBeVisible();
-  await expect(page).toHaveTitle(article + " | EloToJa's Blog");
+  await expect(page).toHaveTitle(article + " · EloToJa's Blog");
   await expect(page.locator("head title")).toHaveCount(1);
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
@@ -28,26 +28,26 @@ test("theme and table of contents work after repeated navigation", async ({ page
       before === "dark" ? "light" : "dark"
     );
     await page.getByRole("link", { name: article, exact: true }).click();
-    const toc = page.getByRole("button", { name: "Table Of Contents toggle" });
-    await toc.click();
-    await expect(toc).toHaveAttribute("aria-expanded", "true");
-    await expect(page.locator("#toc-items")).toBeVisible();
-    await page.getByRole("link", { name: "EloToJa", exact: true }).click();
+    await page.getByText("On this page", { exact: true }).click();
+    await expect(page.locator("details.toc")).toHaveAttribute("open", "");
+    await page.getByRole("link", { name: "EloToJa home", exact: true }).click();
   }
 });
 test("tag links navigate and match normalized tags", async ({ page }) => {
   await page.goto("/blog/cyber-apocalypse/");
   await page.getByRole("link", { name: "Writeup", exact: true }).click();
   await expect(page).toHaveURL(/\/search\//);
-  await expect(page.getByRole("heading", { name: "Found 1 post", exact: true })).toBeVisible();
+  await expect(page.getByRole("status")).toHaveText("Found 1 post");
   await expect(page.getByRole("link", { name: article, exact: true })).toBeVisible();
 });
 test("invalid URL parameters recover and search responds to input", async ({ page }) => {
   await page.goto("/search/?tags=invalid");
-  await expect(page.getByRole("heading", { name: "Found 1 post", exact: true })).toBeVisible();
-  await page.getByRole("textbox", { name: "Search posts", exact: true }).fill("zzzzzzzzzzzzzzzzzz");
-  await expect(page.getByRole("heading", { name: "Found 0 posts", exact: true })).toBeVisible();
-  await page.getByRole("textbox", { name: "Search posts", exact: true }).fill("Cyber Apocalypse");
+  await expect(page.getByRole("status")).toHaveText("Found 1 post");
+  await page
+    .getByRole("searchbox", { name: "Search posts", exact: true })
+    .fill("zzzzzzzzzzzzzzzzzz");
+  await expect(page.getByRole("status")).toHaveText("Found 0 posts");
+  await page.getByRole("searchbox", { name: "Search posts", exact: true }).fill("Cyber Apocalypse");
   await expect(page.getByRole("link", { name: article, exact: true })).toBeVisible();
 });
 test("search reports download failures and retries", async ({ page }) => {
@@ -59,30 +59,30 @@ test("search reports download failures and retries", async ({ page }) => {
   await page.goto("/search/");
   await expect(page.getByRole("alert")).toContainText("Search is unavailable");
   await page.getByRole("button", { name: "Retry search" }).click();
-  await expect(page.getByRole("heading", { name: "Found 1 post", exact: true })).toBeVisible();
+  await expect(page.getByRole("status")).toHaveText("Found 1 post");
 });
 test("mobile menu works after navigation", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
-  await page.getByRole("button", { name: "open menu", exact: true }).click();
+  await page.getByRole("button", { name: "Open menu", exact: true }).click();
   await page.getByRole("link", { name: "Posts", exact: true }).click();
-  await page.getByRole("button", { name: "open menu", exact: true }).click();
-  await expect(page.getByRole("button", { name: "close menu", exact: true })).toHaveAttribute(
+  await page.getByRole("button", { name: "Open menu", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Close menu", exact: true })).toHaveAttribute(
     "aria-expanded",
     "true"
   );
   await expect(page.getByRole("link", { name: "About", exact: true })).toBeVisible();
 });
-test("pagination has one canonical first page and real disabled controls", async ({ page }) => {
-  await page.goto("/posts/");
-  await expect(
-    page.getByRole("navigation", { name: "Pagination" }).getByRole("button", { name: "Previous" })
-  ).toBeDisabled();
-  await expect(
-    page
-      .getByRole("navigation", { name: "Pagination" })
-      .getByRole("link", { name: "1", exact: true })
-  ).toHaveAttribute("aria-current", "page");
+test("first-page redirect has a canonical URL and single-page pagination stays hidden", async ({
+  page,
+}) => {
+  await page.goto("/posts/1/");
+  await expect(page).toHaveURL(/\/posts\/?$/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    "href",
+    "https://elotoja.com/posts/"
+  );
+  await expect(page.getByRole("navigation", { name: "Pagination" })).toHaveCount(0);
 });
 test("RSS and search index contain published articles only", async ({ request }) => {
   const response = await request.get("/rss.xml");
@@ -105,10 +105,10 @@ test("uses the latest query when a slow index download finishes", async ({ page 
     await route.continue();
   });
   await page.goto("/search/");
-  const input = page.getByRole("textbox", { name: "Search posts", exact: true });
+  const input = page.getByRole("searchbox", { name: "Search posts", exact: true });
   await input.fill("Cyber Apocalypse");
   await input.fill("zzzzzzzzzzzzzzzzzz");
   release();
-  await expect(page.getByRole("heading", { name: "Found 0 posts", exact: true })).toBeVisible();
+  await expect(page.getByRole("status")).toHaveText("Found 0 posts");
   await expect(input).toHaveValue("zzzzzzzzzzzzzzzzzz");
 });

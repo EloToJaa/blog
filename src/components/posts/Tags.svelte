@@ -1,16 +1,18 @@
 <script lang="ts">
-  import { tagUrl } from "@utils/posts";
   import { Badge } from "@components/ui/badge";
-  import type { Snippet } from "svelte";
+  import { tagUrl } from "@utils/posts";
 
-  const { tags, children }: { tags: string[]; children?: Snippet } = $props();
+  let { tags }: { tags: string[] } = $props();
 </script>
 
 {#if tags.length > 0}
-  <div class="flex flex-wrap items-center gap-1">
-    {@render children?.()}
-    {#each tags as tag, i (`${tag}-${i}`)}
-      <Badge variant="secondary" href={tagUrl(tag)}>{tag}</Badge>
+  <div class="tags" aria-label="Topics">
+    {#each tags as tag (tag)}
+      <Badge
+        variant="secondary"
+        class="tag h-auto whitespace-normal shrink"
+        href={tagUrl(tag)}>{tag}</Badge
+      >
     {/each}
   </div>
 {/if}

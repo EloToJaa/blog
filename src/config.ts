@@ -12,7 +12,7 @@ export const NAVBAR = [
 export const SITE_INFO = {
   short_name: "EloToJa",
   name: "EloToJa's Blog",
-  description: "Programming, technology, cybersecurity, and CTF writeups by Łukasz Budziak",
+  description: "Notes on software engineering, programming, and cybersecurity",
 };
 
 export const POSTS_PER_PAGE = 5;

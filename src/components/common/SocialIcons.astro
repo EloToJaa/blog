@@ -16,34 +16,46 @@ export type Props = {
 const { author, small = false } = Astro.props;
 ---
 
-<div class="my-auto flex flex-wrap justify-center gap-2">
+<div class="flex flex-wrap gap-2">
   {author.github && (
-    <NewTabIcon href={author.github} description="Go to github">
+    <NewTabIcon href={author.github} description="GitHub (opens in a new tab)">
       <GithubIcon />
     </NewTabIcon>
   )}
   {author.twitter && (
-    <NewTabIcon href={author.twitter} description="Go to twitter">
+    <NewTabIcon
+      href={author.twitter}
+      description="Twitter (opens in a new tab)"
+    >
       <TwitterIcon />
     </NewTabIcon>
   )}
   {author.reddit && !small && (
-    <NewTabIcon href={author.reddit} description="Go to reddit">
+    <NewTabIcon href={author.reddit} description="Reddit (opens in a new tab)">
       <RedditIcon />
     </NewTabIcon>
   )}
   {author.discord && !small && (
-    <NewTabIcon href={author.discord} description="Go to discord">
+    <NewTabIcon
+      href={author.discord}
+      description="Discord (opens in a new tab)"
+    >
       <DiscordIcon />
     </NewTabIcon>
   )}
   {author.linkedin && !small && (
-    <NewTabIcon href={author.linkedin} description="Go to Linkedin">
+    <NewTabIcon
+      href={author.linkedin}
+      description="LinkedIn (opens in a new tab)"
+    >
       <LinkedinIcon />
     </NewTabIcon>
   )}
   {author.hackthebox && !small && (
-    <NewTabIcon href={author.hackthebox} description="Go to HackTheBox">
+    <NewTabIcon
+      href={author.hackthebox}
+      description="Hack The Box (opens in a new tab)"
+    >
       <HackTheBoxIcon />
     </NewTabIcon>
   )}

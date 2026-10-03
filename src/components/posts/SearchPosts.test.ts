@@ -13,7 +13,7 @@ describe("static search controls", () => {
     window.history.replaceState({ index: 1 }, "", "/search?q=headings&tags=%5B%22others%22%5D");
     render(SearchPosts, { limit: 5 });
     await screen.findByText("Found 0 posts");
-    expect(screen.getByRole("textbox", { name: "Search posts" })).toHaveValue("headings");
+    expect(screen.getByRole("searchbox", { name: "Search posts" })).toHaveValue("headings");
     expect(screen.getByRole("button", { name: "Remove tag others" })).toBeVisible();
     expect(window.history.state).toEqual({ index: 1 });
     expect(fetchIndex).toHaveBeenCalledTimes(1);

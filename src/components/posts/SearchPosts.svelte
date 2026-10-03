@@ -2,7 +2,6 @@
   import { Badge } from "@components/ui/badge";
   import { Button } from "@components/ui/button";
   import { Input } from "@components/ui/input";
-  import { X, LoaderCircle } from "@lucide/svelte";
   import Card from "@components/posts/Card.svelte";
   import CardSkeleton from "@components/posts/CardSkeleton.svelte";
   import type { PostSearch } from "@schema/blog";
@@ -16,6 +15,7 @@
   import { SvelteURLSearchParams } from "svelte/reactivity";
   import { onMount } from "svelte";
   let { limit }: { limit: number } = $props();
+  let isReady = $state(false);
   let searchQuery = $state("");
   let tags = $state<string[]>([]);
   let posts = $state<PostSearch[]>([]);
@@ -84,6 +84,7 @@
     if (controller === current && !current.signal.aborted) isLoading = false;
   }
   onMount(() => {
+    isReady = true;
     const initial = parseSearchParams(
       new URLSearchParams(window.location.search)
     );
@@ -97,68 +98,88 @@
   });
 </script>
 
-<div class="space-y-4">
+<div class="search-panel">
+  <label for="post-query" class="block font-semibold mb-2">Search posts</label>
   <div class="relative">
     <Input
-      type="text"
+      disabled={!isReady}
+      id="post-query"
+      type="search"
       bind:value={searchQuery}
       maxlength={200}
       oninput={handleInputChange}
-      placeholder="Search posts..."
-      class="h-12 pr-12 text-lg"
+      placeholder="Try a title, tool, or challenge…"
+      class="h-14 pr-12 bg-background"
       aria-label="Search posts"
     />
     {#if isLoading}
       <div class="absolute right-4 top-1/2 -translate-y-1/2">
-        <LoaderCircle
-          class="size-5 animate-spin text-muted-foreground"
-          aria-label="Searching"
-        />
+        <span class="text-sm muted" aria-hidden="true">…</span>
       </div>
     {/if}
   </div>
 
-  <div class="flex flex-wrap items-center gap-2">
-    <div class="flex">
-      <Input
-        type="text"
-        bind:value={tagInput}
-        maxlength={100}
-        onkeydown={handleTagInputKeydown}
-        placeholder="Add tag..."
-        class="rounded-r-none"
-        aria-label="Add tag filter"
-      />
-      <Button onclick={addTag} class="rounded-l-none" aria-label="Add tag">
-        Add
-      </Button>
-    </div>
-
-    {#if tags.length > 0}
-      <div class="flex flex-wrap gap-2">
-        {#each tags as tag (tag)}
-          <Badge variant="secondary" class="h-8 gap-1">
-            {tag}
-            <Button
-              onclick={() => removeTag(tag)}
-              variant="ghost"
-              size="icon-xs"
-              class="-mr-1"
-              aria-label={`Remove tag ${tag}`}
-            >
-              <X class="size-3" />
-            </Button>
-          </Badge>
-        {/each}
+  <div class="mt-5">
+    <label for="tag-filter" class="block text-sm font-semibold mb-2"
+      >Filter by topic</label
+    >
+    <div class="flex flex-wrap items-center gap-2">
+      <div class="flex gap-2 min-w-0">
+        <Input
+          disabled={!isReady}
+          id="tag-filter"
+          type="text"
+          bind:value={tagInput}
+          maxlength={100}
+          onkeydown={handleTagInputKeydown}
+          placeholder="Add tag..."
+          class="min-h-11 bg-background"
+          aria-label="Add tag filter"
+        />
+        <Button
+          variant="outline"
+          disabled={!isReady}
+          onclick={addTag}
+          class="min-h-11"
+          aria-label="Add tag"
+        >
+          Add
+        </Button>
       </div>
-    {/if}
+
+      {#if tags.length > 0}
+        <div class="flex flex-wrap gap-2">
+          {#each tags as tag (tag)}
+            <Badge variant="secondary" class="tag h-auto gap-1">
+              {tag}
+              <Button
+                variant="ghost"
+                size="icon"
+                onclick={() => removeTag(tag)}
+                class="icon-link"
+                aria-label={`Remove tag ${tag}`}
+              >
+                <span aria-hidden="true">×</span>
+              </Button>
+            </Badge>
+          {/each}
+        </div>
+      {/if}
+    </div>
   </div>
 </div>
 
-<section id="search" class="mt-8" aria-busy={isLoading}>
-  <h2 class="text-2xl font-bold mb-4" aria-live="polite" aria-atomic="true">
+<section id="search" class="mt-8">
+  <h2
+    class="text-xl font-semibold mb-5"
+    aria-live="polite"
+    role="status"
+    aria-atomic="true"
+  >
     {#if isLoading}
       Searching...
+    {:else if error}
+      Search unavailable
     {:else}
       Found {total} post{total === 1 ? "" : "s"}
     {/if}
@@ -167,25 +188,46 @@
   {#if total > limit}<p>
       Showing the first {limit} matches. Refine your search to see more.
     </p>{/if}
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    {#if isLoading}
-      <CardSkeleton count={limit} />
-    {:else if error}
-      <div role="alert">
-        <p>{error}</p>
-        <Button onclick={load}>Retry search</Button>
+  <div class="post-grid" aria-busy={isLoading}>
+    {#if error}
+      <div class="empty-state">
+        <p role="alert">{error}</p>
+        <Button variant="outline" class="mt-4" onclick={load}
+          >Retry search</Button
+        >
       </div>
+    {:else if isLoading}
+      <CardSkeleton count={limit} />
     {:else if results.length > 0}
       {#each results as result (result.href)}
-        <Card href={result.href} frontmatter={result.frontmatter}>
-          <span></span>
-        </Card>
+        <Card href={result.href} frontmatter={result.frontmatter} />
       {/each}
     {:else}
-      <div class="col-span-full text-center py-12 text-muted-foreground">
+      <div class="empty-state">
         <p class="text-xl">No posts found matching your search.</p>
-        <p class="mt-2">Try different keywords or browse all posts.</p>
+        <p class="mt-2 muted">
+          Try a different keyword or remove a topic filter.
+        </p>
+        <a href="/posts" class="text-link inline-block mt-4"
+          >Browse all posts →</a
+        >
       </div>
     {/if}
   </div>
 </section>
+
+<style>
+  .search-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+  .empty-state {
+    grid-column: 1 / -1;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    border: 1px dashed var(--border);
+    border-radius: 0.75rem;
+  }
+</style>

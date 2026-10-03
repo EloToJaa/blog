@@ -9,7 +9,7 @@ export type Props = {
 const { items } = Astro.props;
 ---
 
-<ul class="list-none not-prose pl-4">
+<ul>
   {items.map(item => (
     <TocElement item={item} />
   ))}

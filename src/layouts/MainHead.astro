@@ -1,6 +1,7 @@
 ---
 import { SITE_INFO } from "@config";
 import "@fontsource-variable/fira-code";
+import "@fontsource-variable/source-sans-3";
 import "@styles/base.css";
 export type Props = { title: string; description?: string; article?: boolean };
 const {
@@ -8,7 +9,7 @@ const {
   description = SITE_INFO.description,
   article = false,
 } = Astro.props;
-const fullTitle = title + " | " + SITE_INFO.name;
+const fullTitle = title + " · " + SITE_INFO.name;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -34,7 +35,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   title={SITE_INFO.name}
   href="/rss.xml"
 />
-<meta name="theme-color" content="#000000" />
+<meta name="theme-color" content="#3659ad" />
 <meta name="generator" content={Astro.generator} />
 <script is:inline>
   function applyTheme() {
