@@ -13,6 +13,7 @@ import Icons from "unplugin-icons/vite";
 // https://astro.build/config
 export default defineConfig({
   site: "https://elotoja.com",
+  devToolbar: { enabled: process.env.PLAYWRIGHT_TEST !== "1" },
   output: "static",
   adapter: vercel({
     webAnalytics: {

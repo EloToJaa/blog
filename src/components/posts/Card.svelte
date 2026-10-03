@@ -1,6 +1,7 @@
 <script lang="ts">
   import Datetime from "../datetime/Datetime.svelte";
   import Tags from "./Tags.svelte";
+  import { Card as CardRoot } from "@components/ui/card";
   import type { BlogFrontmatter } from "@schema/blog";
   import type { Snippet } from "svelte";
 
@@ -11,31 +12,27 @@
   }: {
     href: string;
     frontmatter: BlogFrontmatter;
-    children: Snippet;
+    children?: Snippet;
   } = $props();
 
-  const { title, description, pubDatetime, tags } = frontmatter;
+  const { title, description, pubDatetime, tags } = $derived(frontmatter);
 </script>
 
-<a
-  {href}
-  class="group block relative my-4 p-5 rounded-xl border border-base-300 bg-base-100 shadow-sm hover:shadow-lg hover:border-primary/50 transition-all duration-300 text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
->
-  <h2
-    class="my-0.5 text-2xl font-semibold decoration-dashed group-hover:underline group-hover:text-primary transition-colors duration-200"
-  >
-    {title}
+<CardRoot class="my-4 gap-0 p-5 hover:shadow-lg transition-shadow">
+  <h2 class="my-0.5 text-2xl font-semibold">
+    <a {href} class="decoration-dashed underline-offset-4 hover:underline"
+      >{title}</a
+    >
   </h2>
-  <p class="text-base-content/80 mt-2 line-clamp-2">{description}</p>
+  <p class="text-muted-foreground mt-2 line-clamp-2">{description}</p>
   <div
-    class="flex flex-wrap justify-between items-center mt-4 pt-3 border-t border-base-200"
+    class="flex flex-wrap justify-between items-center gap-2 mt-4 pt-3 border-t"
   >
-    <div class="mr-4 text-sm text-base-content/60">
+    <div class="mr-4 text-sm text-muted-foreground">
       <Datetime datetime={pubDatetime.toISOString()} showTime={false} />
     </div>
-
     <Tags {tags}>
       {@render children?.()}
     </Tags>
   </div>
-</a>
+</CardRoot>

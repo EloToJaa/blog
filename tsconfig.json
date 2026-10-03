@@ -13,7 +13,10 @@
       "@pages/*": ["pages/*"],
       "@utils/*": ["utils/*"],
       "@styles/*": ["styles/*"],
-      "@schema/*": ["schema/*"]
+      "@schema/*": ["schema/*"],
+      "@lib/*": ["lib/*"],
+      "@lib": ["lib"],
+      "@components": ["components"]
     }
   }
 }

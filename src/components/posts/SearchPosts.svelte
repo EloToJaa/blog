@@ -1,10 +1,13 @@
 <script lang="ts">
   import Card from "@components/posts/Card.svelte";
   import CardSkeleton from "@components/posts/CardSkeleton.svelte";
+  import { Badge } from "@components/ui/badge";
+  import { Button } from "@components/ui/button";
+  import { Input } from "@components/ui/input";
+  import { X, LoaderCircle } from "@lucide/svelte";
   import type { PostSearch } from "@schema/blog";
   import { actions } from "astro:actions";
   import { onMount } from "svelte";
-  import CloseIcon from "~icons/ic/baseline-close";
 
   let { limit }: { limit: number } = $props();
   let searchQuery = $state<string>("");
@@ -47,7 +50,7 @@
     urlParams.set("tags", JSON.stringify(tags));
 
     window.history.replaceState(
-      {},
+      window.history.state,
       "",
       `${window.location.pathname}?${urlParams}`
     );
@@ -78,53 +81,54 @@
 
 <div class="space-y-4">
   <div class="relative">
-    <input
+    <Input
       type="text"
       bind:value={searchQuery}
       oninput={handleInputChange}
       placeholder="Search posts..."
-      class="input input-bordered input-primary input-lg w-full border-2 font-semibold text-xl focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
+      class="h-12 pr-12 text-lg"
       aria-label="Search posts"
     />
     {#if isLoading}
       <div class="absolute right-4 top-1/2 -translate-y-1/2">
-        <span class="loading loading-spinner loading-md text-primary"></span>
+        <LoaderCircle
+          class="size-5 animate-spin text-muted-foreground"
+          aria-label="Searching"
+        />
       </div>
     {/if}
   </div>
 
   <div class="flex flex-wrap items-center gap-2">
-    <div class="join">
-      <input
+    <div class="flex">
+      <Input
         type="text"
         bind:value={tagInput}
         onkeydown={handleTagInputKeydown}
         placeholder="Add tag..."
-        class="input input-bordered input-sm join-item rounded-l-lg"
+        class="rounded-r-none"
         aria-label="Add tag filter"
       />
-      <button
-        onclick={addTag}
-        class="btn btn-primary btn-sm join-item rounded-r-lg"
-        aria-label="Add tag"
-      >
+      <Button onclick={addTag} class="rounded-l-none" aria-label="Add tag">
         Add
-      </button>
+      </Button>
     </div>
 
     {#if tags.length > 0}
       <div class="flex flex-wrap gap-2">
         {#each tags as tag}
-          <span class="badge badge-primary badge-lg gap-1">
+          <Badge variant="secondary" class="h-8 gap-1">
             {tag}
-            <button
+            <Button
               onclick={() => removeTag(tag)}
-              class="btn btn-ghost btn-xs btn-circle -mr-1"
+              variant="ghost"
+              size="icon-xs"
+              class="-mr-1"
               aria-label={`Remove tag ${tag}`}
             >
-              <CloseIcon class="size-3" />
-            </button>
-          </span>
+              <X class="size-3" />
+            </Button>
+          </Badge>
         {/each}
       </div>
     {/if}
@@ -132,7 +136,7 @@
 </div>
 
 <section id="search" class="mt-8">
-  <h2 class="text-2xl font-bold mb-4">
+  <h2 class="text-2xl font-bold mb-4" aria-live="polite">
     {#if isLoading}
       Searching...
     {:else}
@@ -150,7 +154,7 @@
         </Card>
       {/each}
     {:else}
-      <div class="col-span-full text-center py-12 text-base-content/60">
+      <div class="col-span-full text-center py-12 text-muted-foreground">
         <p class="text-xl">No posts found matching your search.</p>
         <p class="mt-2">Try different keywords or browse all posts.</p>
       </div>

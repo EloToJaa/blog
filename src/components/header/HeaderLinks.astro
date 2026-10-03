@@ -12,11 +12,9 @@ const { ulClass = "", liClass = "", activeClass = "" } = Astro.props;
 ---
 
 <ul class={ulClass}>
-  {
-    NAVBAR.map(item => (
-      <li class={cn(liClass, item.url === Astro.url.pathname && activeClass)}>
-        <a href={item.url}>{item.title}</a>
-      </li>
-    ))
-  }
+  {NAVBAR.map(item => (
+    <li class={cn(liClass, item.url === Astro.url.pathname && activeClass)}>
+      <a href={item.url}>{item.title}</a>
+    </li>
+  ))}
 </ul>

@@ -1,17 +1,18 @@
 <script lang="ts">
+  import { Card } from "@components/ui/card";
+  import { Skeleton } from "@components/ui/skeleton";
+
   const { count = 3 }: { count?: number } = $props();
 </script>
 
-{#each Array(count) as _, i}
-  <div class="my-4 p-5 rounded-xl border border-base-300 bg-base-100">
-    <div class="skeleton h-8 w-3/4 mb-3 rounded"></div>
-    <div class="skeleton h-4 w-full mb-2 rounded"></div>
-    <div class="skeleton h-4 w-2/3 mb-4 rounded"></div>
-    <div
-      class="flex flex-wrap justify-between items-center mt-4 pt-3 border-t border-base-200"
-    >
-      <div class="skeleton h-4 w-24 rounded"></div>
-      <div class="skeleton h-4 w-32 rounded"></div>
+{#each Array(count) as _}
+  <Card class="my-4 gap-3 p-5" aria-hidden="true">
+    <Skeleton class="h-8 w-3/4" />
+    <Skeleton class="h-4 w-full" />
+    <Skeleton class="h-4 w-2/3" />
+    <div class="flex justify-between border-t pt-3">
+      <Skeleton class="h-4 w-24" />
+      <Skeleton class="h-4 w-32" />
     </div>
-  </div>
+  </Card>
 {/each}
