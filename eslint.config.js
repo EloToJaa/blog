@@ -1,46 +1,27 @@
 import js from "@eslint/js";
-import eslintPluginAstro from "eslint-plugin-astro";
-import eslintPluginSvelte from "eslint-plugin-svelte";
-
+import astro from "eslint-plugin-astro";
+import svelte from "eslint-plugin-svelte";
+import ts from "typescript-eslint";
+import globals from "globals";
 export default [
-  // Use the JavaScript recommended rules
   {
-    ...js.configs.recommended,
+    ignores: [
+      "dist/**",
+      ".astro/**",
+      ".vercel/**",
+      "node_modules/**",
+      "playwright-report/**",
+      "test-results/**",
+    ],
   },
-  // Astro plugin configuration
+  js.configs.recommended,
+  ...ts.configs.recommended,
+  ...astro.configs["flat/recommended"],
+  ...astro.configs["flat/jsx-a11y-recommended"],
+  ...svelte.configs["flat/recommended"],
+  { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   {
-    plugins: {
-      astro: eslintPluginAstro,
-    },
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: "latest",
-      },
-    },
-    rules: {
-      ...eslintPluginAstro.configs.recommended.rules,
-    },
-  },
-  // Svelte plugin configuration
-  {
-    plugins: {
-      svelte: eslintPluginSvelte,
-    },
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: "latest",
-      },
-    },
-    rules: {
-      ...eslintPluginSvelte.configs["flat/recommended"].rules,
-    },
-  },
-  // Custom rules (applied globally)
-  {
-    rules: {
-      // Override or add any specific rule settings here
-      "no-unused-vars": "warn",
-      // Add any additional custom rules if needed
-    },
+    files: ["**/*.astro", "**/*.svelte"],
+    languageOptions: { parserOptions: { parser: ts.parser } },
   },
 ];

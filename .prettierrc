@@ -8,11 +8,6 @@
   "trailingComma": "es5",
   "bracketSpacing": true,
   "endOfLine": "lf",
-  "plugins": [
-    "prettier-plugin-tailwindcss",
-    "prettier-plugin-svelte",
-    "prettier-plugin-astro",
-    "@trivago/prettier-plugin-sort-imports"
-  ],
+  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-svelte", "prettier-plugin-astro"],
   "tailwindFunctions": ["cn"]
 }
