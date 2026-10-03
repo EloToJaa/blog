@@ -2,77 +2,94 @@
   import Card from "@components/posts/Card.svelte";
   import CardSkeleton from "@components/posts/CardSkeleton.svelte";
   import type { PostSearch } from "@schema/blog";
-  import { actions } from "astro:actions";
+  import {
+    loadSearchIndex,
+    parseSearchParams,
+    searchPosts,
+  } from "@utils/search";
+  import { normalizeTag } from "@utils/posts";
+  import { Effect } from "effect";
+  import { SvelteURLSearchParams } from "svelte/reactivity";
   import { onMount } from "svelte";
-  import CloseIcon from "~icons/ic/baseline-close";
-
   let { limit }: { limit: number } = $props();
-  let searchQuery = $state<string>("");
+  let searchQuery = $state("");
   let tags = $state<string[]>([]);
+  let posts = $state<PostSearch[]>([]);
   let results = $state<PostSearch[]>([]);
-  let isLoading = $state<boolean>(true);
-  let tagInput = $state<string>("");
-
-  const handleInputChange = async (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    searchQuery = target.value;
-    await updateURL();
-  };
-
-  const addTag = async () => {
-    const trimmedTag = tagInput.trim().toLowerCase();
-    if (trimmedTag && !tags.includes(trimmedTag)) {
-      tags = [...tags, trimmedTag];
-      tagInput = "";
-      await updateURL();
-    }
-  };
-
-  const removeTag = async (tagToRemove: string) => {
-    tags = tags.filter(tag => tag !== tagToRemove);
-    await updateURL();
-  };
-
-  const handleTagInputKeydown = async (event: KeyboardEvent) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      await addTag();
-    }
-  };
-
-  const updateURL = async () => {
-    isLoading = true;
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set("q", searchQuery);
-    urlParams.set("tags", JSON.stringify(tags));
-
+  let total = $state(0);
+  let isLoading = $state(true);
+  let error = $state("");
+  let tagInput = $state("");
+  let timer: ReturnType<typeof setTimeout>;
+  let controller: AbortController;
+  function updateURL() {
+    const params = new SvelteURLSearchParams();
+    if (searchQuery) params.set("q", searchQuery);
+    if (tags.length) params.set("tags", JSON.stringify(tags));
     window.history.replaceState(
-      {},
+      window.history.state,
       "",
-      `${window.location.pathname}?${urlParams}`
+      window.location.pathname + (params.size ? "?" + params : "")
     );
-
-    try {
-      const data = await actions.search({
-        searchPhrase: searchQuery,
-        limit,
-        tags,
-      });
-      results = data.data?.results || [];
-    } catch (error) {
-      console.error("Search error:", error);
-      results = [];
-    } finally {
-      isLoading = false;
-    }
-  };
-
-  onMount(async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    searchQuery = urlParams.get("q") || "";
-    tags = urlParams.get("tags") ? JSON.parse(urlParams.get("tags")!) : tags;
-
-    await updateURL();
+    const found = Effect.runSync(searchPosts(posts, searchQuery, tags, limit));
+    results = found.results;
+    total = found.total;
+  }
+  function handleInputChange() {
+    clearTimeout(timer);
+    timer = setTimeout(updateURL, 200);
+  }
+  function addTag() {
+    const tag = normalizeTag(tagInput).slice(0, 100);
+    if (!tag || tags.includes(tag) || tags.length >= 20) return;
+    tags = [...tags, tag];
+    tagInput = "";
+    updateURL();
+  }
+  function removeTag(tag: string) {
+    tags = tags.filter(t => t !== tag);
+    updateURL();
+  }
+  function handleTagInputKeydown(event: KeyboardEvent) {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    addTag();
+  }
+  async function load() {
+    controller?.abort();
+    const current = new AbortController();
+    controller = current;
+    isLoading = true;
+    error = "";
+    await Effect.runPromise(
+      loadSearchIndex(current.signal).pipe(
+        Effect.match({
+          onFailure: failure => {
+            if (controller === current && !current.signal.aborted)
+              error = failure.message;
+          },
+          onSuccess: data => {
+            if (controller === current && !current.signal.aborted) {
+              posts = data;
+              updateURL();
+            }
+          },
+        })
+      )
+    );
+    if (controller === current && !current.signal.aborted) isLoading = false;
+  }
+  onMount(() => {
+    const initial = parseSearchParams(
+      new URLSearchParams(window.location.search)
+    );
+    searchQuery = initial.query;
+    tags = initial.tags;
+    void load();
+    return () => {
+      clearTimeout(timer);
+      controller?.abort();
+    };
   });
 </script>
 
@@ -81,6 +98,7 @@
     <input
       type="text"
       bind:value={searchQuery}
+      maxlength="200"
       oninput={handleInputChange}
       placeholder="Search posts..."
       class="input input-bordered input-primary input-lg w-full border-2 font-semibold text-xl focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
@@ -98,6 +116,7 @@
       <input
         type="text"
         bind:value={tagInput}
+        maxlength="100"
         onkeydown={handleTagInputKeydown}
         placeholder="Add tag..."
         class="input input-bordered input-sm join-item rounded-l-lg"
@@ -114,7 +133,7 @@
 
     {#if tags.length > 0}
       <div class="flex flex-wrap gap-2">
-        {#each tags as tag}
+        {#each tags as tag (tag)}
           <span class="badge badge-primary badge-lg gap-1">
             {tag}
             <button
@@ -122,7 +141,7 @@
               class="btn btn-ghost btn-xs btn-circle -mr-1"
               aria-label={`Remove tag ${tag}`}
             >
-              <CloseIcon class="size-3" />
+              <span aria-hidden="true">×</span>
             </button>
           </span>
         {/each}
@@ -131,18 +150,26 @@
   </div>
 </div>
 
-<section id="search" class="mt-8">
-  <h2 class="text-2xl font-bold mb-4">
+<section id="search" class="mt-8" aria-busy={isLoading}>
+  <h2 class="text-2xl font-bold mb-4" aria-live="polite" aria-atomic="true">
     {#if isLoading}
       Searching...
     {:else}
-      Found {results.length} post{results.length === 1 ? "" : "s"}
+      Found {total} post{total === 1 ? "" : "s"}
     {/if}
   </h2>
 
+  {#if total > limit}<p>
+      Showing the first {limit} matches. Refine your search to see more.
+    </p>{/if}
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     {#if isLoading}
       <CardSkeleton count={limit} />
+    {:else if error}
+      <div role="alert">
+        <p>{error}</p>
+        <button class="btn btn-primary" onclick={load}>Retry search</button>
+      </div>
     {:else if results.length > 0}
       {#each results as result (result.href)}
         <Card href={result.href} frontmatter={result.frontmatter}>

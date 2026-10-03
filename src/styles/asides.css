@@ -28,9 +28,9 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  font-size: var(--sl-text-h5);
+  font-size: 1rem;
   font-weight: 600;
-  line-height: var(--sl-line-height-headings);
+  line-height: 1.5;
   color: var(--sl-color-asides-text-accent);
 }
 

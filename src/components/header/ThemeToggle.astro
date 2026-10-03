@@ -35,7 +35,7 @@ import DarkMode from "~icons/ic/round-dark-mode";
       .matches
       ? "dark"
       : "light";
-    let currentTheme = localStorage.getItem("theme") ?? preferedTheme ?? "dark";
+    let currentTheme = document.documentElement.dataset.theme ?? preferedTheme;
 
     document.documentElement.setAttribute("data-theme", currentTheme);
 
@@ -45,11 +45,15 @@ import DarkMode from "~icons/ic/round-dark-mode";
       currentTheme = currentTheme === "dark" ? "light" : "dark";
 
       document.documentElement.setAttribute("data-theme", currentTheme);
-      localStorage.setItem("theme", currentTheme);
+      try {
+        localStorage.setItem("theme", currentTheme);
+      } catch {
+        /* Storage may be unavailable. */
+      }
 
       changeIcon(currentTheme);
     });
   }
 
-  onLoad();
+  document.addEventListener("astro:page-load", onLoad);
 </script>

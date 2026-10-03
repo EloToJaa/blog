@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@theme {
+  --font-main: "Fira Code Variable", monospace;
+}
 @plugin "daisyui" {
   themes:
     light --default,
@@ -18,7 +22,7 @@ html {
 }
 
 :focus-visible {
-  outline: 2px solid hsl(var(--p));
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
@@ -89,4 +93,16 @@ h3 {
 .skeleton {
   @apply bg-base-300 rounded;
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

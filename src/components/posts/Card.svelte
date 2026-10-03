@@ -11,20 +11,19 @@
   }: {
     href: string;
     frontmatter: BlogFrontmatter;
-    children: Snippet;
+    children?: Snippet;
   } = $props();
 
-  const { title, description, pubDatetime, tags } = frontmatter;
+  const { title, description, pubDatetime, tags } = $derived(frontmatter);
 </script>
 
-<a
-  {href}
+<article
   class="group block relative my-4 p-5 rounded-xl border border-base-300 bg-base-100 shadow-sm hover:shadow-lg hover:border-primary/50 transition-all duration-300 text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
 >
   <h2
     class="my-0.5 text-2xl font-semibold decoration-dashed group-hover:underline group-hover:text-primary transition-colors duration-200"
   >
-    {title}
+    <a {href} class="focus-visible:outline-primary">{title}</a>
   </h2>
   <p class="text-base-content/80 mt-2 line-clamp-2">{description}</p>
   <div
@@ -38,4 +37,4 @@
       {@render children?.()}
     </Tags>
   </div>
-</a>
+</article>

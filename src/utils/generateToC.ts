@@ -15,12 +15,9 @@ export function generateToC(
   headings: MarkdownHeading[],
   { minHeadingLevel, maxHeadingLevel }: TocOpts
 ) {
-  headings = headings.filter(
-    ({ depth }) => depth >= minHeadingLevel && depth <= maxHeadingLevel
-  );
+  headings = headings.filter(({ depth }) => depth >= minHeadingLevel && depth <= maxHeadingLevel);
   const toc: TocItem[] = [];
-  for (const heading of headings)
-    injectChild(toc, { ...heading, children: [], numbers: [] });
+  for (const heading of headings) injectChild(toc, { ...heading, children: [], numbers: [] });
 
   numberItems(toc);
 

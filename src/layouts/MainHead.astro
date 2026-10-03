@@ -2,52 +2,59 @@
 import { SITE_INFO } from "@config";
 import "@fontsource-variable/fira-code";
 import "@styles/base.css";
-import { SEO } from "astro-seo";
-
-export type Props = {
-  title: string;
-};
-
-const { title } = Astro.props;
+export type Props = { title: string; description?: string; article?: boolean };
+const {
+  title,
+  description = SITE_INFO.description,
+  article = false,
+} = Astro.props;
+const fullTitle = title + " | " + SITE_INFO.name;
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <meta charset="utf-8" />
-<SEO
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={article ? "article" : "website"} />
+<meta property="og:url" content={canonical} />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="@elotoja_" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="manifest" href="/manifest.json" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
   title={SITE_INFO.name}
-  description={SITE_INFO.description}
-  twitter={{
-    creator: "@elotoja_",
-  }}
-  extend={{
-    link: [
-      {
-        rel: "icon",
-        href: "/favicon.svg",
-        type: "image/svg+xml",
-      },
-      {
-        rel: "sitemap",
-        href: "/sitemap-index.xml",
-      },
-      {
-        rel: "manifest",
-        href: "/manifest.json",
-      },
-    ],
-    meta: [
-      {
-        name: "viewport",
-        content: "width=device-width",
-      },
-      {
-        name: "theme-color",
-        content: "#000000",
-      },
-      {
-        name: "generator",
-        content: Astro.generator,
-      },
-    ],
-  }}
+  href="/rss.xml"
 />
-<title>{title}</title>
+<meta name="theme-color" content="#000000" />
+<meta name="generator" content={Astro.generator} />
+<script is:inline>
+  function applyTheme() {
+    let stored;
+    try {
+      stored = localStorage.getItem("theme");
+    } catch {
+      /* Storage is optional. */
+    }
+    const theme =
+      stored === "dark" || stored === "light"
+        ? stored
+        : matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+    document.documentElement.dataset.theme = theme;
+  }
+  applyTheme();
+  if (!window.__blogThemeInitialized) {
+    document.addEventListener("astro:after-swap", applyTheme);
+    window.__blogThemeInitialized = true;
+  }
+</script>

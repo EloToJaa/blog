@@ -7,14 +7,16 @@ import { ClientRouter } from "astro:transitions";
 
 export type Props = {
   title: string;
+  description?: string;
+  article?: boolean;
 };
 
-const { title } = Astro.props;
+const { title, description, article } = Astro.props;
 ---
 
 <html lang="en">
   <head>
-    <MainHead title={title} />
+    <MainHead {title} {description} {article} />
     <ClientRouter />
   </head>
   <body>

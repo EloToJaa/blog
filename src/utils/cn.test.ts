@@ -3,9 +3,7 @@ import { describe, expect, it } from "vitest";
 
 describe("cn", () => {
   it("resolves conflicting Tailwind classes while preserving other utilities", () => {
-    expect(cn("p-2 text-sm", "p-4", { hidden: false, flex: true })).toBe(
-      "text-sm p-4 flex"
-    );
+    expect(cn("p-2 text-sm", "p-4", { hidden: false, flex: true })).toBe("text-sm p-4 flex");
   });
 
   it("keeps responsive variants separate from base utilities", () => {

@@ -2,7 +2,7 @@
   const { count = 3 }: { count?: number } = $props();
 </script>
 
-{#each Array(count) as _, i}
+{#each Array.from({ length: count }, (_, i) => i) as i (i)}
   <div class="my-4 p-5 rounded-xl border border-base-300 bg-base-100">
     <div class="skeleton h-8 w-3/4 mb-3 rounded"></div>
     <div class="skeleton h-4 w-full mb-2 rounded"></div>

@@ -1,12 +1,12 @@
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import { SITE_INFO } from "@config";
-import BlogCollection from "@utils/blog";
+import { loadPosts } from "@utils/blog";
+import { postUrl } from "@utils/posts";
 import type { APIContext } from "astro";
 
 export async function GET(context: APIContext) {
-  const blogCollection = new BlogCollection();
-  await blogCollection.getCollection();
-  const posts = blogCollection.getPosts();
+  const allPosts = await loadPosts();
+  const posts = allPosts;
 
   return rss({
     title: SITE_INFO.name,
@@ -17,7 +17,7 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       author: post.data.author.id,
       description: post.data.description,
-      link: `/blog/${post.id}`,
+      link: postUrl(post.id),
       pubDate: post.data.pubDatetime,
       categories: post.data.tags,
     })) as RSSFeedItem[],

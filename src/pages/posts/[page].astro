@@ -3,16 +3,15 @@ import Pagination from "@components/posts/Pagination.astro";
 import PostCards from "@components/posts/PostCards.astro";
 import { POSTS_PER_PAGE } from "@config";
 import MainLayout from "@layouts/MainLayout.astro";
-import BlogCollection from "@utils/blog";
+import { loadPosts } from "@utils/blog";
 import type { GetStaticPaths } from "astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const blogCollection = new BlogCollection();
-  await blogCollection.getCollection();
+  const allPosts = await loadPosts();
 
-  return paginate(blogCollection.getPosts(), {
+  return paginate(allPosts, {
     pageSize: POSTS_PER_PAGE,
-  });
+  }).filter(({ params }) => params.page !== "1");
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;

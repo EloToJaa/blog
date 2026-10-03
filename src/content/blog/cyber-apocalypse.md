@@ -4,7 +4,7 @@ pubDatetime: 2024-03-20T00:00:00.000Z
 title: "Cyber Apocalypse 2024: Hacker Royale"
 draft: false
 tags: ["ctf", "Writeup", "HackTheBox", "CyberApocalypse"]
-description: "This is a test post."
+description: "Writeups from Hack The Box Cyber Apocalypse 2024: web exploitation, binary exploitation, cryptography, reversing, and scripting challenges."
 ---
 
 ## Introduction
@@ -449,7 +449,7 @@ print(f'ciphertext = {encrypted}')
 
 Based on the above source code, seems like it try to implement Diffie-Hellman key exchange. The goal here is we need to recover the private key `a`, so that we can calculate `C`.
 
-### Solution
+#### Solution
 
 We use baby-step giant-step algorithm to solve this challenge. Below is the script that I used to solve:
 
@@ -610,8 +610,9 @@ In this challenge, we were provided with a program on the remote server. We had 
 ```py title="solve.py"
 from pwn import *
 
-ip = '94.237.59.34'
-port = 56893
+import os
+ip = os.environ["CTF_HOST"]
+port = int(os.environ["CTF_PORT"])
 flag = ''
 
 conn = remote(ip, port)
@@ -640,8 +641,9 @@ In this challenge, we were provided with a game on the remote server. We had to 
 ```py title="solve.py"
 from pwn import *
 
-ip = '94.237.63.46'
-port = 39053
+import os
+ip = os.environ["CTF_HOST"]
+port = int(os.environ["CTF_PORT"])
 
 instructions_convert = {
     'GORGE': 'STOP',
@@ -668,6 +670,8 @@ Flag: `HTB{1_wiLl_sT0p_dR0p_4nD_r0Ll_mY_w4Y_oUt!}`
 
 ### Path of Survival
 
+These scripts document the original competition environment. Set `CTF_BASE_URL` to your own challenge instance and install `requests` before running them. The HTTP client uses timeouts and checks status codes.
+
 #### Challenge
 
 In this challenge, we were provided with a game and an API. We had to write a script to solve the game by getting to the weapon tile 100 times and get the flag.
@@ -679,6 +683,7 @@ We had to read the game's map using the API and run Dijkstra's algorithm to find
 First I run `generate_moves.py` to generate `moves.json` with all the possible moves.
 
 ```py title="generate_moves.py"
+import os
 from pprint import pprint
 from typing import List, Optional
 from api import API, Direction, Move, Terrain
@@ -751,7 +756,7 @@ def move_player(api: API, direction: Direction) -> Optional[bool]:
     return True
 
 
-api = API("http://94.237.63.46:33917/")
+api = API(os.environ["CTF_BASE_URL"])
 directions = [Direction.DOWN, Direction.UP, Direction.LEFT, Direction.RIGHT]
 
 api.regenerate_map()
@@ -841,6 +846,7 @@ def get_weapon_positions(map: Map) -> List[List[int]]:
 
 ```py title="api.py"
 import requests
+import os
 from dataclasses import dataclass
 from typing import List, Dict, Optional
 from enum import Enum
@@ -907,19 +913,23 @@ class API:
         self.base_url = base_url
 
     def get_rules(self) -> str:
-        response = requests.get(f"{self.base_url}/rules")
+        response = requests.get(f"{self.base_url}/rules", timeout=10)
+        response.raise_for_status()
         return response.text
 
     def get_api_info(self) -> str:
-        response = requests.get(f"{self.base_url}/api")
+        response = requests.get(f"{self.base_url}/api", timeout=10)
+        response.raise_for_status()
         return response.text
 
     def regenerate_map(self) -> str:
-        response = requests.get(f"{self.base_url}/regenerate")
+        response = requests.get(f"{self.base_url}/regenerate", timeout=10)
+        response.raise_for_status()
         return response.text
 
     def get_map(self) -> Map:
-        response = requests.post(f"{self.base_url}/map")
+        response = requests.post(f"{self.base_url}/map", timeout=10)
+        response.raise_for_status()
         data = response.json()
         player = Player(**data.pop("player"))
         for key, value in data["tiles"].items():
@@ -928,7 +938,8 @@ class API:
 
     def update(self, direction: Direction) -> UpdateResult:
         data = {"direction": direction.value}
-        response = requests.post(f"{self.base_url}/update", json=data)
+        response = requests.post(f"{self.base_url}/update", json=data, timeout=10)
+        response.raise_for_status()
         return UpdateResult(**response.json())
 ```
 
@@ -936,6 +947,7 @@ After running `generate_moves.py`, I run `solve.py` to solve the game.
 
 ```py title="solve.py"
 import json
+import os
 from pprint import pprint
 from queue import PriorityQueue
 from utils import *
@@ -960,7 +972,7 @@ def find_path(start_x: int, start_y: int, map: Map):
 
         current_tile = get_tile(map, [current_x, current_y])
         current_terrain = get_terrain(current_tile)
-        current_dist = -data[0]
+        current_dist = data[0]
 
         if current_dist > dist[current_y][current_x]:
             continue
@@ -985,7 +997,7 @@ def find_path(start_x: int, start_y: int, map: Map):
                     dist[current_y][current_x] + required_time
                 )
                 came_from[potential_y][potential_x] = (current_x, current_y)
-                pq.put((-dist[potential_y][potential_x], (potential_x, potential_y)))
+                pq.put((dist[potential_y][potential_x], (potential_x, potential_y)))
 
     weapon_positions = get_weapon_positions(map)
     weapon_distances = []
@@ -1029,7 +1041,7 @@ def find_path(start_x: int, start_y: int, map: Map):
     return directions
 
 
-api = API("http://83.136.253.251:49512")
+api = API(os.environ["CTF_BASE_URL"])
 api.regenerate_map()
 
 while True:

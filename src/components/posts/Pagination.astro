@@ -1,42 +1,36 @@
 ---
-export type Props = {
-  lastPage: number;
-  currentPage: number;
-};
-
+import { pageUrl } from "@utils/posts";
+export type Props = { lastPage: number; currentPage: number };
 const { lastPage, currentPage } = Astro.props;
-
-const pages = Array.from({ length: lastPage }, (_, index) => index + 1);
-
-const firstPage = pages[0];
+const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
 ---
 
-<div class="join join-horizontal">
-  {
-    currentPage > firstPage ? (
-      <a href={`/posts/${currentPage - 1}`}>
-        <button class="btn btn-primary join-item">Previous</button>
-      </a>
-    ) : (
-      <button class="btn btn-primary btn-disabled join-item">Previous</button>
-    )
-  }
-
-  {
-    pages.map(page => (
-      <a href={`/posts/${page}`}>
-        <button class="btn btn-secondary join-item">{page}</button>
-      </a>
-    ))
-  }
-
-  {
-    currentPage < lastPage ? (
-      <a href={`/posts/${currentPage + 1}`}>
-        <button class="btn btn-primary join-item">Next</button>
-      </a>
-    ) : (
-      <button class="btn btn-primary btn-disabled join-item">Next</button>
-    )
-  }
-</div>
+<nav class="join join-horizontal" aria-label="Post pages">
+  {currentPage > 1 ? (
+    <a class="btn btn-primary join-item" href={pageUrl(currentPage - 1)}>
+      Previous
+    </a>
+  ) : (
+    <button class="btn join-item" disabled>
+      Previous
+    </button>
+  )}
+  {pages.map(page => (
+    <a
+      class="btn btn-secondary join-item"
+      href={pageUrl(page)}
+      aria-current={page === currentPage ? "page" : undefined}
+    >
+      {page}
+    </a>
+  ))}
+  {currentPage < lastPage ? (
+    <a class="btn btn-primary join-item" href={pageUrl(currentPage + 1)}>
+      Next
+    </a>
+  ) : (
+    <button class="btn join-item" disabled>
+      Next
+    </button>
+  )}
+</nav>

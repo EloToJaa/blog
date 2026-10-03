@@ -1,6 +1,6 @@
 ---
 import ArticleLayout from "@layouts/ArticleLayout.astro";
-import BlogCollection from "@utils/blog";
+import { loadPosts } from "@utils/blog";
 import { render, type CollectionEntry } from "astro:content";
 
 export type Props = {
@@ -8,9 +8,8 @@ export type Props = {
 };
 
 export async function getStaticPaths() {
-  const blogCollection = new BlogCollection();
-  await blogCollection.getCollection();
-  const posts = blogCollection.getPosts();
+  const allPosts = await loadPosts();
+  const posts = allPosts;
 
   return posts.map(post => ({
     params: { slug: post.id },

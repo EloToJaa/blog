@@ -1,4 +1,5 @@
 ---
+import { postUrl } from "@utils/posts";
 import type { CollectionEntry } from "astro:content";
 import TagsIcon from "~icons/bi/tags-fill";
 import Card from "./Card.svelte";
@@ -13,10 +14,11 @@ const { posts, sectionName } = Astro.props;
 
 <section id={sectionName} class="mb-12">
   <h2 class="text-3xl font-bold mb-6 text-center">Latest Posts</h2>
+  {posts.length === 0 && <p>No posts have been published yet.</p>}
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    {posts.map((post, index) => {
+    {posts.map(post => {
       return (
-        <Card href={`/blog/${post.id}`} frontmatter={post.data}>
+        <Card href={postUrl(post.id)} frontmatter={post.data}>
           <TagsIcon style="font-size: 0.85em" class="hover:" />
         </Card>
       );

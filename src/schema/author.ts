@@ -1,15 +1,15 @@
-import { z } from "astro:content";
+import { z } from "zod";
 
 export const authorSchema = z
   .object({
     name: z.string(),
-    avatar: z.string().url().optional(),
-    github: z.string().url().optional(),
-    twitter: z.string().url().optional(),
-    reddit: z.string().url().optional(),
-    discord: z.string().url().optional(),
-    linkedin: z.string().url().optional(),
-    hackthebox: z.string().url().optional(),
+    avatar: z.url().optional(),
+    github: z.url().optional(),
+    twitter: z.url().optional(),
+    reddit: z.url().optional(),
+    discord: z.url().optional(),
+    linkedin: z.url().optional(),
+    hackthebox: z.url().optional(),
   })
   .strict();
 
