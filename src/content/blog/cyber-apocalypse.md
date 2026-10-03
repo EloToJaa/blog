@@ -4,14 +4,20 @@ pubDatetime: 2024-03-20T00:00:00.000Z
 title: "Cyber Apocalypse 2024: Hacker Royale"
 draft: false
 tags: ["ctf", "Writeup", "HackTheBox", "CyberApocalypse"]
-description: "This is a test post."
+description: "My Hack The Box Cyber Apocalypse 2024 writeups: command injection, binary exploitation, cryptography, reversing, and game automation with team ETRAID."
 ---
 
 ## Introduction
 
-This year I took part in Hack The Box's Cyber Apocalypse 2024 CTF. I was part of the team called ETRAID. It was a great experience and I learned a lot from it. I will be sharing some of the writeups for the challenges I solved. I will not be providing the solutions for the challenges that were solved by my teammates.
+I took part in Hack The Box's Cyber Apocalypse 2024: Hacker Royale with team ETRAID. These are my writeups for the challenges I solved, covering web security, binary exploitation, cryptography, reversing, and automation. Challenges solved by my teammates are outside the scope of this post.
 
-<!-- ![Cyber Apocalypse Certificate](../../assets/images/cyber-apocalypse/Certificate-EloToJa-2024.jpg) -->
+The most useful part of each solve was identifying what the challenge actually exposed: a command hidden in JavaScript, a prime where an RSA modulus should be, or a game that could be modelled as a weighted graph. Below, I explain those observations alongside the scripts and flags from the event.
+
+The Python examples use Python 3. Depending on the challenge, they also need `pwntools`, `pycryptodome`, or `requests`, plus the original challenge files. The network addresses are from the competition and must be replaced with the address of your own challenge instance.
+
+**Spoilers ahead:** each writeup includes its solution and, where recorded, the flag.
+
+![My certificate for Hack The Box Cyber Apocalypse 2024](../../assets/images/cyber-apocalypse/Certificate-EloToJa-2024.jpg)
 
 ## Web
 
@@ -19,11 +25,13 @@ This year I took part in Hack The Box's Cyber Apocalypse 2024 CTF. I was part of
 
 #### Challenge
 
-This challenge was a simple game in CLI like fashion. We had to provide the correct instructions to the game to get the flag.
+Flag Command presented a browser game with a command-line-style interface. The goal was to discover the command that would reveal the flag.
 
 #### Solution
 
-This challenge required looking into Javascript using the browser's developer tools. This allowed you to get all the possible options and send a request to the server with for the flag.
+I inspected the game's JavaScript in the browser's developer tools. The client code exposed the available commands, including the option needed to request the flag from the server.
+
+The key observation was that the interface did not show everything the client knew. Reading the JavaScript revealed the command without having to guess it through the game.
 
 Flag: `HTB{D3v3l0p3r_t00l5_4r3_b35t_wh4t_y0u_Th1nk??!}`
 
@@ -35,7 +43,9 @@ In this challenge we were given a website that had a form that took a date as in
 
 #### Solution
 
-This challenge was a simple RCE. The website had a form that took a date as input and returned the date in a different format. The input was passed to the `date` command in the backend. The command was not sanitized and we could inject our own commands.
+The source showed that the date format was interpolated into a shell command. This made it possible to escape the quoted format string and run a second command: a command-injection vulnerability leading to remote code execution (RCE).
+
+The payload below supplies `%Y-%m-%d' && cat '/flag` as the format. The first quote closes the format argument, `&&` runs `cat` if the date command succeeds, and the final quote pairs with the quote added by the backend. Spaces, ampersands, and the slash are URL-encoded in the request.
 
 `http://IP:PORT/?format=%Y-%m-%d'%20%26%26%20cat%20'%2Fflag`
 
@@ -51,9 +61,11 @@ In this challenge we were given a binary and a server. The server was running th
 
 #### Solution
 
-This challenge was a typical `ret2win`.
+Decompiling the binary in Ghidra revealed a buffer overflow and a useful target function, `fill_ammo`. This is a `ret2win` challenge: overwrite the saved return address so execution reaches an existing function that reveals the flag.
 
-After decompiling the binary in Ghidra, we found that the binary was vulnerable to a buffer overflow. We used the buffer overflow to overwrite the return address and jump to the `fill_ammo` function.
+Reaching the function is only part of the solution. It also needs three argument values. On x86-64 Linux, the first three integer arguments are passed in `rdi`, `rsi`, and `rdx`. After 40 bytes of padding, the return-oriented programming (ROP) chain loads `0xDEADBEEF`, `0xDEADBABE`, and `0xDEAD1337` into those registers, then returns into `fill_ammo`. An extra `ret` gadget adjusts stack alignment before the call.
+
+The addresses and offset below are specific to the supplied binary.
 
 ```py title="solve.py"
 from pwn import *
@@ -161,7 +173,9 @@ with open('output.txt', 'w') as f:
 
 #### Solution
 
-This challenge was a simple substitution cipher. We had to reverse the encryption to get the flag.
+The encryption is a Trithemius-style progressive shift: an uppercase letter at index `i` is shifted forward by `i`, modulo 26. To decrypt it, subtract the same index.
+
+Non-letter characters are copied unchanged, but they still occupy positions in the string. Keeping those positions is essential: counting only letters would produce the wrong shifts after the first underscore.
 
 ```py title="solve.py"
 encrypted = 'DJF_CTA_SWYH_NPDKK_MBZ_QPHTIGPMZY_KRZSQE?!_ZL_CN_PGLIMCU_YU_KJODME_RYGZXL'
@@ -191,6 +205,8 @@ Flag: `HTB{DID_YOU_KNOW_ABOUT_THE_TRITHEMIUS_CIPHER?!_IT_IS_SIMILAR_TO_CAESAR_CI
 
 ### Makeshift
 
+#### Challenge
+
 In this challenge, we were given a file named `source.py` and `output.txt`.
 
 ```py title="source.py"
@@ -209,7 +225,7 @@ print(new_flag)
 
 #### Solution
 
-We can simply re-arranged per 3 characters, then reverse it. Below is the script that I used to solve:
+The program first reverses the flag, then changes each three-character block from `[a, b, c]` to `[b, c, a]`. Undo those operations in reverse order: restore each block using indices `[2, 0, 1]`, then reverse the whole string. The supplied ciphertext has complete three-character blocks.
 
 ```py title="solve.py"
 encrypted = '!?}De!e3d_5n_nipaOw_3eTR3bt4{_THB'
@@ -251,7 +267,9 @@ with open('output.txt', 'w') as f:
 
 #### Solution
 
-To calculate the private key `d`, we can simply calculate it by doing `inverse_mod(e, phi)` where `phi=n-1`. After recovering `d`, we can simply decrypt the c by doing `pow(c,d,n)`.
+The weakness is in `range(2**0)`: since `2**0` is 1, the product contains just one prime. This makes `n` prime instead of a product of two primes as in standard RSA. There is no factorisation problem to solve.
+
+For prime `n`, Euler's totient is `phi = n - 1`. Compute the private exponent as the modular inverse of `e` modulo `phi`, then recover the message with `pow(c, d, n)` and convert the resulting integer back to bytes.
 
 ```py title="solve.py"
 from Crypto.Util.number import long_to_bytes, inverse
@@ -274,11 +292,15 @@ print(flag)
 
 #### Challenge
 
-In this chalenge we were given a source code named `source.py` and `output.txt`.
+The challenge supplied `source.py` and `output.txt`, containing a cipher implementation, its key, and the ciphertext.
 
 #### Solution
 
-The above source code is trying to implement [TEA](https://en.wikipedia.org/wiki/Tiny_Encryption_Algorithm). We can simply follow the wikipedia example. Below is the function that we can use to decrypt it. I just added the solve code to the `source.py` file.
+The implementation uses the [Tiny Encryption Algorithm (TEA)](https://en.wikipedia.org/wiki/Tiny_Encryption_Algorithm): 64-bit blocks, a 128-bit key, and 32 cycles of shifts, additions, and XORs. Because the output includes the key, the task is to implement the inverse operations.
+
+Decryption starts with `DELTA * 32`, updates the second word before the first, and subtracts `DELTA` after each cycle. Masking both words to 32 bits preserves the wraparound behaviour. No IV is passed in this instance, so the script uses ECB mode and decrypts each block independently.
+
+Below is the supplied cipher with the decryption methods and solve code added. It prints the plaintext as bytes, including the trailing padding.
 
 ```py title="solve.py"
 import os
@@ -447,11 +469,13 @@ encrypted = cipher.encrypt(pad(FLAG, 16))
 print(f'ciphertext = {encrypted}')
 ```
 
-Based on the above source code, seems like it try to implement Diffie-Hellman key exchange. The goal here is we need to recover the private key `a`, so that we can calculate `C`.
+The program performs a Diffie–Hellman key exchange, then derives an AES key from the shared secret. The weakness is the 32-bit prime `p`: the group is small enough to recover an exponent from the public values.
 
-### Solution
+#### Solution
 
-We use baby-step giant-step algorithm to solve this challenge. Below is the script that I used to solve:
+I used baby-step giant-step to solve `A = g^a mod p`. It splits the search into two sets of roughly `sqrt(p)` steps, requiring around 65,536 entries at this size instead of billions of guesses.
+
+Once an exponent `a` is recovered, `B^a mod p` gives the shared secret `C`. The remaining steps mirror the source: hash the secret with SHA-256, take the first 16 bytes as the AES key, decrypt in CBC mode using the supplied IV, and remove the padding.
 
 ```py title="solve.py"
 from Crypto.Cipher import AES
@@ -484,7 +508,7 @@ A = 0xCFABB6DD
 B = 0xC4A21BA9
 ciphertext = b"\x94\x99\x01\xd1\xad\x95\xe0\x13\xb3\xacZj{\x97|z\x1a(&\xe8\x01\xe4Y\x08\xc4\xbeN\xcd\xb2*\xe6{"
 
-# Generate a random private key
+# Recover an exponent matching the public value A
 a = baby_step_giant_step(g, A, p)
 
 # Calculate the shared secret
@@ -515,7 +539,7 @@ In this challenge, we were given a file named `stash` an ELF executable.
 
 #### Solution
 
-All we had to do was run the `strings` command on the binary and grep for `HTB`.
+The flag was stored as readable text in the executable. Running `strings` extracts printable sequences; filtering for `HTB` finds the flag without needing to decompile the program. This is a useful first check before deeper analysis.
 
 ```sh title="solve.sh" frame="terminal"
 strings stash | grep 'HTB'
@@ -527,9 +551,13 @@ Flag: `HTB{n33dl3_1n_a_l00t_stack}`
 
 #### Challenge
 
-In this challenge, we were given a file named `boxcutter` an ELF executable.
+The challenge supplied an ELF executable named `boxcutter`.
 
 #### Solution
+
+The snippet below reconstructs an obfuscated filename from integer constants. `struct.pack("<Q", ...)` restores the bytes in little-endian order, then XOR with `0x37` reverses the encoding. The cleanup removes the `7` characters introduced by XORing zero padding.
+
+This script recovers the filename, rather than printing the flag itself. The recorded flag follows the snippet.
 
 ```py title="solve.py"
 import struct
@@ -553,9 +581,13 @@ Flag: `HTB{tr4c1ng_th3_c4ll5}`
 
 #### Challenge
 
-In this challenge, we were given a file named `crushing` an ELF executable and `message.txt.cz` which was encrypted using the executable.
+The challenge supplied an ELF executable named `crushing` and a file, `message.txt.cz`, produced by it.
 
 #### Solution
+
+The file stores positions grouped by byte value. For each of the 256 possible values, the decoder reads a count followed by that many positions, then places the corresponding character back at each position. Reassembling the array recovers the message.
+
+This is a reversible storage scheme rather than encryption. The original script below uses a fixed 10,000-character buffer and native `Q` unpacking, matching the environment used for the solve.
 
 ```py title="solve.py"
 import struct
@@ -603,9 +635,11 @@ Flag: `HTB{4_v3ry_b4d_compr3ss1on_sch3m3}`
 
 #### Challenge
 
-In this challenge, we were provided with a program on the remote server. We had to write a script to get the flag.
+The remote service returned one character at a time when given an index. Recovering the flag meant requesting successive indices and joining the responses.
 
 #### Solution
+
+The script synchronises with the index prompt, submits an index, and appends the returned character. Saving the accumulated text to `chars.txt` preserves progress. The original loop has a fixed upper bound of 1,000 requests; a reusable client should stop when the flag ends or the service closes the connection.
 
 ```py title="solve.py"
 from pwn import *
@@ -633,9 +667,11 @@ Flag: `HTB{tH15_1s_4_r3aLly_l0nG_fL4g_i_h0p3_f0r_y0Ur_s4k3_tH4t_y0U_sCr1pTEd_tH1
 
 #### Challenge
 
-In this challenge, we were provided with a game on the remote server. We had to write a script to finish the game and get the flag.
+The remote game sent lists of hazards and expected the matching actions. The mapping was fixed: `GORGE` → `STOP`, `PHREAK` → `DROP`, and `FIRE` → `ROLL`.
 
 #### Solution
+
+After accepting the game prompt, the script splits each comma-separated hazard list, translates it through a dictionary, and joins the actions with hyphens. Waiting for the response prompt keeps each answer aligned with its round. The fixed loop below records the original automation; it does not separately handle the final flag response.
 
 ```py title="solve.py"
 from pwn import *
@@ -674,9 +710,16 @@ In this challenge, we were provided with a game and an API. We had to write a sc
 
 #### Solution
 
-We had to read the game's map using the API and run Dijkstra's algorithm to find the shortest path to the weapon tile.
+The map can be treated as a directed, weighted graph: tiles are nodes, legal moves are edges, and elapsed time is the edge cost. The goal is the least-time route to a weapon, which need not be the route with the fewest moves.
 
-First I run `generate_moves.py` to generate `moves.json` with all the possible moves.
+I split the solve into two stages:
+
+1. Record movement costs by source terrain, destination terrain, and direction in `moves.json`.
+2. Use those costs with Dijkstra's algorithm to find an affordable route, submit the moves, and repeat until 100 maps are solved.
+
+Save the four files below in the same directory and use the same challenge instance URL in both scripts. Start `moves.json` with `[]` before the first run: `generate_moves.py` reads it before collecting additional observations. The exploration loop is bounded, so it may need more runs to collect missing transitions.
+
+First, `generate_moves.py` samples movement costs:
 
 ```py title="generate_moves.py"
 from pprint import pprint
@@ -932,7 +975,7 @@ class API:
         return UpdateResult(**response.json())
 ```
 
-After running `generate_moves.py`, I run `solve.py` to solve the game.
+After collecting movement costs, run `solve.py`. Python's `PriorityQueue` returns the smallest priority first, so distances must be queued as positive values. Unknown transitions and those recorded with a cost of `-1` are skipped. If no weapon is reachable within the remaining time, the script requests a new map.
 
 ```py title="solve.py"
 import json
@@ -960,7 +1003,7 @@ def find_path(start_x: int, start_y: int, map: Map):
 
         current_tile = get_tile(map, [current_x, current_y])
         current_terrain = get_terrain(current_tile)
-        current_dist = -data[0]
+        current_dist = data[0]
 
         if current_dist > dist[current_y][current_x]:
             continue
@@ -985,7 +1028,7 @@ def find_path(start_x: int, start_y: int, map: Map):
                     dist[current_y][current_x] + required_time
                 )
                 came_from[potential_y][potential_x] = (current_x, current_y)
-                pq.put((-dist[potential_y][potential_x], (potential_x, potential_y)))
+                pq.put((dist[potential_y][potential_x], (potential_x, potential_y)))
 
     weapon_positions = get_weapon_positions(map)
     weapon_distances = []
@@ -1052,3 +1095,9 @@ while True:
         if result.error is not None:
             print(result.error)
 ```
+
+## Takeaways
+
+These challenges rewarded reading the available information before reaching for a complex exploit. Client-side code exposed a hidden command; a single exponent changed the RSA setup entirely; and a storage format could be reversed by tracking character positions.
+
+For the automation challenges, identifying the protocol or cost model was the important step. Once that model was clear, a short translation loop or a graph search could do the repetitive work. That combination of inspection, modelling, and scripting is what made Cyber Apocalypse a valuable learning experience for me.
