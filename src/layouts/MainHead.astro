@@ -51,3 +51,13 @@ const { title } = Astro.props;
   }}
 />
 <title>{title}</title>
+
+<script is:inline>
+  const storedTheme = localStorage.getItem("theme");
+  const dark =
+    storedTheme === "dark" ||
+    (storedTheme !== "light" &&
+      matchMedia("(prefers-color-scheme: dark)").matches);
+  document.documentElement.classList.toggle("dark", dark);
+  document.documentElement.dataset.theme = dark ? "dark" : "light";
+</script>

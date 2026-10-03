@@ -37,7 +37,7 @@ without downloading a browser. Then install dependencies with
 | `bun run test:e2e:ui`     | Open Playwright's interactive test runner |
 | `bun run test:e2e:report` | Open the last browser test report         |
 
-Unit tests live beside the utilities in `src/**/*.test.ts`. Browser tests live in
+Unit tests cover Svelte components and theme behavior alongside utilities in `src/**/*.test.ts`. Browser tests live in
 `tests/e2e`; Playwright starts an Astro development server on port 4321 and
 reuses an existing server locally. Outside Nix, install Chromium first with
 `bunx --no-install playwright install --with-deps chromium`.
@@ -49,3 +49,16 @@ pull requests and pushes to `main`, and uploads browser reports on failure.
 
 - [Astro documentation](https://docs.astro.build)
 - [Astro Discord server](https://astro.build/chat).
+
+## UI components
+
+The UI uses shadcn-svelte (Vega preset) with Tailwind CSS 4. Components are
+owned by the project in `src/components/ui`, and `components.json` configures
+the registry and aliases. Add components with `bunx shadcn-svelte@latest add
+<component>`. Astro pages can render these Svelte components on the server;
+interactive Svelte islands use `client:load`.
+
+Theme changes set both the `dark` class for shadcn-svelte and `data-theme` for
+article code blocks and asides. Component tests use Testing Library and jsdom.
+Playwright covers search and tag filters, theme persistence, mobile navigation,
+pagination, article navigation, and the table of contents.

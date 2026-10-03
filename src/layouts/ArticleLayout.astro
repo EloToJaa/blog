@@ -20,16 +20,12 @@ const { post, headings } = Astro.props;
 
 <MainLayout title={post.data.title}>
   <div class="flex flex-col lg:flex-row justify-between gap-8 mt-6">
-    <article
-      class="prose lg:prose-xl prose-h1:mb-6 prose-h2:mt-8 prose-h2:mb-4 prose-h3:mt-6 prose-h3:mb-3 prose-p:my-4 prose-li:my-1 dark:prose-invert max-w-none flex-1"
-    >
+    <article class="prose lg:prose-xl prose-h1:mb-6 prose-h2:mt-8 prose-h2:mb-4 prose-h3:mt-6 prose-h3:mb-3 prose-p:my-4 prose-li:my-1 dark:prose-invert max-w-none flex-1">
       <h1 id={slugify(post.data.title)} class="text-left mb-4">
         {post.data.title}
       </h1>
 
-      <div
-        class="flex flex-wrap items-center gap-4 mb-6 text-base-content/70 not-prose"
-      >
+      <div class="flex flex-wrap items-center gap-4 mb-6 text-muted-foreground not-prose">
         <Datetime
           datetime={post.data.pubDatetime.toISOString()}
           size="lg"

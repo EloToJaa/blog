@@ -1,19 +1,22 @@
 ---
+import { Button } from "@components/ui/button";
 import HamburgerOpen from "~icons/ic/baseline-menu";
 import HamburgerClose from "~icons/ic/round-close";
 ---
 
-<button
+<Button
+  variant="ghost"
+  size="icon-sm"
   id="hamburger-button"
   aria-label="open menu"
   aria-expanded="false"
   aria-controls="navbar"
-  class="swap swap-rotate swap-active size-8"
+  class="group"
 >
-  <div class="swap-on size-7">
+  <div class="size-7 group-aria-expanded:hidden">
     <HamburgerOpen />
   </div>
-  <div class="swap-off size-7">
+  <div class="hidden size-7 group-aria-expanded:block">
     <HamburgerClose />
   </div>
-</button>
+</Button>
