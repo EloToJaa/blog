@@ -1,0 +1,17 @@
+{
+  "ignorePatterns": [
+    "**/*.astro",
+    "**/*.svelte",
+    "bun.lock",
+    "flake.lock",
+    ".astro/**",
+    "dist/**",
+    ".vercel/**",
+    "node_modules/**",
+    "playwright-report/**",
+    "test-results/**",
+    "tests/fixtures/**"
+  ],
+  "trailingComma": "es5",
+  "arrowParens": "avoid"
+}

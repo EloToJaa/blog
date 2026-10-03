@@ -1,11 +1,12 @@
 ---
 import { Button } from "@components/ui/button";
 import { getEntry } from "astro:content";
-import BlogCollection from "@utils/blog";
+import { loadPosts } from "@utils/blog";
+import { tagUrl } from "@utils/posts";
 const author = await getEntry("authors", "elotoja");
-const collection = new BlogCollection();
-await collection.getCollection();
-const topics = collection.getTags();
+const topics = [
+  ...new Set((await loadPosts()).flatMap(post => post.data.tags)),
+];
 ---
 
 <section class="intro" aria-labelledby="intro-title">
@@ -34,10 +35,7 @@ const topics = collection.getTags();
     <p class="topic-caption">Follow a thread.</p>
     <div class="tags">
       {topics.map(tag => (
-        <a
-          class="tag"
-          href={`/search?${new URLSearchParams({ tags: JSON.stringify([tag]) })}`}
-        >
+        <a class="tag" href={tagUrl(tag)}>
           {tag}
           <span aria-hidden="true"> ↗</span>
         </a>

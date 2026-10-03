@@ -1,8 +1,8 @@
 <script lang="ts">
   import { Badge } from "@components/ui/badge";
-  import { SvelteURLSearchParams } from "svelte/reactivity";
+  import { tagUrl } from "@utils/posts";
 
-  const { tags }: { tags: string[] } = $props();
+  let { tags }: { tags: string[] } = $props();
 </script>
 
 {#if tags.length > 0}
@@ -11,8 +11,7 @@
       <Badge
         variant="secondary"
         class="tag h-auto whitespace-normal shrink"
-        href={`/search?${new SvelteURLSearchParams({ tags: JSON.stringify([tag]) })}`}
-        >{tag}</Badge
+        href={tagUrl(tag)}>{tag}</Badge
       >
     {/each}
   </div>

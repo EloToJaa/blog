@@ -3,71 +3,60 @@ import { SITE_INFO } from "@config";
 import "@fontsource-variable/fira-code";
 import "@fontsource-variable/source-sans-3";
 import "@styles/base.css";
-import { SEO } from "astro-seo";
-
-export type Props = {
-  title: string;
-};
-
-const { title } = Astro.props;
+export type Props = { title: string; description?: string; article?: boolean };
+const {
+  title,
+  description = SITE_INFO.description,
+  article = false,
+} = Astro.props;
+const fullTitle = title + " · " + SITE_INFO.name;
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <meta charset="utf-8" />
-<SEO
-  title={`${title} · ${SITE_INFO.name}`}
-  description={SITE_INFO.description}
-  twitter={{
-    creator: "@elotoja_",
-  }}
-  extend={{
-    link: [
-      {
-        rel: "icon",
-        href: "/favicon.svg",
-        type: "image/svg+xml",
-      },
-      {
-        rel: "sitemap",
-        href: "/sitemap-index.xml",
-      },
-      {
-        rel: "manifest",
-        href: "/manifest.json",
-      },
-    ],
-    meta: [
-      {
-        name: "viewport",
-        content: "width=device-width",
-      },
-      {
-        name: "theme-color",
-        content: "#3659ad",
-      },
-      {
-        name: "generator",
-        content: Astro.generator,
-      },
-    ],
-  }}
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={article ? "article" : "website"} />
+<meta property="og:url" content={canonical} />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="@elotoja_" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="manifest" href="/manifest.json" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={SITE_INFO.name}
+  href="/rss.xml"
 />
+<meta name="theme-color" content="#3659ad" />
+<meta name="generator" content={Astro.generator} />
 <script is:inline>
   function applyTheme() {
-    let theme;
+    let stored;
     try {
-      theme = localStorage.getItem("theme");
+      stored = localStorage.getItem("theme");
     } catch {
-      /* Use system preference. */
+      /* Storage is optional. */
     }
-    const selectedTheme =
-      theme === "light" || theme === "dark"
-        ? theme
+    const theme =
+      stored === "dark" || stored === "light"
+        ? stored
         : matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
           : "light";
-    document.documentElement.dataset.theme = selectedTheme;
-    document.documentElement.classList.toggle("dark", selectedTheme === "dark");
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.classList.toggle("dark", theme === "dark");
   }
   applyTheme();
-  document.addEventListener("astro:after-swap", applyTheme);
+  if (!window.__blogThemeInitialized) {
+    document.addEventListener("astro:after-swap", applyTheme);
+    window.__blogThemeInitialized = true;
+  }
 </script>

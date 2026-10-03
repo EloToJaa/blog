@@ -2,6 +2,7 @@
 import SocialIcons from "@components/common/SocialIcons.astro";
 import { getEntry, render } from "astro:content";
 const author = await getEntry("authors", "elotoja");
+if (!author) throw new Error("Missing site author: elotoja");
 const { Content } = await render(author);
 ---
 

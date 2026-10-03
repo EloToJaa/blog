@@ -1,70 +1,58 @@
-# My personal blog website
+# EloToJa's blog
 
-## Description
+A static Astro site with Svelte search, Markdown articles, and Tailwind/shadcn-svelte styling.
 
-My personal blog to which i will add articles.
-CTF section is also planned.
+## Development
 
-## Project status
+Run `nix develop`, then `bun install --frozen-lockfile` and `bun run dev --ignore-lock`.
+The site runs at http://localhost:4321. The shell includes Bun, Node.js, bun2nix,
+Oxlint, Oxfmt, and Chromium on Linux. Vite+ supplies the project command runner,
+Oxlint/Oxfmt, and Vitest; ESLint adds Astro/Svelte template and accessibility checks.
+Prettier handles Astro and Svelte formatting alongside Oxfmt for other files.
 
-Currently under development.
+| Command                         | Purpose                                     |
+| ------------------------------- | ------------------------------------------- |
+| `bun run build`                 | Generate the static site in `dist/`         |
+| `bun run preview --ignore-lock` | Serve the production build                  |
+| `bun run check`                 | Check Astro, TypeScript, and Svelte types   |
+| `bun run lint`                  | Run Oxlint and template-aware ESLint        |
+| `bun run format`                | Format the source and configuration         |
+| `bun run format:check`          | Check formatting                            |
+| `bun run test`                  | Run unit and Markdown-plugin tests          |
+| `bun run test:e2e`              | Run Playwright against the production build |
+| `nix build`                     | Build and check the site with bun2nix       |
+| `nix flake check`               | Run the Nix package checks                  |
 
-## 🧞 Commands
+Build before running browser tests. Playwright starts its own production preview
+on port 4321; stop any existing preview first with `bun run preview stop`.
+The Nix shell sets `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` on Linux. Outside Nix,
+install Chromium with `bunx --no-install playwright install --with-deps chromium`.
+CI runs formatting, lint, type checks, the production build, unit tests, and browser tests.
 
-All commands are run from the root of the project, from a terminal:
+## Content and search
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:3000`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Articles live in `src/content/blog` and authors in `src/content/authors`.
+Drafts and future-dated articles are excluded from every public listing, article
+route, RSS feed, and search index. Scheduled articles require a rebuild to publish.
+Post URLs use content IDs; there is no separate frontmatter slug override.
+Dates display in UTC to keep server and browser rendering consistent.
 
-## Testing
+Search downloads `/search-index.json` once and filters locally with Fuse.
+Effect handles content loading, URL decoding, index loading, and search computation.
+Selected tags use case-insensitive matching and all selected tags must match.
+Queries are limited to 200 characters and tag filters to 20 tags of 100 characters.
+Only the first five matches are displayed; refine the query to see other matches.
+No server functions or project secrets are required. If a future integration needs
+secrets, use SecretSpec with AWS Secrets Manager.
 
-Run `nix develop` to use the project's Bun, Node.js, and Chromium. The shell
-sets `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` so Playwright uses Nix's Chromium
-without downloading a browser. Then install dependencies with
-`bun install --frozen-lockfile`.
+The headings demonstration is a test fixture, not a published article. Unit tests
+cover publication rules, pagination, URL decoding, search filtering, and Markdown
+transforms. Browser tests cover production navigation, theme persistence, mobile
+menus, search recovery, tag links, metadata, RSS, and pagination semantics.
 
-| Command                   | Action                                    |
-| :------------------------ | :---------------------------------------- |
-| `bun run test`            | Run the Vitest unit tests once            |
-| `bun run test:watch`      | Run unit tests in watch mode              |
-| `bun run test:e2e`        | Run desktop and mobile Chromium tests     |
-| `bun run test:e2e:ui`     | Open Playwright's interactive test runner |
-| `bun run test:e2e:report` | Open the last browser test report         |
+## Dependency updates
 
-Unit tests cover Svelte components, theme behavior, Markdown, and search in
-`src/**/*.test.ts`. Browser tests live in `tests/e2e`; Playwright starts its
-own Astro server on port 4322 and refuses to reuse an existing server. Set
-`PLAYWRIGHT_PORT` to choose another port when running multiple worktrees.
-Outside Nix, install Chromium first with
-`bunx --no-install playwright install --with-deps chromium`.
-
-Browser checks run desktop and iPhone SE layouts. They cover navigation, theme
-persistence, search and topic filters, error recovery, article contents, keyboard
-navigation, and responsive layouts.
-
-The GitHub Actions workflow runs lint, the production build, and both test suites on
-pull requests and pushes to `main`, and uploads browser reports on failure.
-
-## Useful links
-
-- [Astro documentation](https://docs.astro.build)
-- [Astro Discord server](https://astro.build/chat).
-
-## UI components
-
-The UI uses shadcn-svelte (Vega preset) with Tailwind CSS 4. Components are
-owned by the project in `src/components/ui`, and `components.json` configures
-the registry and aliases. Add components with `bunx shadcn-svelte@latest add
-<component>`. Astro pages can render these Svelte components on the server;
-interactive Svelte islands use `client:load`.
-
-Theme changes set both the `dark` class for shadcn-svelte and `data-theme` for
-article code blocks and asides. Component tests use Testing Library and jsdom.
-Playwright covers search and tag filters, theme persistence, mobile navigation,
-pagination, article navigation, and the table of contents.
+After updating `package.json`, run `bun install` and `bun2nix -o bun.nix`.
+Commit both lockfiles and the generated dependency manifest. Nix outputs use
+`flake-utils.lib.eachDefaultSystem`; Chromium is supplied on Linux only.
+Run `nix build` on each target platform before relying on its package output.

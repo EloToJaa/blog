@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { postUrl } from "@utils/posts";
 import Card from "./Card.svelte";
 export type Props = {
   posts: CollectionEntry<"blog">[];
@@ -16,7 +17,7 @@ const { posts, sectionName, title = "Latest Posts" } = Astro.props;
   </div>
   <div class="post-grid">
     {posts.map(post => (
-      <Card href={`/blog/${post.id}`} frontmatter={post.data} />
+      <Card href={postUrl(post.id)} frontmatter={post.data} />
     ))}
   </div>
 </section>

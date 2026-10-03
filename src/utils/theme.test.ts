@@ -8,12 +8,9 @@ describe("theme selection", () => {
     [null, true, "dark"],
     [null, false, "light"],
     ["invalid", false, "light"],
-  ] as const)(
-    "resolves stored %s with system dark=%s to %s",
-    (stored, prefersDark, expected) => {
-      expect(getTheme(stored, prefersDark)).toBe(expected);
-    }
-  );
+  ] as const)("resolves stored %s with system dark=%s to %s", (stored, prefersDark, expected) => {
+    expect(getTheme(stored, prefersDark)).toBe(expected);
+  });
 
   it("updates both shadcn styles and article theme selectors", () => {
     const root = document.createElement("html");

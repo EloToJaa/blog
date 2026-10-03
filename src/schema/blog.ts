@@ -1,11 +1,11 @@
-import { reference, z } from "astro:content";
+import { reference } from "astro:content";
+import { z } from "zod";
 
 export const blogSchema = z
   .object({
     author: reference("authors"),
     pubDatetime: z.date(),
     title: z.string(),
-    postSlug: z.string().optional(),
     draft: z.boolean().optional(),
     tags: z.array(z.string()).default(["others"]),
     description: z.string(),

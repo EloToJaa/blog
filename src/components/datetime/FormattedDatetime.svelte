@@ -14,6 +14,7 @@
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: "UTC",
     })
   );
 
@@ -22,12 +23,13 @@
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
+      timeZone: "UTC",
     })
   );
 </script>
 
-<time {datetime}
-  >{date}
+<time datetime={myDatetime.toISOString()}>
+  {date}
   {#if showTime}
     <span aria-hidden="true">|</span>
     <span class="sr-only">&nbsp;at&nbsp;</span>

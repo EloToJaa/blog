@@ -1,20 +1,10 @@
-# Ignore everything
-/*
-
-# Except these files & folders
-!/src
-!/public
-!/.github
-!tsconfig.json
-!astro.config.mjs
-!package.json
-!.prettierrc
-!.eslintrc.js
-!svelte.config.js
-!tailwind.config.js
-!README.md
-!vitest.config.ts
-!playwright.config.ts
-!/tests
-
-!eslint.config.js
+node_modules/
+dist/
+.astro/
+.vercel/
+playwright-report/
+test-results/
+coverage/
+bun.lock
+flake.lock
+bun.nix

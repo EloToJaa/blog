@@ -1,0 +1,12 @@
+{
+  "ignorePatterns": [
+    "dist/**",
+    ".astro/**",
+    ".vercel/**",
+    "node_modules/**",
+    "playwright-report/**",
+    "test-results/**"
+  ],
+  "plugins": ["typescript"],
+  "rules": {}
+}

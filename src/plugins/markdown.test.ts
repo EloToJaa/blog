@@ -12,27 +12,18 @@ describe("Astro unified Markdown pipeline", () => {
   });
 
   it("removes consecutive H1 headings and preserves heading anchors", async () => {
-    const { code, metadata } = await processor.render(
-      "# One\n\n# Two\n\n## Section\n\n## Section"
-    );
+    const { code, metadata } = await processor.render("# One\n\n# Two\n\n## Section\n\n## Section");
     expect(code).not.toContain("<h1");
-    expect(metadata.headings.map(heading => heading.slug)).toEqual([
-      "section",
-      "section-1",
-    ]);
+    expect(metadata.headings.map(heading => heading.slug)).toEqual(["section", "section-1"]);
     expect(code).toContain('id="section-1"');
   });
 
   it.each(["note", "tip", "caution", "danger"])(
     "renders %s callouts with a useful default title",
     async variant => {
-      const { code } = await processor.render(
-        `:::${variant}\nCallout content.\n:::`
-      );
+      const { code } = await processor.render(`:::${variant}\nCallout content.\n:::`);
       expect(code).toContain(`starlight-aside--${variant}`);
-      expect(code).toContain(
-        `aria-label="${variant[0].toUpperCase() + variant.slice(1)}"`
-      );
+      expect(code).toContain(`aria-label="${variant[0].toUpperCase() + variant.slice(1)}"`);
       expect(code).toContain("<p>Callout content.</p>");
     }
   );

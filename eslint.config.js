@@ -1,37 +1,27 @@
 import js from "@eslint/js";
-import tsParser from "@typescript-eslint/parser";
-import eslintPluginAstro from "eslint-plugin-astro";
-import eslintPluginSvelte from "eslint-plugin-svelte";
+import astro from "eslint-plugin-astro";
+import svelte from "eslint-plugin-svelte";
+import ts from "typescript-eslint";
 import globals from "globals";
-
 export default [
   {
     ignores: [
       "dist/**",
       ".astro/**",
       ".vercel/**",
+      "node_modules/**",
       "playwright-report/**",
       "test-results/**",
-      "coverage/**",
     ],
   },
   js.configs.recommended,
-  ...eslintPluginAstro.configs["flat/recommended"],
-  ...eslintPluginSvelte.configs["flat/recommended"],
+  ...ts.configs.recommended,
+  ...astro.configs["flat/recommended"],
+  ...astro.configs["flat/jsx-a11y-recommended"],
+  ...svelte.configs["flat/recommended"],
+  { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   {
-    files: ["**/*.{js,mjs,ts,astro,svelte}"],
-    languageOptions: {
-      globals: { ...globals.browser, ...globals.node },
-    },
-    rules: { "no-unused-vars": "warn" },
-  },
-  {
-    files: ["**/*.ts"],
-    languageOptions: { parser: tsParser },
-    rules: { "no-undef": "off" },
-  },
-  {
-    files: ["**/*.{astro,svelte}"],
-    languageOptions: { parserOptions: { parser: tsParser } },
+    files: ["**/*.astro", "**/*.svelte"],
+    languageOptions: { parserOptions: { parser: ts.parser } },
   },
 ];

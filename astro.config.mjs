@@ -4,7 +4,6 @@ import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
-import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import expressiveCode from "astro-expressive-code";
 import { defineConfig } from "astro/config";
@@ -15,12 +14,7 @@ export default defineConfig({
   site: "https://elotoja.com",
   devToolbar: { enabled: process.env.PLAYWRIGHT_TEST !== "1" },
   output: "static",
-  adapter: vercel({
-    webAnalytics: {
-      enabled: true,
-    },
-    imageService: true,
-  }),
+  redirects: { "/posts/1": "/posts/" },
   vite: {
     plugins: [
       Icons({

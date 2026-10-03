@@ -46,17 +46,13 @@ describe("UI components", () => {
 
   it("renders navigable tag badges", () => {
     render(Badge, { href: "/search?tags=ctf", "aria-label": "ctf" });
-    expect(screen.getByRole("link", { name: "ctf" })).toHaveAttribute(
-      "href",
-      "/search?tags=ctf"
-    );
+    expect(screen.getByRole("link", { name: "ctf" })).toHaveAttribute("href", "/search?tags=ctf");
   });
 
   it("keeps loading placeholders out of the accessibility tree", () => {
     const { container } = render(CardSkeleton, { count: 2 });
     const cards = container.querySelectorAll('[data-slot="card"]');
     expect(cards).toHaveLength(2);
-    for (const card of cards)
-      expect(card).toHaveAttribute("aria-hidden", "true");
+    for (const card of cards) expect(card).toHaveAttribute("aria-hidden", "true");
   });
 });

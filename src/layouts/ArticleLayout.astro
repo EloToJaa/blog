@@ -15,7 +15,7 @@ export type Props = {
 const { post, headings } = Astro.props;
 ---
 
-<MainLayout title={post.data.title}>
+<MainLayout title={post.data.title} description={post.data.description} article>
   <article class="article-shell">
     <header class="article-header">
       <a href="/posts" class="text-link text-sm">

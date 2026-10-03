@@ -1,15 +1,11 @@
 import { expect, test } from "@playwright/test";
 
-test("navigates from the home page to a rendered blog article", async ({
-  page,
-}) => {
+test("navigates from the home page to a rendered blog article", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await page.getByRole("link", { name: "Read Blog", exact: true }).click();
   await expect(page).toHaveURL(/\/posts\/?$/);
-  await page
-    .getByRole("link", { name: "Cyber Apocalypse 2024: Hacker Royale" })
-    .click();
+  await page.getByRole("link", { name: "Cyber Apocalypse 2024: Hacker Royale" }).click();
   await expect(page).toHaveURL(/\/blog\/cyber-apocalypse\/?$/);
   await expect(
     page.getByRole("heading", {
@@ -17,9 +13,7 @@ test("navigates from the home page to a rendered blog article", async ({
       exact: true,
     })
   ).toBeVisible();
-  await expect(page.locator("article #introduction")).toHaveText(
-    "Introduction"
-  );
+  await expect(page.locator("article #introduction")).toHaveText("Introduction");
 });
 
 test("serves an RSS feed with links to blog articles", async ({ request }) => {
@@ -32,9 +26,7 @@ test("serves an RSS feed with links to blog articles", async ({ request }) => {
   expect(feed).not.toContain("https://elotoja.com/blog/headings");
 });
 
-test("theme colors and controls survive navigation and reload", async ({
-  page,
-}) => {
+test("theme colors and controls survive navigation and reload", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/");
   const root = page.locator("html");
@@ -46,11 +38,7 @@ test("theme colors and controls survive navigation and reload", async ({
   await expect(root).toHaveClass(/dark/);
   await expect(root).toHaveAttribute("data-theme", "dark");
   await expect
-    .poll(() =>
-      page
-        .locator("body")
-        .evaluate(element => getComputedStyle(element).backgroundColor)
-    )
+    .poll(() => page.locator("body").evaluate(element => getComputedStyle(element).backgroundColor))
     .not.toBe(lightBackground);
   await page.getByRole("link", { name: "Read Blog", exact: true }).click();
   await expect(root).toHaveAttribute("data-theme", "dark");
@@ -61,9 +49,7 @@ test("theme colors and controls survive navigation and reload", async ({
   await expect(root).not.toHaveClass(/dark/);
 });
 
-test("mobile menu opens with keyboard and works after navigation", async ({
-  page,
-}) => {
+test("mobile menu opens with keyboard and works after navigation", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
   const menu = page.locator("#hamburger-button");
@@ -72,10 +58,7 @@ test("mobile menu opens with keyboard and works after navigation", async ({
   await page.keyboard.press("Enter");
   await expect(menu).toHaveAttribute("aria-expanded", "true");
   await expect(page.locator("#navbar")).toBeVisible();
-  await page
-    .locator("header")
-    .getByRole("link", { name: "Posts", exact: true })
-    .click();
+  await page.locator("header").getByRole("link", { name: "Posts", exact: true }).click();
   await expect(page).toHaveURL(/\/posts\/?$/);
   await page.getByRole("button", { name: "Open menu" }).click();
   await expect(page.locator("#navbar")).toBeVisible();
@@ -83,9 +66,7 @@ test("mobile menu opens with keyboard and works after navigation", async ({
   await expect(page.locator("#navbar")).toBeHidden();
 });
 
-test("table of contents expands and collapses after client navigation", async ({
-  page,
-}) => {
+test("table of contents expands and collapses after client navigation", async ({ page }) => {
   await page.goto("/posts");
   await page
     .getByRole("link", {
@@ -98,18 +79,14 @@ test("table of contents expands and collapses after client navigation", async ({
   await expect(contents).not.toHaveAttribute("open");
   await summary.click();
   await expect(contents).toHaveAttribute("open", "");
-  await expect(
-    contents.getByRole("link", { name: "Introduction", exact: true })
-  ).toBeVisible();
+  await expect(contents.getByRole("link", { name: "Introduction", exact: true })).toBeVisible();
   await summary.click();
   await expect(contents).not.toHaveAttribute("open");
 });
 
 test("omits pagination when all posts fit on one page", async ({ page }) => {
   await page.goto("/posts");
-  await expect(
-    page.getByRole("navigation", { name: "Pagination" })
-  ).toHaveCount(0);
+  await expect(page.getByRole("navigation", { name: "Pagination" })).toHaveCount(0);
   await expect(
     page.getByRole("link", {
       name: "Cyber Apocalypse 2024: Hacker Royale",
@@ -118,9 +95,7 @@ test("omits pagination when all posts fit on one page", async ({ page }) => {
   ).toBeVisible();
 });
 
-test("search inputs filter posts, add and remove tags, and restore URL state", async ({
-  page,
-}) => {
+test("search inputs filter posts, add and remove tags, and restore URL state", async ({ page }) => {
   await page.goto("/search");
   await expect(page.getByRole("status")).toHaveText("Found 1 post");
   const search = page.getByRole("searchbox", { name: "Search posts" });
@@ -131,23 +106,15 @@ test("search inputs filter posts, add and remove tags, and restore URL state", a
       exact: true,
     })
   ).toBeVisible();
-  await page
-    .getByRole("textbox", { name: "Add tag filter" })
-    .fill("nonexistent-tag");
+  await page.getByRole("textbox", { name: "Add tag filter" }).fill("nonexistent-tag");
   await page.getByRole("button", { name: "Add tag", exact: true }).click();
-  await expect(
-    page.getByText("No posts found matching your search.")
-  ).toBeVisible();
-  await expect(
-    page.getByRole("button", { name: "Remove tag nonexistent-tag" })
-  ).toBeVisible();
+  await expect(page.getByText("No posts found matching your search.")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Remove tag nonexistent-tag" })).toBeVisible();
   await expect(page).toHaveURL(/q=Cyber\+Apocalypse/);
   await page.reload();
   await expect(page).toHaveURL(/q=Cyber\+Apocalypse/);
   await expect(search).toHaveValue("Cyber Apocalypse");
-  await page
-    .getByRole("button", { name: "Remove tag nonexistent-tag" })
-    .click();
+  await page.getByRole("button", { name: "Remove tag nonexistent-tag" }).click();
   await expect(
     page.locator("#search").getByRole("link", {
       name: "Cyber Apocalypse 2024: Hacker Royale",
@@ -155,9 +122,7 @@ test("search inputs filter posts, add and remove tags, and restore URL state", a
     })
   ).toBeVisible();
   await search.fill("zzzzzzzzzzzzzzzz");
-  await expect(
-    page.getByText("No posts found matching your search.")
-  ).toBeVisible();
+  await expect(page.getByText("No posts found matching your search.")).toBeVisible();
 });
 
 test("theme and navigation remain usable after client-side transitions", async ({
@@ -166,8 +131,7 @@ test("theme and navigation remain usable after client-side transitions", async (
 }) => {
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/");
-  if (!isMobile)
-    await expect(page.getByRole("button", { name: "Open menu" })).toBeHidden();
+  if (!isMobile) await expect(page.getByRole("button", { name: "Open menu" })).toBeHidden();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   await page.getByRole("button", { name: "Toggle theme" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
@@ -182,13 +146,15 @@ test("theme and navigation remain usable after client-side transitions", async (
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   if (isMobile) {
     await page.getByRole("button", { name: "Open menu" }).click();
-    await expect(
-      page.getByRole("button", { name: "Close menu" })
-    ).toHaveAttribute("aria-expanded", "true");
+    await expect(page.getByRole("button", { name: "Close menu" })).toHaveAttribute(
+      "aria-expanded",
+      "true"
+    );
     await page.keyboard.press("Escape");
-    await expect(
-      page.getByRole("button", { name: "Open menu" })
-    ).toHaveAttribute("aria-expanded", "false");
+    await expect(page.getByRole("button", { name: "Open menu" })).toHaveAttribute(
+      "aria-expanded",
+      "false"
+    );
     await page.getByRole("button", { name: "Open menu" }).click();
   }
   await page
@@ -200,9 +166,7 @@ test("theme and navigation remain usable after client-side transitions", async (
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
 });
 
-test("topic links filter posts and filters can be removed", async ({
-  page,
-}) => {
+test("topic links filter posts and filters can be removed", async ({ page }) => {
   await page.goto("/posts");
   await page.getByRole("link", { name: "HackTheBox", exact: true }).click();
   await expect(page.getByRole("status")).toHaveText("Found 1 post");
@@ -212,7 +176,7 @@ test("topic links filter posts and filters can be removed", async ({
       exact: true,
     })
   ).toBeVisible();
-  await page.getByRole("button", { name: "Remove tag HackTheBox" }).click();
+  await page.getByRole("button", { name: "Remove tag hackthebox" }).click();
   await expect(page.getByRole("status")).toHaveText("Found 1 post");
   await page.getByRole("textbox", { name: "Add tag filter" }).fill("WRITEUP");
   await page.getByRole("button", { name: "Add tag", exact: true }).click();
@@ -221,14 +185,10 @@ test("topic links filter posts and filters can be removed", async ({
   await expect(page.getByRole("status")).toHaveText("Found 1 post");
 });
 
-test("search supports queries, empty results, and malformed filter URLs", async ({
-  page,
-}) => {
+test("search supports queries, empty results, and malformed filter URLs", async ({ page }) => {
   await page.goto("/search?tags=not-json");
   await expect(page.getByRole("status")).toHaveText("Found 1 post");
-  await page
-    .getByRole("searchbox", { name: "Search posts" })
-    .fill("Cyber Apocalypse");
+  await page.getByRole("searchbox", { name: "Search posts" }).fill("Cyber Apocalypse");
   await expect(page.getByRole("status")).toHaveText("Found 1 post");
   await expect(
     page.getByRole("link", {
@@ -236,24 +196,18 @@ test("search supports queries, empty results, and malformed filter URLs", async 
       exact: true,
     })
   ).toBeVisible();
-  await page
-    .getByRole("searchbox", { name: "Search posts" })
-    .fill("zzzzzzzzzzzzzzzzzz");
-  await expect(
-    page.getByText("No posts found matching your search.")
-  ).toBeVisible();
+  await page.getByRole("searchbox", { name: "Search posts" }).fill("zzzzzzzzzzzzzzzzzz");
+  await expect(page.getByText("No posts found matching your search.")).toBeVisible();
   await page.getByRole("link", { name: "Browse all posts" }).click();
   await expect(page).toHaveURL(/\/posts\/?$/);
 });
 
 test("search failures offer a working retry", async ({ page }) => {
-  await page.route("**/_actions/search/**", route => route.abort());
+  await page.route("**/search-index.json", route => route.abort());
   await page.goto("/search");
-  await expect(page.getByRole("alert")).toHaveText(
-    "Search is unavailable. Please try again."
-  );
-  await page.unroute("**/_actions/search/**");
-  await page.getByRole("button", { name: "Try again" }).click();
+  await expect(page.getByRole("alert")).toHaveText("Search is unavailable. Please try again.");
+  await page.unroute("**/search-index.json");
+  await page.getByRole("button", { name: "Retry search" }).click();
   await expect(page.getByRole("status")).toHaveText("Found 1 post");
 });
 
@@ -290,9 +244,7 @@ test("contents links work across article navigation", async ({ page }) => {
 test("keyboard skip link focuses the main content", async ({ page }) => {
   await page.goto("/");
   await page.keyboard.press("Tab");
-  await expect(
-    page.getByRole("link", { name: "Skip to main content" })
-  ).toBeFocused();
+  await expect(page.getByRole("link", { name: "Skip to main content" })).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.locator("main")).toBeFocused();
 });
@@ -303,22 +255,18 @@ for (const route of [
   "/posts/1",
   "/about",
   "/search",
-  "/blog/cyber-apocalypse",
+  "/blog/cyber-apocalypse/",
   "/not-found",
 ]) {
-  test(`layout fits the viewport and has one main heading: ${route}`, async ({
-    page,
-  }) => {
+  test(`layout fits the viewport and has one main heading: ${route}`, async ({ page }) => {
     await page.goto(route);
     await expect(page.locator("main h1")).toHaveCount(1);
     expect(
-      await page.evaluate(
-        () => document.documentElement.scrollWidth <= window.innerWidth
-      )
+      await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)
     ).toBe(true);
-    expect(
-      await page.locator("main").evaluate(el => getComputedStyle(el).textAlign)
-    ).not.toBe("justify");
+    expect(await page.locator("main").evaluate(el => getComputedStyle(el).textAlign)).not.toBe(
+      "justify"
+    );
   });
 }
 
@@ -351,17 +299,12 @@ test("updates a single page title and keeps theme controls working across naviga
   );
 });
 
-test("reinitializes article contents after client navigation", async ({
-  page,
-}) => {
+test("reinitializes article contents after client navigation", async ({ page }) => {
   await page.goto("/blog/cyber-apocalypse");
   const summary = page.getByText("On this page", { exact: true });
   await summary.click();
   await expect(page.locator("details.toc")).toHaveAttribute("open", "");
-  await page
-    .getByRole("link", { name: "All posts", exact: false })
-    .first()
-    .click();
+  await page.getByRole("link", { name: "All posts", exact: false }).first().click();
   await page
     .getByRole("link", {
       name: "Cyber Apocalypse 2024: Hacker Royale",
@@ -382,20 +325,17 @@ test("keeps the mobile menu usable on successive pages", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
   await page.getByRole("button", { name: "Open menu", exact: true }).click();
-  await expect(
-    page.getByRole("button", { name: "Close menu", exact: true })
-  ).toHaveAttribute("aria-expanded", "true");
+  await expect(page.getByRole("button", { name: "Close menu", exact: true })).toHaveAttribute(
+    "aria-expanded",
+    "true"
+  );
   await page.getByRole("link", { name: "Posts", exact: true }).click();
   await page.getByRole("button", { name: "Open menu", exact: true }).click();
   await page.getByRole("link", { name: "About", exact: true }).click();
   await expect(page).toHaveURL(/\/about\/?$/);
-  await expect(page.locator("#about-me")).toContainText(
-    "experienced software engineer"
-  );
+  await expect(page.locator("#about-me")).toContainText("experienced software engineer");
   await page.getByRole("button", { name: "Open menu", exact: true }).click();
-  await expect(
-    page.getByRole("link", { name: "Posts", exact: true })
-  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "Posts", exact: true })).toBeVisible();
 });
 
 test("searches migrated entries and supports tag-only and malformed URL queries", async ({
@@ -404,10 +344,8 @@ test("searches migrated entries and supports tag-only and malformed URL queries"
   await page.goto("/search?tags=%5B%22ctf%22%5D");
   await expect(page.getByRole("status")).toHaveText("Found 1 post");
   await expect(
-    page
-      .locator("#search")
-      .getByRole("link", { name: "Cyber Apocalypse 2024: Hacker Royale" })
-  ).toHaveAttribute("href", "/blog/cyber-apocalypse");
+    page.locator("#search").getByRole("link", { name: "Cyber Apocalypse 2024: Hacker Royale" })
+  ).toHaveAttribute("href", "/blog/cyber-apocalypse/");
   await page.getByRole("button", { name: "Remove tag ctf" }).click();
   await expect(page.getByRole("status")).toHaveText("Found 1 post");
   await page
@@ -421,59 +359,4 @@ test("searches migrated entries and supports tag-only and malformed URL queries"
   await expect(page).toHaveURL(/\/blog\/cyber-apocalypse\/?$/);
   await page.goto("/search?tags=not-json");
   await expect(page.getByRole("status")).toHaveText("Found 1 post");
-});
-
-test("keeps the latest search results when an earlier response arrives last", async ({
-  page,
-}) => {
-  await page.goto("/search");
-  await expect(page.getByRole("status")).toHaveText("Found 1 post");
-
-  let releaseEarlier!: () => void;
-  const earlierHeld = new Promise<void>(resolve => {
-    releaseEarlier = resolve;
-  });
-  let markEarlierStarted!: () => void;
-  const earlierStarted = new Promise<void>(resolve => {
-    markEarlierStarted = resolve;
-  });
-  await page.route(/\/_actions\/search\/?$/, async route => {
-    if (
-      route.request().postDataJSON().searchPhrase !==
-      "Cyber Apocalypse 2024: Hacker Royale"
-    ) {
-      await route.continue();
-      return;
-    }
-    const response = await route.fetch();
-    markEarlierStarted();
-    await earlierHeld;
-    await route.fulfill({ response });
-  });
-
-  const input = page.getByRole("searchbox", {
-    name: "Search posts",
-    exact: true,
-  });
-  await input.fill("Cyber Apocalypse 2024: Hacker Royale");
-  await earlierStarted;
-  await input.fill("zzzzzzzzzz");
-  await expect(page.getByRole("status")).toHaveText("Found 0 posts");
-
-  const earlierResponse = page.waitForResponse(
-    response =>
-      response.url().includes("/_actions/search") &&
-      response.request().postDataJSON().searchPhrase ===
-        "Cyber Apocalypse 2024: Hacker Royale"
-  );
-  releaseEarlier();
-  await (await earlierResponse).finished();
-  await page.evaluate(
-    () =>
-      new Promise<void>(resolve =>
-        requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
-      )
-  );
-  await expect(page.getByRole("status")).toHaveText("Found 0 posts");
-  await expect(page.locator("#search article")).toHaveCount(0);
 });
