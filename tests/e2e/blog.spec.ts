@@ -166,6 +166,8 @@ test("theme and navigation remain usable after client-side transitions", async (
 }) => {
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/");
+  if (!isMobile)
+    await expect(page.getByRole("button", { name: "Open menu" })).toBeHidden();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   await page.getByRole("button", { name: "Toggle theme" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
@@ -351,7 +353,6 @@ test("updates a single page title and keeps theme controls working across naviga
 
 test("reinitializes article contents after client navigation", async ({
   page,
-  isMobile,
 }) => {
   await page.goto("/blog/cyber-apocalypse");
   const summary = page.getByText("On this page", { exact: true });

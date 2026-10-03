@@ -5,7 +5,7 @@
   const { count = 3 }: { count?: number } = $props();
 </script>
 
-{#each Array(count) as _, index (index)}
+{#each Array(count).keys() as index (index)}
   <Card class="post-card shadow-none ring-0" aria-hidden="true">
     <Skeleton class="h-8 w-3/4" />
     <Skeleton class="h-4 w-full" />
