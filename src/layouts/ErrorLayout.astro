@@ -1,14 +1,22 @@
 ---
+import { Button } from "@components/ui/button";
 import MainLayout from "@layouts/MainLayout.astro";
-
-export type Props = {
-  status: number;
-};
-
+export type Props = { status: number };
 const { status } = Astro.props;
 ---
 
 <MainLayout title={status.toString()}>
-  <h1>{status}</h1>
-  <slot />
+  <section class="article-shell py-12">
+    <p class="eyebrow">Error {status}</p>
+    <h1 class="my-6">This page is missing.</h1>
+    <div class="muted mb-8">
+      <slot />
+    </div>
+    <Button href="/" size="lg">
+      Back to home
+    </Button>
+    <a href="/search" class="text-link ml-6">
+      Search posts
+    </a>
+  </section>
 </MainLayout>

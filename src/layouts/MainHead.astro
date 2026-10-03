@@ -1,6 +1,7 @@
 ---
 import { SITE_INFO } from "@config";
 import "@fontsource-variable/fira-code";
+import "@fontsource-variable/source-sans-3";
 import "@styles/base.css";
 import { SEO } from "astro-seo";
 
@@ -13,7 +14,7 @@ const { title } = Astro.props;
 
 <meta charset="utf-8" />
 <SEO
-  title={title}
+  title={`${title} · ${SITE_INFO.name}`}
   description={SITE_INFO.description}
   twitter={{
     creator: "@elotoja_",
@@ -41,7 +42,7 @@ const { title } = Astro.props;
       },
       {
         name: "theme-color",
-        content: "#000000",
+        content: "#3659ad",
       },
       {
         name: "generator",
@@ -50,15 +51,23 @@ const { title } = Astro.props;
     ],
   }}
 />
-
-<script is:inline data-astro-rerun>
-  (() => {
-    const storedTheme = localStorage.getItem("theme");
-    const dark =
-      storedTheme === "dark" ||
-      (storedTheme !== "light" &&
-        matchMedia("(prefers-color-scheme: dark)").matches);
-    document.documentElement.classList.toggle("dark", dark);
-    document.documentElement.dataset.theme = dark ? "dark" : "light";
-  })();
+<script is:inline>
+  function applyTheme() {
+    let theme;
+    try {
+      theme = localStorage.getItem("theme");
+    } catch {
+      /* Use system preference. */
+    }
+    const selectedTheme =
+      theme === "light" || theme === "dark"
+        ? theme
+        : matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+    document.documentElement.dataset.theme = selectedTheme;
+    document.documentElement.classList.toggle("dark", selectedTheme === "dark");
+  }
+  applyTheme();
+  document.addEventListener("astro:after-swap", applyTheme);
 </script>

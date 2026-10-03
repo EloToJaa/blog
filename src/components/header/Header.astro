@@ -4,67 +4,117 @@ import MenuToggle from "./MenuToggle.astro";
 import HeaderLinks from "./HeaderLinks.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import SearchLogo from "~icons/ic/baseline-search";
-import RssIcon from "@components/common/RssIcon.astro";
 ---
 
-<header class="sticky top-0 z-50 py-2 bg-muted/95 backdrop-blur-md shadow-sm border-b border-border transition-all duration-300">
-  <div class="container mx-auto flex justify-between flex-wrap items-center">
-    <div class="my-auto flex items-center w-1/4">
+<header class="site-header">
+  <div class="site-shell header-inner">
+    <a href="/" class="wordmark" aria-label="EloToJa home">
+      <span aria-hidden="true">[</span> EloToJa{" "}
+      <span aria-hidden="true">]</span>
+    </a>
+    <div class="header-tools">
       <Button
         variant="ghost"
-        href="/"
-        class="normal-case text-2xl md:text-3xl font-bold hover:bg-accent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
+        size="icon"
+        href="/search"
+        class="icon-link"
+        aria-label="Search posts"
       >
-        EloToJa
+        <SearchLogo class="size-6" />
       </Button>
-      <div class="my-auto hidden md:block ml-2">
-        <RssIcon />
-      </div>
-    </div>
-    <div class="md:hidden my-auto mr-3 flex">
+      <ThemeToggle />
       <MenuToggle />
     </div>
-    <div
-      id="navbar"
-      class="hidden md:flex w-full md:w-3/4 justify-end items-center"
-    >
-      <nav class="mx-auto w-min md:mx-0 md:w-max">
-        <HeaderLinks
-          ulClass="flex flex-col md:flex-row p-2 rounded-lg text-lg gap-1"
-          liClass="[&>a]:block [&>a]:px-3 [&>a]:py-2 hover:bg-accent rounded-md mx-auto w-min transition-colors duration-200"
-          activeClass="font-bold underline underline-offset-4 decoration-2 bg-accent"
-        />
-      </nav>
-      <div class="flex w-min mx-auto md:mx-0 md:w-max gap-x-3 items-center">
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          href="/search"
-          title="Search posts"
-          class="hover:bg-accent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 size-8"
-          aria-label="Search posts"
-        >
-          <SearchLogo class="size-7" />
-        </Button>
-        <ThemeToggle />
-      </div>
-    </div>
+    <nav id="navbar" aria-label="Main navigation">
+      <HeaderLinks ulClass="nav-links" />
+    </nav>
   </div>
 </header>
-
-<script>
-  function setupMenu() {
-    let open = false;
-    const navbar = document.getElementById("navbar");
-    const menuButton = document.getElementById("hamburger-button");
-
-    menuButton?.addEventListener("click", () => {
-      open = !open;
-      menuButton?.setAttribute("aria-expanded", open.toString());
-      menuButton?.setAttribute("aria-label", open ? "close menu" : "open menu");
-      navbar?.classList.toggle("hidden");
-      navbar?.classList.toggle("flex");
-    });
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    background: var(--background);
   }
-  document.addEventListener("astro:page-load", setupMenu);
+  .header-inner {
+    min-height: 88px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .wordmark {
+    font:
+      600 1.15rem "Fira Code Variable",
+      monospace;
+    letter-spacing: -0.05em;
+    margin-right: auto;
+  }
+  .wordmark span {
+    color: var(--primary);
+  }
+  .header-tools {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    order: 2;
+  }
+  nav {
+    order: 1;
+  }
+  :global(.nav-links) {
+    display: flex;
+    gap: 1.5rem;
+  }
+  :global(.nav-links a) {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    color: var(--muted-foreground);
+  }
+  :global(.nav-links a[aria-current="page"]),
+  :global(.nav-links a:hover) {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 0.5em;
+  }
+  @media (max-width: 640px) {
+    .header-inner {
+      min-height: 76px;
+      gap: 0;
+    }
+    .header-tools {
+      order: 1;
+    }
+    nav {
+      display: none;
+      width: 100%;
+      order: 2;
+      padding-bottom: 1rem;
+    }
+    nav[data-open] {
+      display: block;
+    }
+  }
+</style>
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const navbar = document.getElementById("navbar");
+    const button = document.getElementById("hamburger-button");
+    const setOpen = (open: boolean) => {
+      navbar?.toggleAttribute("data-open", open);
+      button?.setAttribute("aria-expanded", String(open));
+      button?.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    };
+    button?.addEventListener("click", () =>
+      setOpen(button.getAttribute("aria-expanded") !== "true")
+    );
+    navbar?.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      button?.focus();
+    });
+    button?.addEventListener("keydown", event => {
+      if (event.key === "Escape") setOpen(false);
+    });
+  });
 </script>

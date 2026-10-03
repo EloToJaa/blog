@@ -22,9 +22,11 @@
   });
 </script>
 
-{date}
-{#if showTime}
-  <span aria-hidden="true">|</span>
-  <span class="sr-only">&nbsp;at&nbsp;</span>
-  {time}
-{/if}
+<time {datetime}
+  >{date}
+  {#if showTime}
+    <span aria-hidden="true">|</span>
+    <span class="sr-only">&nbsp;at&nbsp;</span>
+    {time}
+  {/if}
+</time>

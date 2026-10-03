@@ -6,43 +6,37 @@ import DarkMode from "~icons/ic/round-dark-mode";
 
 <Button
   variant="ghost"
-  size="icon-sm"
+  size="icon"
   id="theme-button"
-  aria-live="polite"
   aria-label="Toggle theme"
-  class="p-0"
+  class="icon-link"
 >
-  <div class="relative w-7 h-7 mx-auto">
-    <LightMode id="light-icon" class="w-full h-full absolute inset-0" />
-    <DarkMode id="dark-icon" class="w-full h-full absolute inset-0" />
-  </div>
+  <LightMode class="size-5 light-icon" />
+  <DarkMode class="size-5 dark-icon" />
 </Button>
-
-<script>
-  import { applyTheme, getTheme } from "@utils/theme";
-  function setupTheme() {
-    const button = document.getElementById("theme-button");
-    const update = () => {
-      const theme = getTheme(
-        localStorage.getItem("theme"),
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-      );
-      applyTheme(document.documentElement, theme);
-      document
-        .getElementById("light-icon")
-        ?.classList.toggle("hidden", theme !== "dark");
-      document
-        .getElementById("dark-icon")
-        ?.classList.toggle("hidden", theme === "dark");
-    };
-    update();
-    button?.addEventListener("click", () => {
-      const theme = document.documentElement.classList.contains("dark")
-        ? "light"
-        : "dark";
-      localStorage.setItem("theme", theme);
-      update();
-    });
+<style>
+  .light-icon {
+    display: none;
   }
-  document.addEventListener("astro:page-load", setupTheme);
+  :global([data-theme="dark"]) .light-icon {
+    display: block;
+  }
+  :global([data-theme="dark"]) .dark-icon {
+    display: none;
+  }
+</style>
+<script>
+  import { applyTheme } from "@utils/theme";
+  document.addEventListener("astro:page-load", () => {
+    document.getElementById("theme-button")?.addEventListener("click", () => {
+      const theme =
+        document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      applyTheme(document.documentElement, theme);
+      try {
+        localStorage.setItem("theme", theme);
+      } catch {
+        /* Theme remains usable without storage. */
+      }
+    });
+  });
 </script>
