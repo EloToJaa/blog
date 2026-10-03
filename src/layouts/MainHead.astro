@@ -53,12 +53,12 @@ const { title } = Astro.props;
 
 <script is:inline data-astro-rerun>
   (() => {
-  const storedTheme = localStorage.getItem("theme");
-  const dark =
-    storedTheme === "dark" ||
-    (storedTheme !== "light" &&
-      matchMedia("(prefers-color-scheme: dark)").matches);
-  document.documentElement.classList.toggle("dark", dark);
-  document.documentElement.dataset.theme = dark ? "dark" : "light";
+    const storedTheme = localStorage.getItem("theme");
+    const dark =
+      storedTheme === "dark" ||
+      (storedTheme !== "light" &&
+        matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.classList.toggle("dark", dark);
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
   })();
 </script>
