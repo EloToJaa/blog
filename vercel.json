@@ -1,0 +1,12 @@
+{
+  "buildCommand": "bun run build",
+  "outputDirectory": "dist",
+  "framework": "astro",
+  "redirects": [
+    {
+      "source": "/posts/1",
+      "destination": "/posts/",
+      "permanent": true
+    }
+  ]
+}

@@ -17,9 +17,9 @@ export default defineConfig({
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
-    command: "bun run dev --host 127.0.0.1 --port 4321 --ignore-lock",
+    command: "bun run preview --host 127.0.0.1 --port 4321 --ignore-lock",
     url: "http://127.0.0.1:4321",
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     env: { ASTRO_TELEMETRY_DISABLED: "1" },
   },
 });
