@@ -1,9 +1,9 @@
 ---
 import SocialIcons from "@components/common/SocialIcons.astro";
-import { getEntry } from "astro:content";
+import { getEntry, render } from "astro:content";
 
 const author = await getEntry("authors", "elotoja");
-const { Content } = await author.render();
+const { Content } = await render(author);
 ---
 
 <section id="about-me" class="mb-8">
