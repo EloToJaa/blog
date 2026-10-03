@@ -13,7 +13,7 @@ const { title } = Astro.props;
 
 <meta charset="utf-8" />
 <SEO
-  title={SITE_INFO.name}
+  title={title}
   description={SITE_INFO.description}
   twitter={{
     creator: "@elotoja_",
@@ -50,9 +50,9 @@ const { title } = Astro.props;
     ],
   }}
 />
-<title>{title}</title>
 
-<script is:inline>
+<script is:inline data-astro-rerun>
+  (() => {
   const storedTheme = localStorage.getItem("theme");
   const dark =
     storedTheme === "dark" ||
@@ -60,4 +60,5 @@ const { title } = Astro.props;
       matchMedia("(prefers-color-scheme: dark)").matches);
   document.documentElement.classList.toggle("dark", dark);
   document.documentElement.dataset.theme = dark ? "dark" : "light";
+  })();
 </script>

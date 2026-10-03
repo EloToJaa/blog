@@ -1,5 +1,5 @@
 /// <reference types="mdast-util-directive" />
-import type { AstroUserConfig } from "astro";
+import type { RemarkPlugins } from "@astrojs/markdown-remark";
 import { h as _h, s as _s, type Properties } from "hastscript";
 import type { Paragraph as P, Root } from "mdast";
 import remarkDirective from "remark-directive";
@@ -88,7 +88,7 @@ function remarkAsides(): Plugin<[], Root> {
     ],
   };
 
-  const transformer: Transformer<Root> = (tree, file) => {
+  const transformer: Transformer<Root> = tree => {
     // const locale = pathToLocale(file.history[0], options);
     // const t = options.useTranslations(locale);
     visit(tree, (node, index, parent) => {
@@ -107,7 +107,7 @@ function remarkAsides(): Plugin<[], Root> {
       // we iterate over the children, find a directive label, store it for the
       // title prop, and remove the paragraph from children.
       // let title = t(`aside.${variant}`);
-      let title = "Test";
+      let title = variant[0].toUpperCase() + variant.slice(1);
       remove(node, (child): boolean | void => {
         if (
           child.data &&
@@ -117,6 +117,7 @@ function remarkAsides(): Plugin<[], Root> {
           if (
             "children" in child &&
             Array.isArray(child.children) &&
+            child.children[0] &&
             "value" in child.children[0]
           ) {
             title = child.children[0].value;
@@ -158,10 +159,6 @@ function remarkAsides(): Plugin<[], Root> {
     return transformer;
   };
 }
-
-type RemarkPlugins = NonNullable<
-  NonNullable<AstroUserConfig["markdown"]>["remarkPlugins"]
->;
 
 export function starlightAsides(): RemarkPlugins {
   return [remarkDirective, remarkAsides()];
