@@ -6,8 +6,10 @@
   import { Input } from "@components/ui/input";
   import { X, LoaderCircle } from "@lucide/svelte";
   import type { PostSearch } from "@schema/blog";
+  import { parseSearchTags } from "@utils/search";
   import { actions } from "astro:actions";
   import { onMount } from "svelte";
+  import { SvelteURLSearchParams } from "svelte/reactivity";
 
   let { limit }: { limit: number } = $props();
   let searchQuery = $state<string>("");
@@ -43,9 +45,12 @@
     }
   };
 
+  let requestId = 0;
+
   const updateURL = async () => {
+    const currentRequest = ++requestId;
     isLoading = true;
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new SvelteURLSearchParams(window.location.search);
     urlParams.set("q", searchQuery);
     urlParams.set("tags", JSON.stringify(tags));
 
@@ -61,19 +66,20 @@
         limit,
         tags,
       });
+      if (currentRequest !== requestId) return;
       results = data.data?.results || [];
     } catch (error) {
       console.error("Search error:", error);
-      results = [];
+      if (currentRequest === requestId) results = [];
     } finally {
-      isLoading = false;
+      if (currentRequest === requestId) isLoading = false;
     }
   };
 
   onMount(async () => {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new SvelteURLSearchParams(window.location.search);
     searchQuery = urlParams.get("q") || "";
-    tags = urlParams.get("tags") ? JSON.parse(urlParams.get("tags")!) : tags;
+    tags = parseSearchTags(urlParams.get("tags"));
 
     await updateURL();
   });
@@ -116,7 +122,7 @@
 
     {#if tags.length > 0}
       <div class="flex flex-wrap gap-2">
-        {#each tags as tag}
+        {#each tags as tag (tag)}
           <Badge variant="secondary" class="h-8 gap-1">
             {tag}
             <Button

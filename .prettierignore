@@ -16,3 +16,5 @@
 !vitest.config.ts
 !playwright.config.ts
 !/tests
+
+!eslint.config.js

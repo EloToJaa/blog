@@ -8,7 +8,7 @@
 {#if tags.length > 0}
   <div class="flex flex-wrap items-center gap-1">
     {@render children?.()}
-    {#each tags as tag}
+    {#each tags as tag, i (`${tag}-${i}`)}
       <Badge
         variant="secondary"
         href={`/search?tags=${encodeURIComponent(JSON.stringify([tag]))}`}

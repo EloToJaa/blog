@@ -14,7 +14,7 @@ const { posts, sectionName } = Astro.props;
 <section id={sectionName} class="mb-12">
   <h2 class="text-3xl font-bold mb-6 text-center">Latest Posts</h2>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    {posts.map((post, index) => {
+    {posts.map(post => {
       return (
         <Card href={`/blog/${post.id}`} frontmatter={post.data}>
           <TagsIcon style="font-size: 0.85em" class="hover:" />
