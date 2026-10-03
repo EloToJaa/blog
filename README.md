@@ -33,7 +33,7 @@ without downloading a browser. Then install dependencies with
 | :------------------------ | :---------------------------------------- |
 | `bun run test`            | Run the Vitest unit tests once            |
 | `bun run test:watch`      | Run unit tests in watch mode              |
-| `bun run test:e2e`        | Run the Playwright Chromium tests         |
+| `bun run test:e2e`        | Run desktop and mobile Chromium tests     |
 | `bun run test:e2e:ui`     | Open Playwright's interactive test runner |
 | `bun run test:e2e:report` | Open the last browser test report         |
 
@@ -43,6 +43,10 @@ own Astro server on port 4322 and refuses to reuse an existing server. Set
 `PLAYWRIGHT_PORT` to choose another port when running multiple worktrees.
 Outside Nix, install Chromium first with
 `bunx --no-install playwright install --with-deps chromium`.
+
+Browser checks run desktop and iPhone SE layouts. They cover navigation, theme
+persistence, search and topic filters, error recovery, article contents, keyboard
+navigation, and responsive layouts.
 
 The GitHub Actions workflow runs lint, the production build, and both test suites on
 pull requests and pushes to `main`, and uploads browser reports on failure.

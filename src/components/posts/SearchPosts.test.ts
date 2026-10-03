@@ -26,7 +26,7 @@ describe("search controls", () => {
         limit: 5,
       })
     );
-    expect(screen.getByRole("textbox", { name: "Search posts" })).toHaveValue(
+    expect(screen.getByRole("searchbox", { name: "Search posts" })).toHaveValue(
       "headings"
     );
     expect(
