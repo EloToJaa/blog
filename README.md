@@ -1,6 +1,6 @@
 # EloToJa's blog
 
-A static Astro site with Svelte search, Markdown articles, and Tailwind/DaisyUI styling.
+A static Astro site with Svelte search, Markdown articles, and Tailwind/shadcn-svelte styling.
 
 ## Development
 

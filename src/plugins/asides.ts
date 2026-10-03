@@ -3,7 +3,7 @@ import "mdast-util-to-hast";
 import type { Root, Paragraph } from "mdast";
 import { toString } from "mdast-util-to-string";
 import remarkDirective from "remark-directive";
-import type { Plugin, PluggableList } from "unified";
+import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
 const titles: Record<string, string> = {
@@ -14,6 +14,7 @@ const titles: Record<string, string> = {
 };
 export const remarkAsides: Plugin<[], Root> = () => tree => {
   visit(tree, "containerDirective", node => {
+    if (!Object.hasOwn(titles, node.name)) return;
     const fallback = titles[node.name];
     if (!fallback) return;
     const label = node.children.find(
@@ -39,4 +40,4 @@ export const remarkAsides: Plugin<[], Root> = () => tree => {
     };
   });
 };
-export const starlightAsides = (): PluggableList => [remarkDirective, remarkAsides];
+export const starlightAsides = () => [remarkDirective, remarkAsides];

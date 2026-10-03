@@ -11,7 +11,8 @@
       "@pages/*": ["./src/pages/*"],
       "@utils/*": ["./src/utils/*"],
       "@styles/*": ["./src/styles/*"],
-      "@schema/*": ["./src/schema/*"]
+      "@schema/*": ["./src/schema/*"],
+      "@lib/*": ["./src/lib/*"]
     }
   },
   "exclude": ["node_modules", "dist", ".vercel", "playwright-report", "test-results"]

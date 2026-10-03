@@ -1,4 +1,5 @@
 ---
+import { Button } from "@components/ui/button";
 import MenuToggle from "./MenuToggle.astro";
 import HeaderLinks from "./HeaderLinks.astro";
 import ThemeToggle from "./ThemeToggle.astro";
@@ -6,15 +7,16 @@ import SearchLogo from "~icons/ic/baseline-search";
 import RssIcon from "@components/common/RssIcon.astro";
 ---
 
-<header class="sticky top-0 z-50 py-2 bg-base-200/95 backdrop-blur-md shadow-sm border-b border-base-300 transition-all duration-300">
+<header class="sticky top-0 z-50 py-2 bg-muted/95 backdrop-blur-md shadow-sm border-b border-border transition-all duration-300">
   <div class="container mx-auto flex justify-between flex-wrap items-center">
     <div class="my-auto flex items-center w-1/4">
-      <a
+      <Button
+        variant="ghost"
         href="/"
-        class="btn btn-ghost normal-case text-2xl md:text-3xl font-bold hover:bg-base-300 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
+        class="normal-case text-2xl md:text-3xl font-bold hover:bg-accent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
       >
         EloToJa
-      </a>
+      </Button>
       <div class="my-auto hidden md:block ml-2">
         <RssIcon />
       </div>
@@ -28,20 +30,22 @@ import RssIcon from "@components/common/RssIcon.astro";
     >
       <nav class="mx-auto w-min md:mx-0 md:w-max">
         <HeaderLinks
-          ulClass="menu menu-vertical md:menu-horizontal p-2 rounded-box text-lg gap-1"
-          liClass="hover:bg-base-300 rounded-md mx-auto w-min transition-colors duration-200"
-          activeClass="font-bold underline underline-offset-4 decoration-2 bg-base-300"
+          ulClass="flex flex-col md:flex-row p-2 rounded-lg text-lg gap-1"
+          liClass="[&>a]:block [&>a]:px-3 [&>a]:py-2 hover:bg-accent rounded-md mx-auto w-min transition-colors duration-200"
+          activeClass="font-bold underline underline-offset-4 decoration-2 bg-accent"
         />
       </nav>
       <div class="flex w-min mx-auto md:mx-0 md:w-max gap-x-3 items-center">
-        <a
+        <Button
+          variant="ghost"
+          size="icon-sm"
           href="/search"
           title="Search posts"
-          class="btn btn-ghost btn-circle hover:bg-base-300 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 size-8"
+          class="hover:bg-accent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 size-8"
           aria-label="Search posts"
         >
           <SearchLogo class="size-7" />
-        </a>
+        </Button>
         <ThemeToggle />
       </div>
     </div>
@@ -49,7 +53,7 @@ import RssIcon from "@components/common/RssIcon.astro";
 </header>
 
 <script>
-  function initializeMenu() {
+  function setupMenu() {
     let open = false;
     const navbar = document.getElementById("navbar");
     const menuButton = document.getElementById("hamburger-button");
@@ -58,10 +62,9 @@ import RssIcon from "@components/common/RssIcon.astro";
       open = !open;
       menuButton?.setAttribute("aria-expanded", open.toString());
       menuButton?.setAttribute("aria-label", open ? "close menu" : "open menu");
-      menuButton?.classList.toggle("swap-active");
       navbar?.classList.toggle("hidden");
       navbar?.classList.toggle("flex");
     });
   }
-  document.addEventListener("astro:page-load", initializeMenu);
+  document.addEventListener("astro:page-load", setupMenu);
 </script>

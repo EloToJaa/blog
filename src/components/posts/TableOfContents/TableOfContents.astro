@@ -1,7 +1,9 @@
 ---
+import { Button } from "@components/ui/button";
 import { generateToC } from "@utils/generateToC";
 import type { MarkdownHeading } from "astro";
 import TocList from "./TocList.astro";
+import { slugify } from "@utils/slugify";
 import DropDownActive from "~icons/ic/sharp-arrow-drop-down";
 import DropDownInactive from "~icons/ic/sharp-arrow-right";
 
@@ -12,27 +14,34 @@ export type Props = {
   maxHeadingLevel: number;
 };
 
-const { headings, minHeadingLevel, maxHeadingLevel } = Astro.props;
+const { title, headings, minHeadingLevel, maxHeadingLevel } = Astro.props;
 
+headings.unshift({
+  depth: 1,
+  slug: slugify(title),
+  text: title,
+});
 const items = generateToC(headings, { minHeadingLevel, maxHeadingLevel });
 ---
 
 <nav class="my-2" aria-label="Table Of Contents">
   <div class="flex">
-    <button
+    <Button
+      variant="ghost"
+      size="icon-sm"
       id="toc-toggle"
+      aria-label="Table Of Contents toggle"
+      class="group"
       aria-expanded="false"
       aria-controls="toc-items"
-      aria-label="Table Of Contents toggle"
-      class="swap swap-rotate"
     >
-      <div class="swap-on">
+      <div class="hidden group-aria-expanded:block">
         <DropDownActive class="w-8 h-8" />
       </div>
-      <div class="swap-off">
+      <div class="group-aria-expanded:hidden">
         <DropDownInactive class="w-8 h-8" />
       </div>
-    </button>
+    </Button>
     <h2
       class="not-prose ml-1 my-auto text-2xl font-bold"
       id="table-of-contents"
@@ -46,17 +55,19 @@ const items = generateToC(headings, { minHeadingLevel, maxHeadingLevel });
 </nav>
 
 <script>
-  function initializeToc() {
+  function setupToc() {
     const tocToggle = document.getElementById("toc-toggle");
     const tocItems = document.getElementById("toc-items");
 
     tocToggle?.addEventListener("click", () => {
       if (tocItems === null) return;
 
-      const hidden = tocItems.classList.toggle("hidden");
-      tocToggle.setAttribute("aria-expanded", String(!hidden));
-      tocToggle.classList.toggle("swap-active");
+      tocItems.classList.toggle("hidden");
+      tocToggle.setAttribute(
+        "aria-expanded",
+        String(!tocItems.classList.contains("hidden"))
+      );
     });
   }
-  document.addEventListener("astro:page-load", initializeToc);
+  document.addEventListener("astro:page-load", setupToc);
 </script>

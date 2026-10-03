@@ -6,10 +6,10 @@ import { getEntry } from "astro:content";
 const author = await getEntry("authors", "elotoja");
 ---
 
-<footer class="bg-base-200 border-t border-base-300 mt-auto">
+<footer class="bg-muted border-t border-border mt-auto">
   <div class="container mx-auto py-6 px-4">
     <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-      <div class="text-sm text-base-content/70 text-center md:text-left">
+      <div class="text-sm text-muted-foreground text-center md:text-left">
         <span>
           © {new Date().getUTCFullYear()} {author?.data?.name || "EloToJa"}
         </span>
@@ -18,7 +18,7 @@ const author = await getEntry("authors", "elotoja");
       </div>
       <div class="flex items-center gap-3">
         {author && <SocialIcons author={author.data} small />}
-        <div class="border-l border-base-300 pl-3">
+        <div class="border-l border-border pl-3">
           <RssIcon />
         </div>
       </div>

@@ -25,7 +25,7 @@ const { post, headings } = Astro.props;
         {post.data.title}
       </h1>
 
-      <div class="flex flex-wrap items-center gap-4 mb-6 text-base-content/70 not-prose">
+      <div class="flex flex-wrap items-center gap-4 mb-6 text-muted-foreground not-prose">
         <Datetime
           datetime={post.data.pubDatetime.toISOString()}
           size="lg"

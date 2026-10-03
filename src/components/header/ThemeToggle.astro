@@ -1,59 +1,65 @@
 ---
+import { Button } from "@components/ui/button";
 import LightMode from "~icons/ic/round-light-mode";
 import DarkMode from "~icons/ic/round-dark-mode";
 ---
 
-<button
+<Button
+  variant="ghost"
+  size="icon-sm"
   id="theme-button"
   aria-live="polite"
   aria-label="Toggle theme"
-  class="btn btn-ghost btn-circle size-8 p-0"
+  class="p-0"
 >
   <div class="relative w-7 h-7 mx-auto">
     <LightMode id="light-icon" class="w-full h-full absolute inset-0" />
     <DarkMode id="dark-icon" class="w-full h-full absolute inset-0" />
   </div>
-</button>
+</Button>
 
 <script>
-  function onLoad() {
-    const themeButton = document.getElementById("theme-button");
-    const lightIcon = document.getElementById("light-icon");
-    const darkIcon = document.getElementById("dark-icon");
-
-    const changeIcon = (theme: string) => {
-      if (theme === "dark") {
-        lightIcon?.classList.remove("hidden");
-        darkIcon?.classList.add("hidden");
-      } else {
-        lightIcon?.classList.add("hidden");
-        darkIcon?.classList.remove("hidden");
-      }
+  import { applyTheme, getTheme } from "@utils/theme";
+  function readStoredTheme() {
+    try {
+      return localStorage.getItem("theme");
+    } catch {
+      return null;
+    }
+  }
+  function setupTheme() {
+    const button = document.getElementById("theme-button");
+    const update = () => {
+      const theme = getTheme(
+        readStoredTheme(),
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      );
+      applyTheme(document.documentElement, theme);
+      document
+        .getElementById("light-icon")
+        ?.classList.toggle("hidden", theme !== "dark");
+      document
+        .getElementById("dark-icon")
+        ?.classList.toggle("hidden", theme === "dark");
     };
-
-    const preferedTheme = window.matchMedia("(prefers-color-scheme: dark)")
-      .matches
-      ? "dark"
-      : "light";
-    let currentTheme = document.documentElement.dataset.theme ?? preferedTheme;
-
-    document.documentElement.setAttribute("data-theme", currentTheme);
-
-    changeIcon(currentTheme);
-
-    themeButton?.addEventListener("click", () => {
-      currentTheme = currentTheme === "dark" ? "light" : "dark";
-
-      document.documentElement.setAttribute("data-theme", currentTheme);
+    update();
+    button?.addEventListener("click", () => {
+      const theme = document.documentElement.classList.contains("dark")
+        ? "light"
+        : "dark";
       try {
-        localStorage.setItem("theme", currentTheme);
+        localStorage.setItem("theme", theme);
       } catch {
-        /* Storage may be unavailable. */
+        /* Storage is optional. */
       }
-
-      changeIcon(currentTheme);
+      applyTheme(document.documentElement, theme);
+      document
+        .getElementById("light-icon")
+        ?.classList.toggle("hidden", theme !== "dark");
+      document
+        .getElementById("dark-icon")
+        ?.classList.toggle("hidden", theme === "dark");
     });
   }
-
-  document.addEventListener("astro:page-load", onLoad);
+  document.addEventListener("astro:page-load", setupTheme);
 </script>
