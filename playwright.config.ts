@@ -18,7 +18,13 @@ export default defineConfig({
       executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
     },
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    {
+      name: "mobile-chromium",
+      use: { ...devices["iPhone SE"], defaultBrowserType: "chromium" },
+    },
+  ],
   webServer: {
     command: `bun run dev --host 127.0.0.1 --port ${port} --ignore-lock`,
     url: baseURL,

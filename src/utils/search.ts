@@ -18,10 +18,14 @@ export function createPostSearch(posts: CollectionEntry<"blog">[]) {
       ? fuse.search(searchPhrase.trim()).map(result => result.item)
       : posts;
 
+    const normalizedTags = tags.map(tag => tag.toLowerCase());
     return matches
       .filter(
         post =>
-          tags.length === 0 || tags.some(tag => post.data.tags.includes(tag))
+          normalizedTags.length === 0 ||
+          normalizedTags.some(tag =>
+            post.data.tags.some(postTag => postTag.toLowerCase() === tag)
+          )
       )
       .slice(0, limit)
       .map(post => ({ frontmatter: post.data, href: `/blog/${post.id}` }));

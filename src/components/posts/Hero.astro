@@ -1,44 +1,111 @@
 ---
 import { Button } from "@components/ui/button";
-import SocialIcons from "@components/common/SocialIcons.astro";
 import { getEntry } from "astro:content";
-import ArrowDown from "~icons/ic/baseline-keyboard-arrow-down";
-
+import BlogCollection from "@utils/blog";
 const author = await getEntry("authors", "elotoja");
+const collection = new BlogCollection();
+await collection.getCollection();
+const topics = collection.getTags();
 ---
 
-<section class="min-h-[60vh] flex flex-col justify-center items-center text-center px-4 py-12 animate-fade-in-up">
-  <div class="max-w-3xl">
-    <h1 class="text-5xl md:text-7xl font-bold mb-4 bg-linear-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+<section class="intro" aria-labelledby="intro-title">
+  <div>
+    <p class="eyebrow">Software engineering & cybersecurity</p>
+    <h1 id="intro-title">
       {author?.data.name}
+      <span class="intro-handle">@EloToJa</span>
     </h1>
-    <div class="text-xl md:text-2xl text-muted-foreground mb-6 leading-relaxed">
-      <p>
-        Welcome to my personal blog where I share my thoughts on technology,
-        programming, and cybersecurity.
-      </p>
-    </div>
-    <div class="flex flex-wrap justify-center gap-4 mb-6">
-      <Button href="/posts" size="lg">
-        Read Blog
+    <p class="intro-copy">
+      Notes on building software,
+      <br class="hidden md:block" /> taking things apart, and learning along the
+      way.
+    </p>
+    <div class="intro-actions">
+      <Button href="/posts" size="lg" class="min-h-11 px-4">
+        Read Blog <span aria-hidden="true">↗</span>
       </Button>
-      <Button href="/about" variant="outline" size="lg">
-        About Me
-      </Button>
+      <a href="/about" class="text-link">
+        About me
+      </a>
     </div>
-    {author && (
-      <div class="mt-4">
-        <SocialIcons author={author?.data} />
-      </div>
-    )}
   </div>
-  <div class="mt-8 animate-bounce">
-    <a
-      href="#posts"
-      class="text-muted-foreground hover:text-primary transition-colors"
-      aria-label="Scroll to posts"
-    >
-      <ArrowDown class="w-8 h-8" />
+  <aside class="topic-index" aria-label="Explore topics">
+    <p class="eyebrow">Explore the notebook</p>
+    <p class="topic-caption">Follow a thread.</p>
+    <div class="tags">
+      {topics.map(tag => (
+        <a
+          class="tag"
+          href={`/search?${new URLSearchParams({ tags: JSON.stringify([tag]) })}`}
+        >
+          {tag}
+          <span aria-hidden="true"> ↗</span>
+        </a>
+      ))}
+    </div>
+    <a href="/search" class="text-link topic-search">
+      Search all writing <span aria-hidden="true">→</span>
     </a>
-  </div>
+  </aside>
 </section>
+<style>
+  .intro {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding-block: 2rem 4.5rem;
+  }
+  h1 {
+    margin-top: 1rem;
+    font-family: "Fira Code Variable", monospace;
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    letter-spacing: -0.075em;
+  }
+  .intro-handle {
+    display: block;
+    margin-top: 0.8rem;
+    color: var(--muted-foreground);
+    font-size: 1rem;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+  }
+  .intro-copy {
+    max-width: 35rem;
+    margin-block: 1.75rem;
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    color: var(--muted-foreground);
+    line-height: 1.65;
+  }
+  .intro-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+  }
+  .topic-index {
+    border-left: 3px solid var(--primary);
+    padding: 1.75rem;
+    background: var(--muted);
+    border-radius: 0 0.75rem 0.75rem 0;
+  }
+  .topic-caption {
+    margin-block: 0.5rem 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  .topic-index .tag {
+    background: var(--card);
+  }
+  .topic-search {
+    display: inline-block;
+    margin-top: 1.75rem;
+    font-size: 0.875rem;
+  }
+  @media (max-width: 800px) {
+    .intro {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding-block: 1rem 3rem;
+    }
+  }
+</style>

@@ -17,6 +17,13 @@ function post(id: string, tags = ["other"]): CollectionEntry<"blog"> {
 }
 
 describe("post search", () => {
+  it("matches topic filters regardless of capitalization", () => {
+    const search = createPostSearch([
+      post("writeup", ["Writeup", "HackTheBox"]),
+    ]);
+    expect(search("", 5, ["writeup"])[0].href).toBe("/blog/writeup");
+    expect(search("", 5, ["HACKTHEBOX"])[0].href).toBe("/blog/writeup");
+  });
   it("filters tags before limiting matches", () => {
     const search = createPostSearch([post("first"), post("second", ["astro"])]);
     expect(

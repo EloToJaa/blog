@@ -3,30 +3,30 @@ import { Button } from "@components/ui/button";
 export type Props = { lastPage: number; currentPage: number };
 const { lastPage, currentPage } = Astro.props;
 const pages = Array.from({ length: lastPage }, (_, index) => index + 1);
+const href = (page: number) => (page === 1 ? "/posts" : `/posts/${page}`);
 ---
 
-<nav aria-label="Pagination" class="flex flex-wrap gap-2">
-  <Button
-    href={currentPage > 1 ? `/posts/${currentPage - 1}` : undefined}
-    disabled={currentPage <= 1}
-    variant="outline"
-  >
-    Previous
-  </Button>
-  {pages.map(page => (
-    <Button
-      href={`/posts/${page}`}
-      variant={page === currentPage ? "default" : "outline"}
-      aria-current={page === currentPage ? "page" : undefined}
-    >
-      {page}
-    </Button>
-  ))}
-  <Button
-    href={currentPage < lastPage ? `/posts/${currentPage + 1}` : undefined}
-    disabled={currentPage >= lastPage}
-    variant="outline"
-  >
-    Next
-  </Button>
-</nav>
+{lastPage > 1 && (
+  <nav aria-label="Pagination" class="flex flex-wrap gap-2 mt-8">
+    {currentPage > 1 && (
+      <Button variant="outline" href={href(currentPage - 1)}>
+        Previous
+      </Button>
+    )}
+    {pages.map(page => (
+      <Button
+        variant={page === currentPage ? "default" : "ghost"}
+        href={href(page)}
+        aria-current={page === currentPage ? "page" : undefined}
+        aria-label={`Page ${page}`}
+      >
+        {page}
+      </Button>
+    ))}
+    {currentPage < lastPage && (
+      <Button variant="outline" href={href(currentPage + 1)}>
+        Next
+      </Button>
+    )}
+  </nav>
+)}

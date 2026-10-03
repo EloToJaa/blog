@@ -1,22 +1,26 @@
 ---
 import { Button } from "@components/ui/button";
-import HamburgerOpen from "~icons/ic/baseline-menu";
-import HamburgerClose from "~icons/ic/round-close";
+import Hamburger from "~icons/ic/baseline-menu";
 ---
 
 <Button
   variant="ghost"
-  size="icon-sm"
+  size="icon"
   id="hamburger-button"
-  aria-label="open menu"
+  aria-label="Open menu"
   aria-expanded="false"
   aria-controls="navbar"
-  class="group"
+  class="icon-link menu-toggle"
 >
-  <div class="size-7 group-aria-expanded:hidden">
-    <HamburgerOpen />
-  </div>
-  <div class="hidden size-7 group-aria-expanded:block">
-    <HamburgerClose />
-  </div>
+  <Hamburger class="size-6" />
 </Button>
+<style>
+  :global(.header-tools .menu-toggle) {
+    display: none;
+  }
+  @media (max-width: 640px) {
+    :global(.header-tools .menu-toggle) {
+      display: inline-flex;
+    }
+  }
+</style>
