@@ -51,6 +51,10 @@
           dontUseBunCheck = true;
           dontUseBunInstall = true;
           ASTRO_TELEMETRY_DISABLED = "1";
+          # Sharp and its bundled libvips need the C++ runtime on Linux.
+          LD_LIBRARY_PATH = pkgs.lib.optionalString pkgs.stdenv.hostPlatform.isLinux (
+            pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc.lib ]
+          );
           buildPhase = ''
             runHook preBuild
             export XDG_CACHE_HOME="$TMPDIR/blog-cache"
@@ -86,6 +90,9 @@
             pkgs.oxfmt
           ]
           ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux [ pkgs.chromium ];
+          LD_LIBRARY_PATH = pkgs.lib.optionalString pkgs.stdenv.hostPlatform.isLinux (
+            pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc.lib ]
+          );
           PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH = pkgs.lib.optionalString pkgs.stdenv.hostPlatform.isLinux "${pkgs.chromium}/bin/chromium";
         };
         formatter = pkgs.nixfmt;
