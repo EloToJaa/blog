@@ -122,7 +122,7 @@ test("search inputs filter posts, add and remove tags, and restore URL state", a
   page,
 }) => {
   await page.goto("/search");
-  await expect(page.getByRole("status")).toBeVisible();
+  await expect(page.getByRole("status")).toHaveText("Found 1 post");
   const search = page.getByRole("searchbox", { name: "Search posts" });
   await search.fill("Cyber Apocalypse");
   await expect(

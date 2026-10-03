@@ -18,6 +18,7 @@
   let tagInput = $state<string>("");
   let errorMessage = $state("");
   let requestId = 0;
+  let isReady = $state(false);
 
   const handleInputChange = async (event: Event) => {
     const target = event.target as HTMLInputElement;
@@ -83,6 +84,7 @@
     searchQuery = urlParams.get("q") || "";
     tags = parseSearchTags(urlParams.get("tags"));
 
+    isReady = true;
     await updateURL();
   });
 </script>
@@ -91,6 +93,7 @@
   <label for="post-query" class="block font-semibold mb-2">Search posts</label>
   <div class="relative">
     <Input
+      disabled={!isReady}
       id="post-query"
       type="search"
       bind:value={searchQuery}
@@ -113,6 +116,7 @@
     <div class="flex flex-wrap items-center gap-2">
       <div class="flex gap-2 min-w-0">
         <Input
+          disabled={!isReady}
           id="tag-filter"
           type="text"
           bind:value={tagInput}
@@ -123,6 +127,7 @@
         />
         <Button
           variant="outline"
+          disabled={!isReady}
           onclick={addTag}
           class="min-h-11"
           aria-label="Add tag"
