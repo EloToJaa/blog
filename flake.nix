@@ -23,6 +23,14 @@
         devshells.default = {
           packages = with pkgs; [
             bun
+            nodejs
+            chromium
+          ];
+          env = [
+            {
+              name = "PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH";
+              value = "${pkgs.chromium}/bin/chromium";
+            }
           ];
         };
       };

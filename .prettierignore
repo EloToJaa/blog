@@ -13,3 +13,6 @@
 !svelte.config.js
 !tailwind.config.js
 !README.md
+!vitest.config.ts
+!playwright.config.ts
+!/tests

@@ -15,9 +15,9 @@ export async function GET(context: APIContext) {
     site: context.site ?? "",
     items: posts.map(post => ({
       title: post.data.title,
-      author: post.data.author.slug,
+      author: post.data.author.id,
       description: post.data.description,
-      link: `/blog/${post.slug}`,
+      link: `/blog/${post.id}`,
       pubDate: post.data.pubDatetime,
       categories: post.data.tags,
     })) as RSSFeedItem[],

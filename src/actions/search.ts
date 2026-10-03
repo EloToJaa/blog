@@ -9,8 +9,8 @@ await blogCollection.getCollection();
 const fuse = new Fuse(blogCollection.getPosts(), {
   keys: [
     "data.title",
-    "slug",
-    "data.author.slug",
+    "id",
+    "data.author.id",
     "data.pubDatetime",
     "data.tags",
     "data.description",
@@ -32,7 +32,7 @@ export default defineAction({
       })
       .map(result => ({
         frontmatter: result.item.data,
-        href: `/blog/${result.item.slug}`,
+        href: `/blog/${result.item.id}`,
       }));
 
     if (tags.length === 0) return { results };

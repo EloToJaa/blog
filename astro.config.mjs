@@ -1,5 +1,6 @@
 import { starlightAsides } from "/src/plugins/asides.ts";
 import removeH1 from "/src/plugins/removeH1.ts";
+import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
@@ -47,6 +48,8 @@ export default defineConfig({
     sitemap(),
   ],
   markdown: {
-    remarkPlugins: [removeH1, ...starlightAsides()],
+    processor: unified({
+      remarkPlugins: [removeH1, ...starlightAsides()],
+    }),
   },
 });
