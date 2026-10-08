@@ -1,0 +1,558 @@
+---
+import GlassLayout from "../../components/designs/GlassLayout.astro";
+import { loadPosts } from "../../utils/blog";
+const posts = await loadPosts();
+const post = posts[0];
+const article = "/designs/glass-workspace/article/";
+---
+
+<GlassLayout title="Glass workspace">
+  <main id="main">
+    <div id="top" class="desk">
+      <aside class="author">
+        <div class="avatar" aria-hidden="true">
+          ŁB<span>↗</span>
+        </div>
+        <p class="utility">Behind the notes</p>
+        <h2>
+          Łukasz
+          <br />
+          Budziak<span>.</span>
+        </h2>
+        <p>
+          Software engineer.
+          <br />
+          Curious by default.
+        </p>
+        <a class="author-link" href="/about/">
+          A little about me ↗
+        </a>
+        <div class="rail-topics">
+          <p class="utility">Things I explore</p>
+          <span>Software engineering</span>
+          <span>Cybersecurity</span>
+          <span>Competitive programming</span>
+        </div>
+        <a class="github" href="https://github.com/elotojaa">
+          Find me on GitHub ↗
+        </a>
+      </aside>
+      <div class="desk-content">
+        <section class="intro" aria-labelledby="intro-title">
+          <div class="intro-copy">
+            <p class="utility">
+              <span class="tiny-square" aria-hidden="true"></span> Notes from
+              the workbench
+            </p>
+            <h1 id="intro-title">
+              Look closer.
+              <br />
+              Build better.
+            </h1>
+            <p>
+              Notes on software, security, and the useful things you discover
+              when you take something apart.
+            </p>
+            <a href="#writing" class="primary">
+              Explore the writing <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+          <div class="window-art" aria-hidden="true">
+            <div class="window-top">
+              ideas / in progress <span>↗</span>
+            </div>
+            <div class="window-grid">
+              <div class="code-pane">
+                <span>inspect</span>
+                <strong>&lt;/&gt;</strong>
+                <small>Understand the system.</small>
+              </div>
+              <div class="logic-pane">
+                <span>experiment</span>
+                <div class="diagram">
+                  ○<i></i>◇<i></i>○
+                </div>
+                <small>Find another way.</small>
+              </div>
+              <div class="blue-pane">
+                <span>write it down</span>
+                <strong>
+                  Make the
+                  <br />
+                  work useful.
+                </strong>
+                <small>Share what you learn. ↗</small>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="writing" class="writing" aria-labelledby="writing-title">
+          <div class="section-heading">
+            <h2 id="writing-title">Latest writing</h2>
+            <a href="/posts/">All posts ↗</a>
+          </div>
+          {post && (
+            <article class="feature pane">
+              <div class="feature-top">
+                <span class="utility">Field notes / CTF writeup</span>
+                <time datetime={post.data.pubDatetime.toISOString()}>
+                  20 March 2024
+                </time>
+              </div>
+              <a href={article}>
+                <h3>{post.data.title}</h3>
+              </a>
+              <p>{post.data.description}</p>
+              <div class="feature-bottom">
+                <div class="tags">
+                  {["Web security", "Binary exploitation", "Cryptography"].map(
+                    tag => (
+                      <a
+                        href={
+                          article +
+                          (tag === "Web security"
+                            ? "#web"
+                            : tag === "Cryptography"
+                              ? "#crypto"
+                              : "#pwn")
+                        }
+                      >
+                        {tag}
+                      </a>
+                    )
+                  )}
+                </div>
+                <a class="read" href={article}>
+                  Read the writeup <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </article>
+          )}
+        </section>
+        <section class="about-note pane">
+          <span class="note-icon" aria-hidden="true">
+            <svg
+              viewBox="0 0 32 32"
+              width="32"
+              height="32"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path d="M16 3v26M3 16h26M7 7l18 18M7 25L25 7" />
+              <circle cx="16" cy="16" r="5" fill="var(--glass)" />
+            </svg>
+          </span>
+          <div>
+            <h2>Learning works better when it's shared.</h2>
+            <p>
+              I explore different technologies, compete in CTFs, and love
+              teaching programming and cybersecurity.
+            </p>
+          </div>
+          <a href="/about/" aria-label="Read more about Łukasz">
+            ↗
+          </a>
+        </section>
+      </div>
+    </div>
+  </main>
+</GlassLayout>
+<style>
+  .desk {
+    display: grid;
+    grid-template-columns: 214px minmax(0, 1fr);
+    gap: 55px;
+    padding-top: 56px;
+  }
+  .author {
+    padding-top: 6px;
+  }
+  .avatar {
+    position: relative;
+    background: #cddcf3;
+    width: 82px;
+    height: 82px;
+    border: 1px solid white;
+    border-radius: 25px;
+    display: grid;
+    place-items: center;
+    font:
+      500 27px "Fira Code Variable",
+      monospace;
+    color: #365b92;
+    margin-bottom: 34px;
+  }
+  .avatar span {
+    position: absolute;
+    right: -8px;
+    bottom: -7px;
+    background: #f7faff;
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 29px;
+    height: 29px;
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    color: var(--electric);
+  }
+  .author h2 {
+    font-size: 32px;
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -1px;
+    margin: 14px 0;
+  }
+  .author h2 span {
+    color: var(--electric);
+  }
+  .author > p:not(.utility) {
+    color: var(--slate);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  .author-link {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--electric);
+    margin-top: 10px;
+  }
+  .rail-topics {
+    margin-top: 44px;
+    border-top: 1px solid #bacbdf;
+    padding-top: 15px;
+  }
+  .rail-topics span {
+    display: block;
+    margin: 16px 0;
+    font-size: 14px;
+    color: var(--slate);
+  }
+  .github {
+    font-size: 13px;
+    color: var(--slate);
+    display: block;
+    margin-top: 45px;
+  }
+  .intro {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    gap: 30px;
+    min-height: 325px;
+    padding-bottom: 42px;
+  }
+  .tiny-square {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: var(--electric);
+    margin-right: 8px;
+  }
+  .intro h1 {
+    font-size: clamp(48px, 4.8vw, 72px);
+    line-height: 1.01;
+    letter-spacing: -3px;
+    font-weight: 550;
+    margin: 24px 0;
+  }
+  .intro-copy > p:not(.utility) {
+    max-width: 355px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--slate);
+  }
+  .primary {
+    display: inline-flex;
+    background: var(--electric);
+    color: white;
+    padding: 13px 20px;
+    border-radius: 9px;
+    gap: 34px;
+    margin-top: 13px;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .primary:hover {
+    background: #124bc0;
+    color: white;
+  }
+  .window-art {
+    align-self: center;
+    border-radius: 18px;
+    border: 1px solid #fff;
+    background: #cddcf34d;
+    box-shadow: 16px 24px 50px #31518118;
+    transform: rotate(-4deg);
+    padding: 9px;
+    max-width: 350px;
+  }
+  .window-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 9px 18px;
+    color: var(--slate);
+    font:
+      10px "Fira Code Variable",
+      monospace;
+  }
+  .window-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .window-grid > div {
+    padding: 18px 15px;
+    border: 1px solid white;
+    border-radius: 10px;
+    background: #f7faff9c;
+  }
+  .window-grid span,
+  .window-grid small {
+    display: block;
+    font:
+      10px "Fira Code Variable",
+      monospace;
+    color: var(--slate);
+  }
+  .code-pane strong {
+    font:
+      45px "Fira Code Variable",
+      monospace;
+    color: var(--electric);
+    display: block;
+    margin: 26px 0;
+  }
+  .window-grid small {
+    font-family: "Source Sans 3 Variable", sans-serif;
+    font-size: 12px;
+  }
+  .diagram {
+    height: 111px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 24px;
+    color: #557eb8;
+  }
+  .diagram i {
+    width: 11px;
+    height: 1px;
+    background: #557eb8;
+  }
+  .window-grid .blue-pane {
+    grid-column: span 2;
+    background: #175de8;
+    color: white;
+    border-color: #4982f7;
+    padding: 20px;
+  }
+  .blue-pane span,
+  .blue-pane small {
+    color: #fff;
+  }
+  .blue-pane strong {
+    display: block;
+    font-size: 34px;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    font-weight: 500;
+    margin: 14px 0 20px;
+  }
+  .section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 32px 0 18px;
+  }
+  .section-heading h2 {
+    font-weight: 600;
+    font-size: 21px;
+    margin: 0;
+  }
+  .section-heading a {
+    font-size: 14px;
+    color: var(--slate);
+  }
+  .feature {
+    padding: 29px 30px;
+  }
+  .feature-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  .feature time {
+    font-size: 13px;
+    color: var(--slate);
+  }
+  .feature h3 {
+    font-size: 33px;
+    line-height: 1.14;
+    letter-spacing: -0.8px;
+    font-weight: 550;
+    max-width: 600px;
+    margin: 25px 0 14px;
+  }
+  .feature > p {
+    max-width: 610px;
+    line-height: 1.6;
+    font-size: 16px;
+    color: var(--slate);
+    margin-bottom: 26px;
+  }
+  .feature-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    border-top: 1px solid #cddcf3;
+    padding-top: 20px;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .tags a {
+    background: #e2ebf9;
+    padding: 5px 9px;
+    font-size: 11px;
+    border-radius: 5px;
+    color: #3e5d8b;
+  }
+  .read {
+    font-size: 14px;
+    white-space: nowrap;
+    color: var(--electric);
+    font-weight: 600;
+  }
+  .read span {
+    margin-left: 12px;
+  }
+  .about-note {
+    margin-top: 18px;
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .note-icon {
+    display: flex;
+    flex: 0 0 32px;
+    color: var(--electric);
+  }
+  .about-note h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+  .about-note p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--slate);
+    margin: 0;
+  }
+  .about-note > a {
+    font-size: 25px;
+    color: var(--electric);
+    margin-left: auto;
+    padding: 8px;
+  }
+  @media (max-width: 1100px) {
+    .desk {
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 35px;
+    }
+    .intro {
+      grid-template-columns: 1fr 0.85fr;
+      gap: 18px;
+    }
+    .window-art {
+      transform: rotate(-3deg);
+    }
+    .window-grid > div {
+      padding: 12px;
+    }
+    .feature-bottom {
+      flex-wrap: wrap;
+    }
+    .intro h1 {
+      font-size: 57px;
+    }
+  }
+  @media (max-width: 850px) {
+    .desk {
+      grid-template-columns: 1fr;
+      gap: 25px;
+      padding-top: 30px;
+    }
+    .author {
+      display: none;
+    }
+    .intro {
+      min-height: 350px;
+    }
+    .intro h1 {
+      font-size: 63px;
+    }
+    .window-art {
+      width: 100%;
+    }
+    .section-heading {
+      margin-top: 15px;
+    }
+  }
+  @media (max-width: 550px) {
+    .intro {
+      grid-template-columns: 1fr;
+      padding-bottom: 25px;
+    }
+    .intro h1 {
+      font-size: 59px;
+    }
+    .intro-copy > p:not(.utility) {
+      font-size: 17px;
+    }
+    .window-art {
+      margin: 25px auto 0;
+      max-width: 320px;
+      transform: rotate(-2deg);
+    }
+    .feature {
+      padding: 23px 20px;
+    }
+    .feature-top {
+      flex-direction: column;
+      gap: 9px;
+    }
+    .feature h3 {
+      font-size: 29px;
+    }
+    .feature-bottom {
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .about-note {
+      padding: 22px 18px;
+      gap: 15px;
+    }
+    .about-note h2 {
+      font-size: 17px;
+    }
+    .note-icon {
+      font-size: 27px;
+    }
+    .about-note > a {
+      padding: 0;
+    }
+    .utility {
+      font-size: 10px;
+    }
+    .section-heading h2 {
+      font-size: 20px;
+    }
+  }
+</style>

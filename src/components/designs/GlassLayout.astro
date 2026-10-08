@@ -1,0 +1,233 @@
+---
+import "@fontsource-variable/source-sans-3";
+import "@fontsource-variable/fira-code";
+interface Props {
+  title: string;
+  article?: boolean;
+}
+const { title, article = false } = Astro.props;
+const home = "/designs/glass-workspace/";
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Łukasz Budziak's notes on software engineering, programming, and cybersecurity."
+    />
+    <title>{title} · EloToJa</title>
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body>
+    <a class="skip" href="#main">
+      Skip to content
+    </a>
+    <div class="workspace">
+      <header class="topbar">
+        <a class="wordmark" href={home}>
+          <span class="brand-symbol" aria-hidden="true">
+            ↗
+          </span>{" "}
+          EloToJa<span class="wordmark-sub"> / personal workspace</span>
+        </a>
+        <nav aria-label="Main navigation">
+          <a href={article ? home + "#writing" : "#writing"}>Writing</a>
+          <a href="/about/">About</a>
+          <a class="search-link" href="/search/">
+            Search <span aria-hidden="true">↗</span>
+          </a>
+        </nav>
+      </header>
+      <slot />
+      <footer>
+        <span>Łukasz Budziak · Software engineer & CTF player</span>
+        <div>
+          <a href="https://github.com/elotojaa">GitHub ↗</a>
+          <a href="/rss.xml">RSS ↗</a>
+          <a href="#top">Back to top ↑</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
+<style is:global>
+  :root {
+    --mist: #e9eff7;
+    --glass: #f7faff;
+    --ink: #172e50;
+    --slate: #536780;
+    --electric: #175de8;
+    --ice: #cddcf3;
+    font-family: "Source Sans 3 Variable", sans-serif;
+    color: var(--ink);
+    background: var(--mist);
+  }
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    background: linear-gradient(
+      125deg,
+      #dae5f5 0%,
+      var(--mist) 45%,
+      #dde7f4 100%
+    );
+    min-height: 100vh;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--electric);
+  }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 3px solid var(--electric);
+    outline-offset: 5px;
+  }
+  button,
+  input {
+    font: inherit;
+  }
+  .skip {
+    position: absolute;
+    top: -100px;
+    left: 20px;
+    z-index: 20;
+    background: white;
+    padding: 12px;
+  }
+  .skip:focus {
+    top: 12px;
+  }
+  .workspace {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 58px;
+  }
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 105px;
+    gap: 25px;
+    border-bottom: 1px solid #b5c5db;
+  }
+  .wordmark {
+    font:
+      600 19px "Fira Code Variable",
+      monospace;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand-symbol {
+    background: var(--electric);
+    color: white;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    font-size: 24px;
+  }
+  .wordmark-sub {
+    font:
+      400 13px "Source Sans 3 Variable",
+      sans-serif;
+    color: var(--slate);
+  }
+  nav {
+    display: flex;
+    gap: 30px;
+    font-size: 16px;
+  }
+  .search-link {
+    border-left: 1px solid #b5c5db;
+    padding-left: 30px;
+  }
+  footer {
+    border-top: 1px solid #b5c5db;
+    margin-top: 64px;
+    padding: 28px 0 40px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 14px;
+    color: var(--slate);
+  }
+  footer div {
+    display: flex;
+    gap: 22px;
+  }
+  .utility {
+    font:
+      450 11px "Fira Code Variable",
+      monospace;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+  .pane {
+    background: #f7faffb8;
+    border: 1px solid #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px #304d7510;
+    backdrop-filter: blur(14px);
+  }
+  .blue {
+    color: var(--electric);
+  }
+  @media (max-width: 900px) {
+    .workspace {
+      padding: 0 28px;
+    }
+    .wordmark-sub {
+      display: none;
+    }
+  }
+  @media (max-width: 600px) {
+    .workspace {
+      padding: 0 20px;
+    }
+    .topbar {
+      min-height: 85px;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 20px 0;
+    }
+    nav {
+      gap: 18px;
+      font-size: 14px;
+    }
+    .wordmark {
+      font-size: 17px;
+    }
+    .search-link {
+      padding-left: 18px;
+    }
+    footer {
+      flex-direction: column;
+      font-size: 13px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
