@@ -76,7 +76,7 @@ const fs = require("fs"),
             h => h?.startsWith("/") && h.includes("/article") && h.includes("#")
           )
       );
-    for (const href of [...new Set(deepLinks)]) {
+    for (const href of new Set(deepLinks)) {
       await p.goto(base + href, { waitUntil: "domcontentloaded" });
       const target = decodeURIComponent(new URL(p.url()).hash.slice(1));
       result.checks.push({
