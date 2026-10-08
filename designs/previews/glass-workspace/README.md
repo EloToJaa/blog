@@ -11,8 +11,8 @@ Start the project dev server on port 4401. Install the standalone QA dependencie
 ```sh
 npm install --prefix /tmp/blog-design-qa playwright @axe-core/playwright
 /tmp/blog-design-qa/node_modules/.bin/playwright install chromium
-NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/glass-workspace/verify.cjs glass-workspace 4401 /tmp/glass-workspace-qa
-NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/glass-workspace/interactions.cjs glass-workspace 4401 /tmp/glass-workspace-qa
+NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/glass-workspace/verify.mjs glass-workspace 4401 /tmp/glass-workspace-qa
+NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/glass-workspace/interactions.mjs glass-workspace 4401 /tmp/glass-workspace-qa
 ```
 
 On Nix, set PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH to the Nix Chromium executable.
