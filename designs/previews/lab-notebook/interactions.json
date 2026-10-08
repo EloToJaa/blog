@@ -1,0 +1,54 @@
+{
+  "design": "lab-notebook",
+  "checks": [
+    {
+      "skipLink": "#main",
+      "skipWorks": true,
+      "visibleFocus": true
+    },
+    {
+      "tocWorks": true,
+      "target": "#introduction"
+    },
+    {
+      "deepLink": "/designs/lab-notebook/article#web",
+      "targetExists": true
+    },
+    {
+      "deepLink": "/designs/lab-notebook/article#crypto",
+      "targetExists": true
+    },
+    {
+      "deepLink": "/designs/lab-notebook/article#misc",
+      "targetExists": true
+    }
+  ],
+  "fonts": [
+    {
+      "family": "Source Sans 3 Variable",
+      "style": "normal",
+      "weight": "200 900"
+    },
+    {
+      "family": "Source Sans 3 Variable",
+      "style": "normal",
+      "weight": "200 900"
+    },
+    {
+      "family": "Fira Code Variable",
+      "style": "normal",
+      "weight": "300 700"
+    },
+    {
+      "family": "Lab Lora",
+      "style": "normal",
+      "weight": "400"
+    },
+    {
+      "family": "Lab Lora",
+      "style": "italic",
+      "weight": "400"
+    }
+  ],
+  "passed": true
+}

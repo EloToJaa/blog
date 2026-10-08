@@ -1,0 +1,493 @@
+---
+import LabNotebookLayout from "../../layouts/designs/LabNotebookLayout.astro";
+import { loadPosts } from "../../utils/blog";
+import { tagUrl } from "../../utils/posts";
+const posts = await loadPosts();
+const post = posts.find(entry => entry.id === "cyber-apocalypse") ?? posts[0];
+const date = post?.data.pubDatetime.toLocaleDateString("en-GB", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+---
+
+<LabNotebookLayout title="A personal notebook">
+  <section class="hero" aria-labelledby="hero-title">
+    <div>
+      <p class="lab-label">Software · security · things worth understanding</p>
+      <h1 id="hero-title">
+        Notes from
+        <br />a <em>curious mind.</em>
+      </h1>
+      <div class="hero-annotation">
+        <svg viewBox="0 0 88 48" aria-hidden="true">
+          <path d="M4 4 Q3 40 73 30 M63 21 L75 30 L64 40" />
+        </svg>
+        <p class="lab-note">inspect, understand, explain.</p>
+      </div>
+    </div>
+    <aside class="hero-aside">
+      <svg class="aside-symbol" viewBox="0 0 48 48" aria-hidden="true">
+        <path
+          d="M24 3v42M3 24h42M9 9l30 30M9 39L39 9"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+      </svg>
+      <p>
+        I'm Łukasz, a software engineer who likes to take things apart — and
+        share what I learn.
+      </p>
+      <a href="/about" class="about-link">
+        A little about me ↗
+      </a>
+    </aside>
+  </section>
+  <section id="entries" aria-labelledby="entries-title">
+    <div class="section-heading">
+      <h2 id="entries-title" class="lab-label">
+        Latest notebook entry
+      </h2>
+      <a href="/posts">View the archive ↗</a>
+    </div>
+    {post && (
+      <article class="feature">
+        <div class="observation">
+          <div class="observation-top">
+            <span class="lab-label">From the field notes</span>
+            <span class="lab-label">Web / Flag Command</span>
+          </div>
+          <div class="diagram">
+            <span class="file">client.js</span>
+            <span class="diagram-arrow" aria-hidden="true">
+              ↓
+            </span>
+            <span class="command">hidden command</span>
+            <span class="diagram-arrow" aria-hidden="true">
+              ↓
+            </span>
+            <span class="flag">HTB&#123;…&#125;</span>
+          </div>
+          <p class="diagram-note">
+            The clue was already
+            <br />
+            in the browser.
+          </p>
+          <svg
+            class="annotation-arrow"
+            viewBox="0 0 100 100"
+            aria-hidden="true"
+          >
+            <path d="M8 88 C15 70 20 36 82 20 M70 15 L86 20 L76 32" />
+          </svg>
+          <span class="observation-bottom">
+            One observation. A whole solution.
+          </span>
+        </div>
+        <div class="entry">
+          <time
+            datetime={post.data.pubDatetime.toISOString()}
+            class="lab-label"
+          >
+            {date}
+          </time>
+          <h3>
+            <a href="/designs/lab-notebook/article">
+              Cyber Apocalypse 2024:
+              <br />
+              <em>Hacker Royale</em>
+            </a>
+          </h3>
+          <p>{post.data.description}</p>
+          <div class="tags">
+            {post.data.tags.map(tag => (
+              <a href={tagUrl(tag)} class="lab-tag">
+                {tag}
+              </a>
+            ))}
+          </div>
+          <a class="lab-arrow" href="/designs/lab-notebook/article">
+            Read the field notes <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </article>
+    )}
+  </section>
+  <section class="bottom-notes" aria-label="About this notebook">
+    <div>
+      <p class="lab-label">Behind the notebook</p>
+      <h2>Learning by taking things apart.</h2>
+      <p>
+        Programming, CTF competitions, and teaching. I explore different
+        technologies and write down the details that make things click.
+      </p>
+    </div>
+    <div class="index-card">
+      <p class="lab-label">Inside these notes</p>
+      <a href="/designs/lab-notebook/article#web">
+        Web security <span>↗</span>
+      </a>
+      <a href="/designs/lab-notebook/article#crypto">
+        Cryptography <span>↗</span>
+      </a>
+      <a href="/designs/lab-notebook/article#misc">
+        Automation <span>↗</span>
+      </a>
+    </div>
+  </section>
+</LabNotebookLayout>
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 270px;
+    gap: 60px;
+    align-items: center;
+    padding: 62px 0 48px;
+  }
+  .hero .lab-label {
+    margin: 0 0 23px;
+  }
+  h1 {
+    font:
+      76px/0.99 "Lab Lora",
+      serif;
+    letter-spacing: -3.5px;
+    margin: 0;
+  }
+  h1 em {
+    font-weight: 400;
+  }
+  .hero-annotation {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+    margin-left: 8px;
+  }
+  .hero-annotation svg {
+    width: 82px;
+    height: 45px;
+    fill: none;
+    stroke: var(--annotation);
+    stroke-width: 1.6;
+  }
+  .hero-annotation p {
+    margin: 0;
+    transform: rotate(-3deg);
+  }
+  .hero-aside {
+    padding-top: 25px;
+  }
+  .aside-symbol {
+    width: 48px;
+    height: 48px;
+    color: var(--annotation);
+    display: block;
+  }
+  .hero-aside p {
+    font-size: 20px;
+    line-height: 1.5;
+    margin: 20px 0;
+  }
+  .about-link {
+    font-size: 14px;
+    color: var(--annotation);
+  }
+  .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--rule);
+    padding: 24px 0 20px;
+  }
+  .section-heading h2 {
+    font-weight: 400;
+    margin: 0;
+  }
+  .section-heading a {
+    font-size: 13px;
+  }
+  .feature {
+    display: grid;
+    grid-template-columns: 46% 54%;
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+    overflow: hidden;
+    background: var(--chalk);
+  }
+  .observation {
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    padding: 30px;
+    min-height: 390px;
+    background-image:
+      linear-gradient(#dcc6f414 1px, transparent 1px),
+      linear-gradient(90deg, #dcc6f414 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+  .observation-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    opacity: 0.78;
+  }
+  .observation-top .lab-label {
+    font-size: 9px;
+  }
+  .diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    margin: 28px auto 40px;
+    font:
+      17px "Fira Code Variable",
+      monospace;
+  }
+  .file {
+    border: 1px solid #a58abb;
+    padding: 12px 22px;
+    border-radius: 3px;
+    background: var(--ink);
+  }
+  .diagram-arrow {
+    font-size: 26px;
+    color: var(--highlight);
+    margin: 4px;
+  }
+  .command {
+    font-size: 15px;
+    border-bottom: 2px solid var(--highlight);
+    padding: 5px 8px;
+  }
+  .flag {
+    background: var(--highlight);
+    color: var(--ink);
+    padding: 8px 28px;
+    border-radius: 3px;
+  }
+  .diagram-note {
+    position: absolute;
+    right: 22px;
+    bottom: 59px;
+    transform: rotate(-7deg);
+    font:
+      italic 18px/1.2 "Lab Lora",
+      serif;
+    color: var(--highlight);
+  }
+  .annotation-arrow {
+    position: absolute;
+    right: 100px;
+    bottom: 119px;
+    width: 65px;
+    height: 65px;
+    fill: none;
+    stroke: var(--highlight);
+    stroke-width: 1.3;
+  }
+  .observation-bottom {
+    position: absolute;
+    bottom: 23px;
+    left: 30px;
+    font:
+      10px "Fira Code Variable",
+      monospace;
+    opacity: 0.65;
+  }
+  .entry {
+    padding: 35px 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .entry time {
+    color: var(--annotation);
+  }
+  .entry h3 {
+    font:
+      35px/1.16 "Lab Lora",
+      serif;
+    letter-spacing: -1px;
+    margin: 23px 0 16px;
+  }
+  .entry h3 em {
+    font-weight: 400;
+  }
+  .entry p {
+    font-size: 17px;
+    line-height: 1.55;
+    margin: 0 0 20px;
+    max-width: 440px;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 22px;
+  }
+  .entry .lab-arrow {
+    margin-top: auto;
+  }
+  .bottom-notes {
+    display: grid;
+    grid-template-columns: 1fr 310px;
+    gap: 100px;
+    margin-top: 48px;
+  }
+  .bottom-notes h2 {
+    font:
+      27px "Lab Lora",
+      serif;
+    margin: 16px 0;
+  }
+  .bottom-notes p:not(.lab-label) {
+    max-width: 480px;
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .index-card {
+    border-left: 1px solid var(--rule);
+    padding-left: 30px;
+  }
+  .index-card .lab-label {
+    margin: 0 0 12px;
+  }
+  .index-card a {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 16px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  @media (min-width: 1440px) {
+    h1 {
+      font-size: 86px;
+    }
+    .hero {
+      padding: 75px 0 55px;
+    }
+    .observation {
+      min-height: 420px;
+    }
+    .entry h3 {
+      font-size: 40px;
+    }
+  }
+  @media (max-width: 1000px) {
+    .hero {
+      grid-template-columns: 1fr 220px;
+      gap: 30px;
+    }
+    h1 {
+      font-size: 62px;
+    }
+    .entry {
+      padding: 30px;
+    }
+    .entry h3 {
+      font-size: 29px;
+    }
+    .bottom-notes {
+      gap: 50px;
+    }
+    .diagram-note {
+      right: 15px;
+      font-size: 16px;
+    }
+    .observation-top {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+  @media (max-width: 700px) {
+    .hero {
+      display: block;
+      padding: 40px 0 32px;
+    }
+    h1 {
+      font-size: 58px;
+    }
+    .hero .lab-label {
+      font-size: 9px;
+      line-height: 1.8;
+    }
+    .hero-aside {
+      padding: 0;
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 0 16px;
+    }
+    .aside-symbol {
+      width: 34px;
+      height: 34px;
+      margin-top: 5px;
+    }
+    .hero-aside p {
+      font-size: 17px;
+      margin: 0;
+    }
+    .about-link {
+      grid-column: 2;
+      margin-top: 12px;
+    }
+    .hero-annotation p {
+      font-size: 20px;
+    }
+    .hero-annotation svg {
+      width: 55px;
+    }
+    .feature {
+      grid-template-columns: 1fr;
+    }
+    .observation {
+      min-height: 335px;
+      padding: 24px;
+    }
+    .observation-top {
+      flex-direction: row;
+    }
+    .diagram {
+      margin-top: 25px;
+    }
+    .diagram-note {
+      right: 25px;
+      font-size: 18px;
+      bottom: 48px;
+    }
+    .annotation-arrow {
+      right: 100px;
+      bottom: 100px;
+    }
+    .entry {
+      padding: 28px;
+    }
+    .entry h3 {
+      font-size: 32px;
+    }
+    .entry p {
+      font-size: 16px;
+    }
+    .bottom-notes {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-top: 35px;
+    }
+    .index-card {
+      padding-left: 0;
+      border-left: 0;
+    }
+    .section-heading .lab-label {
+      font-size: 9px;
+    }
+    .section-heading a {
+      font-size: 12px;
+    }
+  }
+</style>
