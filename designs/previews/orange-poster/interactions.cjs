@@ -36,8 +36,7 @@ const fs = require("fs"),
     await p.keyboard.press("Enter");
     result.checks.push({
       skipLink: first.href,
-      skipWorks:
-        !!first.href?.startsWith("#") && new URL(p.url()).hash === first.href,
+      skipWorks: !!first.href?.startsWith("#") && new URL(p.url()).hash === first.href,
       visibleFocus: first.outline !== "none" && !first.outline.includes("0px"),
     });
     await p.goto(base + route + "article/", { waitUntil: "networkidle" });
@@ -72,9 +71,7 @@ const fs = require("fs"),
       .evaluateAll(as =>
         as
           .map(a => a.getAttribute("href"))
-          .filter(
-            h => h?.startsWith("/") && h.includes("/article") && h.includes("#")
-          )
+          .filter(h => h?.startsWith("/") && h.includes("/article") && h.includes("#"))
       );
     for (const href of new Set(deepLinks)) {
       await p.goto(base + href, { waitUntil: "domcontentloaded" });
@@ -92,10 +89,7 @@ const fs = require("fs"),
         c.targetExists !== false
     );
     const out = process.argv[4] || "designs/previews/" + name;
-    fs.writeFileSync(
-      out + "/interactions.json",
-      JSON.stringify(result, null, 2)
-    );
+    fs.writeFileSync(out + "/interactions.json", JSON.stringify(result, null, 2));
     console.log(JSON.stringify(result));
     await p.close();
   }

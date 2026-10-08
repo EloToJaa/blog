@@ -63,9 +63,7 @@ const [name, port, output] = process.argv.slice(2);
           .map(i => i.src),
         hashLinks: [...document.querySelectorAll('a[href^="#"]')].map(a => ({
           href: a.getAttribute("href"),
-          exists: !!document.getElementById(
-            decodeURIComponent(a.getAttribute("href").slice(1))
-          ),
+          exists: !!document.getElementById(decodeURIComponent(a.getAttribute("href").slice(1))),
         })),
       }));
       const accessibility = await new AxeBuilder({ page })
@@ -102,11 +100,7 @@ const [name, port, output] = process.argv.slice(2);
           document.activeElement.blur();
           scrollTo(0, 0);
         });
-        const filename =
-          type +
-          "-" +
-          (viewport.width === 1440 ? "desktop" : "mobile") +
-          ".png";
+        const filename = type + "-" + (viewport.width === 1440 ? "desktop" : "mobile") + ".png";
         await page.screenshot({
           path: path.join(output, filename),
           fullPage: type === "home",
@@ -118,12 +112,8 @@ const [name, port, output] = process.argv.slice(2);
     }
     await page.goto(origin + route);
     const articleLink = page.locator("a[href]").filter({ visible: true });
-    const hrefs = await articleLink.evaluateAll(as =>
-      as.map(a => a.getAttribute("href"))
-    );
-    const target = hrefs.find(
-      h => h && h.includes("/designs/" + name + "/article")
-    );
+    const hrefs = await articleLink.evaluateAll(as => as.map(a => a.getAttribute("href")));
+    const target = hrefs.find(h => h && h.includes("/designs/" + name + "/article"));
     if (target) {
       await page
         .locator('a[href="' + target + '"]')
@@ -133,21 +123,15 @@ const [name, port, output] = process.argv.slice(2);
         viewport,
         articleNavigation: page.url().includes("/article"),
       });
-    } else
-      report.errors.push(
-        "No design article navigation at width " + viewport.width
-      );
+    } else report.errors.push("No design article navigation at width " + viewport.width);
     const links = [
       ...new Set(
-        hrefs
-          .filter(h => h && h.startsWith("/") && !h.startsWith("//"))
-          .map(h => h.split("#")[0])
+        hrefs.filter(h => h && h.startsWith("/") && !h.startsWith("//")).map(h => h.split("#")[0])
       ),
     ];
     for (const href of links) {
       const r = await context.request.get(origin + href);
-      if (r.status() >= 400)
-        report.errors.push("Broken internal link " + href + " " + r.status());
+      if (r.status() >= 400) report.errors.push("Broken internal link " + href + " " + r.status());
     }
     report.errors.push(...errors.map(e => viewport.width + ": " + e));
     await context.close();
@@ -167,10 +151,7 @@ const [name, port, output] = process.argv.slice(2);
             c.violations.length === 0 &&
             c.hashLinks.every(h => h.exists)))
     );
-  fs.writeFileSync(
-    path.join(output, "verification.json"),
-    JSON.stringify(report, null, 2)
-  );
+  fs.writeFileSync(path.join(output, "verification.json"), JSON.stringify(report, null, 2));
   console.log(
     JSON.stringify(
       {
