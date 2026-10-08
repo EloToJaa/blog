@@ -11,8 +11,8 @@ Start the project dev server on port 4401. Install the standalone QA dependencie
 ```sh
 npm install --prefix /tmp/blog-design-qa playwright @axe-core/playwright
 /tmp/blog-design-qa/node_modules/.bin/playwright install chromium
-NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/olive-reading-room/verify.cjs olive-reading-room 4401 /tmp/olive-reading-room-qa
-NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/olive-reading-room/interactions.cjs olive-reading-room 4401 /tmp/olive-reading-room-qa
+NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/olive-reading-room/verify.mjs olive-reading-room 4401 /tmp/olive-reading-room-qa
+NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/olive-reading-room/interactions.mjs olive-reading-room 4401 /tmp/olive-reading-room-qa
 ```
 
 On Nix, set PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH to the Nix Chromium executable.
