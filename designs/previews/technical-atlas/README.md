@@ -11,8 +11,8 @@ Start the project dev server on port 4401. Install the standalone QA dependencie
 ```sh
 npm install --prefix /tmp/blog-design-qa playwright @axe-core/playwright
 /tmp/blog-design-qa/node_modules/.bin/playwright install chromium
-NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/technical-atlas/verify.cjs technical-atlas 4401 /tmp/technical-atlas-qa
-NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/technical-atlas/interactions.cjs technical-atlas 4401 /tmp/technical-atlas-qa
+NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/technical-atlas/verify.mjs technical-atlas 4401 /tmp/technical-atlas-qa
+NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/technical-atlas/interactions.mjs technical-atlas 4401 /tmp/technical-atlas-qa
 ```
 
 On Nix, set PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH to the Nix Chromium executable.
