@@ -1,0 +1,273 @@
+---
+import "@fontsource-variable/source-sans-3";
+import "@fontsource-variable/fira-code";
+interface Props {
+  title: string;
+  description?: string;
+}
+const {
+  title,
+  description = "Notes on software engineering, programming, and cybersecurity by Łukasz Budziak.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} — EloToJa</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a class="skip" href="#main">
+      Skip to content
+    </a>
+    <header class="site-header">
+      <a class="wordmark" href="/designs/olive-reading-room">
+        EloToJa<span>Łukasz Budziak</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="/designs/olive-reading-room#writing">Writing</a>
+        <a href="/designs/olive-reading-room#about">About</a>
+        <a href="/rss.xml">
+          RSS <span aria-hidden="true">↗</span>
+        </a>
+      </nav>
+    </header>
+    <slot />
+    <footer class="site-footer">
+      <a href="/designs/olive-reading-room">EloToJa</a>
+      <p>Notes on software, programming & cybersecurity.</p>
+      <a href="#top">Back to top ↑</a>
+    </footer>
+  </body>
+</html>
+<style is:global>
+  /* literata-latin-ext-400-normal */
+  @font-face {
+    font-family: "Literata";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url("/fonts/olive-reading-room/literata-latin-ext-400-normal.woff2")
+      format("woff2");
+    unicode-range:
+      U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+      U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+      U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  /* literata-latin-400-normal */
+  @font-face {
+    font-family: "Literata";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url("/fonts/olive-reading-room/literata-latin-400-normal.woff2")
+      format("woff2");
+    unicode-range:
+      U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+      U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+      U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  /* literata-latin-ext-400-italic */
+  @font-face {
+    font-family: "Literata";
+    font-style: italic;
+    font-display: swap;
+    font-weight: 400;
+    src: url("/fonts/olive-reading-room/literata-latin-ext-400-italic.woff2")
+      format("woff2");
+    unicode-range:
+      U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+      U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+      U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  /* literata-latin-400-italic */
+  @font-face {
+    font-family: "Literata";
+    font-style: italic;
+    font-display: swap;
+    font-weight: 400;
+    src: url("/fonts/olive-reading-room/literata-latin-400-italic.woff2")
+      format("woff2");
+    unicode-range:
+      U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+      U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+      U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  /* literata-latin-ext-600-normal */
+  @font-face {
+    font-family: "Literata";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 600;
+    src: url("/fonts/olive-reading-room/literata-latin-ext-600-normal.woff2")
+      format("woff2");
+    unicode-range:
+      U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+      U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+      U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  /* literata-latin-600-normal */
+  @font-face {
+    font-family: "Literata";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 600;
+    src: url("/fonts/olive-reading-room/literata-latin-600-normal.woff2")
+      format("woff2");
+    unicode-range:
+      U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+      U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+      U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  :root {
+    --olive: #41482f;
+    --ink: #29301f;
+    --paper: #f4f0cc;
+    --leaf: #d7ddbb;
+    --moss: #606747;
+    --highlight: #fffdeb;
+    color: var(--ink);
+    background: var(--paper);
+    font-family: "Source Sans 3 Variable", sans-serif;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+  }
+  a {
+    color: inherit;
+    text-underline-offset: 5px;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  a:focus-visible,
+  summary:focus-visible {
+    outline: 3px solid var(--olive);
+    outline-offset: 6px;
+  }
+  ::selection {
+    background: var(--olive);
+    color: var(--paper);
+  }
+  .skip {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    background: var(--highlight);
+    z-index: 10;
+    padding: 12px;
+    transform: translateY(-200%);
+  }
+  .skip:focus {
+    transform: translateY(0);
+  }
+  .site-header {
+    max-width: 1360px;
+    margin: auto;
+    padding: 32px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+  }
+  .wordmark {
+    font-size: 30px;
+    font-weight: 650;
+    letter-spacing: -1.2px;
+    text-decoration: none;
+  }
+  .wordmark span {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    margin-top: 3px;
+    text-transform: uppercase;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 38px;
+    font-size: 16px;
+  }
+  nav a {
+    text-decoration: none;
+  }
+  .site-footer {
+    margin: 0 auto;
+    max-width: 1232px;
+    border-top: 1px solid #a9af8b;
+    padding: 30px 0 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    font-size: 14px;
+    color: var(--moss);
+  }
+  .site-footer > a {
+    text-decoration: none;
+  }
+  .site-footer p {
+    margin: 0;
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .serif {
+    font-family: "Literata", Georgia, serif;
+  }
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 6px 0;
+  }
+  @media (max-width: 1359px) {
+    .site-footer {
+      margin-inline: 64px;
+    }
+  }
+  @media (max-width: 640px) {
+    .site-header {
+      padding: 24px;
+      align-items: flex-start;
+    }
+    .wordmark {
+      font-size: 26px;
+    }
+    nav {
+      gap: 18px;
+      font-size: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .site-footer {
+      margin-inline: 24px;
+      display: grid;
+      gap: 14px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>

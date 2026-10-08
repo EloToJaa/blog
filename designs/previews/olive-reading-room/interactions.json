@@ -1,0 +1,42 @@
+{
+  "design": "olive-reading-room",
+  "checks": [
+    {
+      "skipLink": "#main",
+      "skipWorks": true,
+      "visibleFocus": true
+    },
+    {
+      "tocWorks": true,
+      "target": "#introduction"
+    }
+  ],
+  "fonts": [
+    {
+      "family": "Source Sans 3 Variable",
+      "style": "normal",
+      "weight": "200 900"
+    },
+    {
+      "family": "Source Sans 3 Variable",
+      "style": "normal",
+      "weight": "200 900"
+    },
+    {
+      "family": "Literata",
+      "style": "normal",
+      "weight": "400"
+    },
+    {
+      "family": "Literata",
+      "style": "normal",
+      "weight": "400"
+    },
+    {
+      "family": "Literata",
+      "style": "italic",
+      "weight": "400"
+    }
+  ],
+  "passed": true
+}

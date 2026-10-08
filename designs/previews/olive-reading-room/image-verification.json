@@ -1,0 +1,50 @@
+{
+  "design": "olive-reading-room",
+  "passed": true,
+  "checks": [
+    {
+      "width": 1440,
+      "overflow": false,
+      "images": [
+        {
+          "src": "http://127.0.0.1:4404/_image?href=%2F%40fs%2Ftmp%2Fblog-design-worktrees%2Ffeat-design-olive-reading-room%2Fsrc%2Fassets%2Fimages%2Fcyber-apocalypse%2FCertificate-EloToJa-2024.jpg%3ForigWidth%3D1754%26origHeight%3D1241%26origFormat%3Djpg&w=1754&h=1241&f=webp",
+          "loaded": true,
+          "width": 1754
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "images": [
+        {
+          "src": "http://127.0.0.1:4404/_image?href=%2F%40fs%2Ftmp%2Fblog-design-worktrees%2Ffeat-design-olive-reading-room%2Fsrc%2Fassets%2Fimages%2Fcyber-apocalypse%2FCertificate-EloToJa-2024.jpg%3ForigWidth%3D1754%26origHeight%3D1241%26origFormat%3Djpg&w=1754&h=1241&f=webp",
+          "loaded": true,
+          "width": 1754
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "images": [
+        {
+          "src": "http://127.0.0.1:4404/_image?href=%2F%40fs%2Ftmp%2Fblog-design-worktrees%2Ffeat-design-olive-reading-room%2Fsrc%2Fassets%2Fimages%2Fcyber-apocalypse%2FCertificate-EloToJa-2024.jpg%3ForigWidth%3D1754%26origHeight%3D1241%26origFormat%3Djpg&w=1754&h=1241&f=webp",
+          "loaded": true,
+          "width": 1754
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "overflow": false,
+      "images": [
+        {
+          "src": "http://127.0.0.1:4404/_image?href=%2F%40fs%2Ftmp%2Fblog-design-worktrees%2Ffeat-design-olive-reading-room%2Fsrc%2Fassets%2Fimages%2Fcyber-apocalypse%2FCertificate-EloToJa-2024.jpg%3ForigWidth%3D1754%26origHeight%3D1241%26origFormat%3Djpg&w=1754&h=1241&f=webp",
+          "loaded": true,
+          "width": 1754
+        }
+      ]
+    }
+  ]
+}

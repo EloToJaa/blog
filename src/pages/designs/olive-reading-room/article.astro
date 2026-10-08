@@ -1,0 +1,285 @@
+---
+import OliveReadingRoom from "../../../layouts/designs/OliveReadingRoom.astro";
+import { getEntry, render } from "astro:content";
+const post = await getEntry("blog", "cyber-apocalypse");
+if (!post) throw new Error("Cyber Apocalypse article is missing");
+const { Content, headings } = await render(post);
+const sections = headings.filter(heading => heading.depth === 2);
+---
+
+<OliveReadingRoom title={post.data.title} description={post.data.description}>
+  <main id="main">
+    <header class="article-header" id="top">
+      <a class="back" href="/designs/olive-reading-room#writing">
+        ← Back to the notebook
+      </a>
+      <p class="eyebrow">CTF writeup · 20 March 2024</p>
+      <h1>
+        Cyber Apocalypse 2024:
+        <br />
+        <em>Hacker Royale</em>
+      </h1>
+      <p class="serif">{post.data.description}</p>
+      <div class="author-line">
+        By Łukasz Budziak <span>Web · PWN · Crypto · Reversing · Misc</span>
+      </div>
+    </header>
+    <div class="reading-layout">
+      <aside class="chapter-index">
+        <nav aria-label="Article contents">
+          <h2 class="eyebrow">In this writeup</h2>
+          <ul>
+            {sections.map(section => (
+              <li>
+                <a href={`#${section.slug}`}>{section.text}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <p class="side-note serif">
+          A record of the observations, scripts, and flags from the event.
+        </p>
+      </aside>
+      <article class="prose" aria-label="Cyber Apocalypse writeup">
+        <Content />
+        <div class="end-note">
+          <p class="eyebrow">End of the writeup</p>
+          <a class="text-link" href="/designs/olive-reading-room#writing">
+            Return to the notebook <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </article>
+    </div>
+  </main>
+</OliveReadingRoom>
+<style>
+  .article-header {
+    max-width: 1000px;
+    margin: 40px auto 0;
+    padding-bottom: 45px;
+    border-bottom: 1px solid #a9af8b;
+  }
+  .back {
+    font-size: 14px;
+    text-decoration: none;
+  }
+  .article-header > .eyebrow {
+    margin: 48px 0 25px;
+  }
+  h1 {
+    font-family: "Literata", Georgia, serif;
+    font-size: clamp(40px, 5.2vw, 68px);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -2.6px;
+    margin: 0 0 30px;
+  }
+  .article-header > .serif {
+    font-size: 21px;
+    line-height: 1.6;
+    max-width: 810px;
+  }
+  .author-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    color: var(--moss);
+    font-size: 14px;
+    margin-top: 30px;
+  }
+  .reading-layout {
+    max-width: 1100px;
+    margin: 50px auto 85px;
+    display: grid;
+    grid-template-columns: 200px minmax(0, 760px);
+    gap: 80px;
+  }
+  .chapter-index {
+    align-self: start;
+    position: sticky;
+    top: 30px;
+  }
+  .chapter-index nav {
+    display: block;
+  }
+  .chapter-index h2 {
+    margin: 0 0 24px;
+    font-size: 11px;
+  }
+  .chapter-index ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-left: 2px solid #a9af8b;
+  }
+  .chapter-index a {
+    display: block;
+    padding: 9px 0 9px 20px;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  .chapter-index a:hover {
+    background: var(--leaf);
+  }
+  .side-note {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--moss);
+    margin-top: 35px;
+    max-width: 175px;
+  }
+  .end-note {
+    margin-top: 65px;
+    border-top: 1px solid #a9af8b;
+    padding-top: 30px;
+  }
+  .prose {
+    min-width: 0;
+    font-family: "Literata", Georgia, serif;
+    font-size: 19px;
+    line-height: 1.8;
+  }
+  .prose :global(h2) {
+    font-family: "Literata", Georgia, serif;
+    font-size: 37px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    line-height: 1.2;
+    margin: 65px 0 24px;
+    scroll-margin-top: 30px;
+  }
+  .prose :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .prose :global(h3) {
+    font-size: 27px;
+    line-height: 1.3;
+    margin: 40px 0 20px;
+    scroll-margin-top: 30px;
+  }
+  .prose :global(h4) {
+    font-family: "Source Sans 3 Variable", sans-serif;
+    font-size: 15px;
+    margin: 28px 0 12px;
+    color: var(--moss);
+  }
+  .prose :global(p) {
+    margin: 0 0 23px;
+  }
+  .prose :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 10px solid var(--highlight);
+    margin: 35px auto;
+  }
+  .prose :global(a) {
+    overflow-wrap: anywhere;
+  }
+  .prose :global(code) {
+    font-family: "Fira Code Variable", monospace;
+    font-size: 0.76em;
+    overflow-wrap: anywhere;
+    background: var(--leaf);
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+  .prose :global(pre) {
+    max-width: 100%;
+    overflow: auto;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .prose :global(pre code) {
+    background: transparent;
+    padding: 0;
+    overflow-wrap: normal;
+  }
+  .prose :global(.expressive-code) {
+    margin: 30px 0;
+    max-width: 100%;
+    font-size: 14px;
+  }
+  .prose :global(blockquote) {
+    margin: 30px 0;
+    border-left: 3px solid var(--olive);
+    padding-left: 25px;
+  }
+  .prose :global(li) {
+    margin-bottom: 10px;
+  }
+  .end-note {
+    font-family: "Source Sans 3 Variable", sans-serif;
+  }
+  @media (max-width: 1200px) {
+    .article-header {
+      margin-inline: 64px;
+    }
+    .reading-layout {
+      margin-inline: 64px;
+      gap: 45px;
+      grid-template-columns: 170px minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 800px) {
+    .reading-layout {
+      grid-template-columns: 1fr;
+      gap: 35px;
+    }
+    .chapter-index {
+      position: static;
+      border-bottom: 1px solid #a9af8b;
+      padding-bottom: 25px;
+    }
+    .chapter-index ul {
+      border: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chapter-index a {
+      padding: 6px 12px;
+      background: var(--leaf);
+    }
+    .side-note {
+      display: none;
+    }
+    .author-line {
+      display: block;
+    }
+    .author-line span {
+      display: block;
+      margin-top: 12px;
+    }
+  }
+  @media (max-width: 640px) {
+    .article-header {
+      margin: 25px 24px 0;
+      padding-bottom: 30px;
+    }
+    .article-header > .eyebrow {
+      margin-top: 35px;
+      font-size: 10px;
+    }
+    h1 {
+      font-size: 41px;
+      letter-spacing: -1.4px;
+    }
+    .article-header > .serif {
+      font-size: 18px;
+    }
+    .reading-layout {
+      margin: 30px 24px 55px;
+    }
+    .prose {
+      font-size: 18px;
+      line-height: 1.75;
+    }
+    .prose :global(h2) {
+      font-size: 32px;
+    }
+    .prose :global(h3) {
+      font-size: 25px;
+    }
+  }
+</style>
