@@ -11,8 +11,8 @@ Start the project dev server on port 4401. Install the standalone QA dependencie
 ```sh
 npm install --prefix /tmp/blog-design-qa playwright @axe-core/playwright
 /tmp/blog-design-qa/node_modules/.bin/playwright install chromium
-NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/orange-poster/verify.cjs orange-poster 4401 /tmp/orange-poster-qa
-NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/orange-poster/interactions.cjs orange-poster 4401 /tmp/orange-poster-qa
+NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/orange-poster/verify.mjs orange-poster 4401 /tmp/orange-poster-qa
+NODE_PATH=/tmp/blog-design-qa/node_modules node designs/previews/orange-poster/interactions.mjs orange-poster 4401 /tmp/orange-poster-qa
 ```
 
 On Nix, set PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH to the Nix Chromium executable.

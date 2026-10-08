@@ -1,5 +1,9 @@
-const fs = require("fs"),
-  { chromium } = require("playwright");
+import fs from "node:fs";
+import { createRequire } from "node:module";
+
+// Load optional QA packages from a temporary NODE_PATH installation.
+const loadQA = createRequire(import.meta.url);
+const { chromium } = loadQA("playwright");
 (async () => {
   const b = await chromium.launch({
     executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
@@ -89,6 +93,7 @@ const fs = require("fs"),
         c.targetExists !== false
     );
     const out = process.argv[4] || "designs/previews/" + name;
+    fs.mkdirSync(out, { recursive: true });
     fs.writeFileSync(out + "/interactions.json", JSON.stringify(result, null, 2));
     console.log(JSON.stringify(result));
     await p.close();

@@ -1,7 +1,11 @@
-const fs = require("fs");
-const path = require("path");
-const { chromium } = require("playwright");
-const AxeBuilder = require("@axe-core/playwright").default;
+import fs from "node:fs";
+import path from "node:path";
+import { createRequire } from "node:module";
+
+// Load optional QA packages from a temporary NODE_PATH installation.
+const loadQA = createRequire(import.meta.url);
+const { chromium } = loadQA("playwright");
+const AxeBuilder = loadQA("@axe-core/playwright").default;
 const [name, port, output] = process.argv.slice(2);
 (async () => {
   fs.mkdirSync(output, { recursive: true });
