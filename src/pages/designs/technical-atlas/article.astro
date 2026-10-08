@@ -1,0 +1,313 @@
+---
+import TechnicalAtlas from "../../../layouts/designs/TechnicalAtlas.astro";
+import { loadPosts } from "@utils/blog";
+import { render } from "astro:content";
+const post = (await loadPosts()).find(post => post.id === "cyber-apocalypse")!;
+const { Content, headings } = await render(post);
+const sections = headings.filter(heading => heading.depth === 2);
+---
+
+<TechnicalAtlas title={post.data.title} description={post.data.description}>
+  <main id="main">
+    <header class="article-title">
+      <a class="back" href="/designs/technical-atlas#notes">
+        ← Back to notes
+      </a>
+      <div class="title-grid">
+        <div>
+          <p class="eyebrow">CTF / Hack The Box / Team ETRAID</p>
+          <h1>{post.data.title}</h1>
+          <p class="description">{post.data.description}</p>
+          <p class="byline">
+            Łukasz Budziak <span>·</span>{" "}
+            <time datetime="2024-03-20">20 March 2024</time>
+          </p>
+        </div>
+        <div class="article-symbol" aria-hidden="true">
+          <svg viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="86" />
+            <circle cx="100" cy="100" r="57" stroke-dasharray="3 7" />
+            <path d="M100 2V198M2 100H198M39 39L161 161M39 161L161 39" />
+            <circle cx="100" cy="100" r="17" class="core" />
+          </svg>
+          <span>Inspection → understanding</span>
+        </div>
+      </div>
+    </header>
+    <div class="reading-grid">
+      <aside aria-label="Article sections">
+        <p class="eyebrow">In this writeup</p>
+        <nav aria-label="Table of contents">
+          {sections.map(section => (
+            <a href={`#${section.slug}`}>
+              {section.text}
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </nav>
+        <a class="original" href={`/blog/${post.id}`}>
+          Original article ↗
+        </a>
+      </aside>
+      <article class="article-content">
+        <Content />
+        <div class="end-note">
+          <p class="eyebrow">End of field note</p>
+          <a href="/designs/technical-atlas#notes">← Explore the notes</a>
+        </div>
+      </article>
+    </div>
+  </main>
+</TechnicalAtlas>
+<style>
+  .article-title {
+    background: var(--ice);
+    padding: 40px max(64px, calc((100vw - 1312px) / 2)) 55px;
+  }
+  .back {
+    font-family: "Fira Code Variable", monospace;
+    font-size: 11px;
+    color: var(--blue);
+  }
+  .title-grid {
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    gap: 100px;
+    margin-top: 32px;
+    align-items: center;
+  }
+  .title-grid .eyebrow {
+    color: var(--blue);
+    margin: 0 0 20px;
+  }
+  h1 {
+    font-size: 72px;
+    font-weight: 600;
+    line-height: 1.04;
+    letter-spacing: -2.8px;
+    max-width: 880px;
+    margin: 0 0 24px;
+  }
+  .description {
+    font-size: 21px;
+    max-width: 720px;
+    margin: 0;
+  }
+  .byline {
+    font-family: "Fira Code Variable", monospace;
+    font-size: 11px;
+    margin: 25px 0 0;
+  }
+  .byline span {
+    margin: 0 14px;
+  }
+  .article-symbol {
+    color: var(--blue);
+    text-align: center;
+  }
+  .article-symbol svg {
+    width: 200px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1;
+  }
+  .article-symbol .core {
+    fill: currentColor;
+    stroke: none;
+  }
+  .article-symbol > span {
+    display: block;
+    font-family: "Fira Code Variable", monospace;
+    font-size: 8px;
+    margin-top: 15px;
+  }
+  .reading-grid {
+    max-width: 1250px;
+    margin: 60px auto;
+    display: grid;
+    grid-template-columns: 205px minmax(0, 780px);
+    gap: 80px;
+    padding: 0 35px;
+  }
+  .reading-grid aside {
+    position: sticky;
+    top: 30px;
+    align-self: start;
+  }
+  .reading-grid aside > .eyebrow {
+    color: var(--blue);
+    margin: 0 0 20px;
+  }
+  .reading-grid aside nav {
+    display: block;
+  }
+  .reading-grid aside nav a {
+    font-family: "Source Sans 3 Variable", sans-serif;
+    font-size: 16px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    padding: 11px 0;
+  }
+  .reading-grid aside nav a span {
+    color: var(--blue);
+  }
+  .reading-grid aside nav a:hover {
+    color: var(--blue);
+  }
+  .original {
+    display: block;
+    margin-top: 25px;
+    font-size: 10px;
+    font-family: "Fira Code Variable", monospace;
+    color: var(--blue);
+  }
+  .article-content {
+    min-width: 0;
+    font-size: 19px;
+    line-height: 1.75;
+  }
+  .article-content :global(h2) {
+    font-size: 36px;
+    letter-spacing: -0.8px;
+    font-weight: 600;
+    margin: 55px 0 20px;
+    color: var(--blue);
+    scroll-margin-top: 30px;
+  }
+  .article-content :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .article-content :global(h3) {
+    font-size: 27px;
+    font-weight: 600;
+    margin: 35px 0 15px;
+    scroll-margin-top: 25px;
+  }
+  .article-content :global(h4) {
+    font-size: 20px;
+    margin: 25px 0 10px;
+  }
+  .article-content :global(p) {
+    margin: 0 0 22px;
+  }
+  .article-content :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: var(--blue);
+  }
+  .article-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+    border: 1px solid var(--line);
+  }
+  .article-content :global(pre) {
+    max-width: 100%;
+    overflow: auto;
+    font-size: 13px;
+  }
+  .article-content :global(code) {
+    font-family: "Fira Code Variable", monospace;
+    font-size: 0.8em;
+    overflow-wrap: anywhere;
+  }
+  .article-content :global(.expressive-code) {
+    margin: 25px 0;
+    max-width: 100%;
+    font-size: 13px;
+  }
+  .article-content :global(li) {
+    margin-bottom: 10px;
+  }
+  .end-note {
+    margin-top: 70px;
+    border-top: 1px solid var(--line);
+    padding-top: 30px;
+  }
+  .end-note > .eyebrow {
+    font-size: 10px;
+  }
+  .end-note > a {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  @media (max-width: 1050px) {
+    .article-title {
+      padding: 35px;
+    }
+    .title-grid {
+      gap: 45px;
+      grid-template-columns: 1fr 160px;
+    }
+    h1 {
+      font-size: 56px;
+    }
+    .article-symbol svg {
+      width: 150px;
+    }
+    .reading-grid {
+      gap: 40px;
+      grid-template-columns: 160px minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 700px) {
+    .article-title {
+      padding: 30px 24px 35px;
+    }
+    .title-grid {
+      grid-template-columns: 1fr;
+      margin-top: 28px;
+      gap: 20px;
+    }
+    .title-grid .eyebrow {
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
+    h1 {
+      font-size: 47px;
+      letter-spacing: -1.7px;
+    }
+    .description {
+      font-size: 18px;
+    }
+    .byline {
+      font-size: 9px;
+    }
+    .byline span {
+      margin: 0 8px;
+    }
+    .article-symbol {
+      display: none;
+    }
+    .reading-grid {
+      grid-template-columns: 1fr;
+      padding: 0 24px;
+      margin: 35px 0;
+      gap: 35px;
+    }
+    .reading-grid aside {
+      position: static;
+    }
+    .reading-grid aside nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 25px;
+    }
+    .original {
+      margin-top: 14px;
+    }
+    .article-content {
+      font-size: 17px;
+    }
+    .article-content :global(h2) {
+      font-size: 31px;
+    }
+    .article-content :global(h3) {
+      font-size: 24px;
+    }
+    .article-content :global(.expressive-code) {
+      font-size: 11px;
+    }
+  }
+</style>

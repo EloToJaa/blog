@@ -1,0 +1,166 @@
+---
+import "@fontsource-variable/source-sans-3";
+import "@fontsource-variable/fira-code";
+interface Props {
+  title: string;
+  description?: string;
+}
+const {
+  title,
+  description = "Notes on software engineering, programming, and cybersecurity by Łukasz Budziak.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · EloToJa</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="atlas">
+    <a class="skip" href="#main">
+      Skip to content
+    </a>
+    <header class="masthead">
+      <a class="wordmark" href="/designs/technical-atlas">
+        <span class="mark" aria-hidden="true">
+          ↗
+        </span>{" "}
+        EloToJa<span class="wordmark-dot">.</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="/designs/technical-atlas#notes">Notes</a>
+        <a href="/designs/technical-atlas#about">About</a>
+        <a href="/rss.xml">RSS ↗</a>
+      </nav>
+    </header>
+    <slot />
+    <footer class="atlas-footer">
+      <span>Łukasz Budziak / EloToJa</span>
+      <span>Software. Security. Curiosity.</span>
+      <a href="https://github.com/elotojaa">GitHub ↗</a>
+    </footer>
+  </body>
+</html>
+<style is:global>
+  .atlas {
+    --blue: #1649e8;
+    --ink: #10244a;
+    --ice: #e9f2ff;
+    --paper: #f8fbff;
+    --line: #c5d7ef;
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Source Sans 3 Variable", sans-serif;
+    font-size: 18px;
+    line-height: 1.55;
+  }
+  .atlas * {
+    box-sizing: border-box;
+  }
+  .atlas a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .atlas a:focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 6px;
+  }
+  .atlas .skip {
+    position: absolute;
+    top: -100px;
+    left: 20px;
+    background: white;
+    padding: 10px;
+    z-index: 10;
+  }
+  .atlas .skip:focus {
+    top: 10px;
+  }
+  .atlas .masthead,
+  .atlas .atlas-footer {
+    max-width: 1440px;
+    margin: auto;
+    padding: 29px 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .atlas .masthead {
+    border-bottom: 1px solid var(--line);
+  }
+  .atlas .wordmark {
+    font-weight: 750;
+    font-size: 28px;
+    letter-spacing: -1.3px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .atlas .wordmark-dot {
+    color: var(--blue);
+    margin-left: -9px;
+  }
+  .atlas .mark {
+    color: white;
+    background: var(--blue);
+    width: 33px;
+    height: 33px;
+    display: grid;
+    place-items: center;
+    font-size: 30px;
+    line-height: 1;
+  }
+  .atlas nav {
+    display: flex;
+    gap: 34px;
+    font-family: "Fira Code Variable", monospace;
+    font-size: 12px;
+  }
+  .atlas nav a:hover,
+  .atlas .atlas-footer a:hover {
+    color: var(--blue);
+  }
+  .atlas .eyebrow {
+    font-family: "Fira Code Variable", monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .atlas .atlas-footer {
+    border-top: 1px solid var(--line);
+    font-family: "Fira Code Variable", monospace;
+    font-size: 11px;
+    gap: 20px;
+    margin-top: 80px;
+  }
+  @media (max-width: 700px) {
+    .atlas .masthead {
+      padding: 23px 24px;
+    }
+    .atlas .wordmark {
+      font-size: 24px;
+    }
+    .atlas nav {
+      gap: 18px;
+      font-size: 10px;
+    }
+    .atlas .atlas-footer {
+      padding: 26px 24px;
+      flex-wrap: wrap;
+    }
+    .atlas .atlas-footer span:nth-child(2) {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .atlas * {
+      scroll-behavior: auto !important;
+      transition: none !important;
+    }
+  }
+</style>
