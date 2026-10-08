@@ -447,23 +447,24 @@ const date = post?.data.pubDatetime.toLocaleDateString("en-GB", {
       grid-template-columns: 1fr;
     }
     .observation {
-      min-height: 335px;
+      min-height: 390px;
       padding: 24px;
     }
     .observation-top {
       flex-direction: row;
     }
     .diagram {
-      margin-top: 25px;
+      margin: 25px auto 0;
     }
     .diagram-note {
-      right: 25px;
+      position: static;
+      text-align: right;
+      margin: 25px 5px 45px;
       font-size: 18px;
-      bottom: 48px;
+      transform: rotate(-3deg);
     }
     .annotation-arrow {
-      right: 100px;
-      bottom: 100px;
+      display: none;
     }
     .entry {
       padding: 28px;

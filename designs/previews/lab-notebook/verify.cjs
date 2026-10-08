@@ -5,11 +5,7 @@ const AxeBuilder = require("@axe-core/playwright").default;
 const [name, port, output] = process.argv.slice(2);
 (async () => {
   fs.mkdirSync(output, { recursive: true });
-  const browser = await chromium.launch({
-    executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
-    headless: true,
-    args: ["--no-sandbox"],
-  });
+  let browser;
   const origin = "http://127.0.0.1:" + port;
   const route = "/designs/" + name + "/";
   const report = { design: name, checks: [], errors: [], screenshots: [] };
@@ -19,6 +15,11 @@ const [name, port, output] = process.argv.slice(2);
     { width: 390, height: 844 },
     { width: 320, height: 768 },
   ]) {
+    browser = await chromium.launch({
+      executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
+      headless: true,
+      args: ["--no-sandbox"],
+    });
     const context = await browser.newContext({
       viewport,
       reducedMotion: "reduce",
@@ -150,6 +151,7 @@ const [name, port, output] = process.argv.slice(2);
     }
     report.errors.push(...errors.map(e => viewport.width + ": " + e));
     await context.close();
+    await browser.close();
   }
   report.passed =
     report.errors.length === 0 &&

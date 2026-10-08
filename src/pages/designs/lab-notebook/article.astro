@@ -49,7 +49,14 @@ const date = post.data.pubDatetime.toLocaleDateString("en-GB", {
         ))}
       </nav>
       <div class="margin-note">
-        <span aria-hidden="true">↳</span>
+        <svg class="margin-arrow" viewBox="0 0 48 48" aria-hidden="true">
+          <path
+            d="M7 5v20q0 12 12 12h20m-9-9 9 9-9 9"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          />
+        </svg>
         <p class="lab-note">
           Read the clues.
           <br />
@@ -142,7 +149,10 @@ const date = post.data.pubDatetime.toLocaleDateString("en-GB", {
     border-top: 1px solid var(--rule);
     padding-top: 25px;
   }
-  .margin-note > span {
+  .margin-arrow {
+    display: block;
+    width: 38px;
+    height: 38px;
     font:
       38px "Lab Lora",
       serif;
