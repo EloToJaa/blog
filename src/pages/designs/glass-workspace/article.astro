@@ -1,0 +1,317 @@
+---
+import GlassLayout from "../../../components/designs/GlassLayout.astro";
+import { loadPosts } from "../../../utils/blog";
+import { render } from "astro:content";
+const posts = await loadPosts();
+const post = posts.find(post => post.id === "cyber-apocalypse");
+if (!post) throw new Error("Cyber Apocalypse article was not found");
+const { Content, headings } = await render(post);
+const sections = headings.filter(heading => heading.depth === 2);
+---
+
+<GlassLayout title={post.data.title} article>
+  <main id="main">
+    <div class="article-top" id="top">
+      <a href="/designs/glass-workspace/">← Back to the workspace</a>
+      <span class="utility">Field notes / CTF writeup</span>
+    </div>
+    <header class="article-header">
+      <div class="utility">Cybersecurity · Hack The Box</div>
+      <h1>{post.data.title}</h1>
+      <p>{post.data.description}</p>
+      <div class="byline">
+        <span class="author-initials" aria-hidden="true">
+          ŁB
+        </span>
+        <div>
+          <strong>Łukasz Budziak</strong>
+          <span>
+            <time datetime={post.data.pubDatetime.toISOString()}>
+              20 March 2024
+            </time>{" "}
+            · Challenge writeups
+          </span>
+        </div>
+      </div>
+    </header>
+    <div class="reading-layout">
+      <aside class="contents pane">
+        <p class="utility">In this writeup</p>
+        <nav aria-label="Table of contents">
+          {sections.map(heading => (
+            <a href={`#${heading.slug}`}>
+              {heading.text}
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </nav>
+        <a class="source-link" href="/blog/cyber-apocalypse/">
+          Original article ↗
+        </a>
+      </aside>
+      <article class="article-body pane">
+        <Content />
+        <div class="end-note">
+          <span class="utility">Thanks for reading</span>
+          <h2>Keep exploring.</h2>
+          <a href="/designs/glass-workspace/">Return to the workspace ↗</a>
+        </div>
+      </article>
+    </div>
+  </main>
+</GlassLayout>
+<style>
+  .article-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 35px 0 45px;
+    gap: 20px;
+  }
+  .article-top > a {
+    font-size: 14px;
+    color: var(--slate);
+  }
+  .article-header {
+    max-width: 810px;
+    margin: 0 auto 45px;
+    padding-left: 20px;
+  }
+  .article-header h1 {
+    font-size: clamp(40px, 5vw, 67px);
+    letter-spacing: -2px;
+    line-height: 1.04;
+    font-weight: 550;
+    margin: 20px 0 22px;
+  }
+  .article-header > p {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--slate);
+    max-width: 690px;
+  }
+  .byline {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 28px;
+  }
+  .author-initials {
+    height: 45px;
+    width: 45px;
+    border: 1px solid white;
+    display: grid;
+    place-items: center;
+    background: var(--ice);
+    border-radius: 14px;
+    font:
+      14px "Fira Code Variable",
+      monospace;
+    color: #365b92;
+  }
+  .byline strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .byline div > span {
+    display: block;
+    font-size: 13px;
+    color: var(--slate);
+    margin-top: 3px;
+  }
+  .reading-layout {
+    display: grid;
+    grid-template-columns: 214px minmax(0, 1fr);
+    gap: 35px;
+    align-items: start;
+  }
+  .contents {
+    position: sticky;
+    top: 25px;
+    padding: 22px 20px;
+  }
+  .contents nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 20px;
+  }
+  .contents nav a {
+    font-size: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid #d8e3f2;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .contents nav a span {
+    color: #7893b7;
+  }
+  .source-link {
+    display: block;
+    margin-top: 28px;
+    font-size: 12px;
+    color: var(--electric);
+  }
+  .article-body {
+    padding: 45px 50px;
+    min-width: 0;
+    line-height: 1.8;
+    font-size: 18px;
+    background: #f7faffed;
+  }
+  .end-note {
+    border-top: 1px solid var(--ice);
+    padding-top: 35px;
+    margin-top: 50px;
+  }
+  .end-note h2 {
+    font-size: 35px;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin: 12px 0;
+  }
+  .end-note a {
+    color: var(--electric);
+    font-size: 16px;
+  }
+  @media (max-width: 950px) {
+    .reading-layout {
+      grid-template-columns: 175px minmax(0, 1fr);
+      gap: 22px;
+    }
+    .article-body {
+      padding: 32px;
+    }
+    .article-header {
+      padding-left: 0;
+    }
+    .contents {
+      padding: 20px 16px;
+    }
+  }
+  @media (max-width: 720px) {
+    .reading-layout {
+      grid-template-columns: 1fr;
+    }
+    .contents {
+      position: static;
+    }
+    .contents nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      margin-top: 10px;
+    }
+    .contents nav a {
+      padding: 7px 0;
+    }
+    .source-link {
+      margin-top: 15px;
+    }
+    .article-body {
+      padding: 25px 22px;
+      font-size: 17px;
+    }
+    .article-top {
+      padding: 28px 0 35px;
+    }
+    .article-top > .utility {
+      display: none;
+    }
+    .article-header h1 {
+      font-size: 43px;
+    }
+    .article-header > p {
+      font-size: 18px;
+    }
+    .article-header {
+      margin-bottom: 30px;
+    }
+  }
+</style>
+<style is:global>
+  .article-body > h2,
+  .article-body > h3,
+  .article-body > h4 {
+    scroll-margin-top: 30px;
+    color: var(--ink);
+    line-height: 1.2;
+    font-weight: 600;
+  }
+  .article-body > h2 {
+    font-size: 32px;
+    letter-spacing: -0.7px;
+    margin: 55px 0 20px;
+    border-bottom: 1px solid var(--ice);
+    padding-bottom: 13px;
+  }
+  .article-body > h2:first-child {
+    margin-top: 0;
+  }
+  .article-body > h3 {
+    font-size: 25px;
+    margin: 38px 0 18px;
+  }
+  .article-body > h4 {
+    font-size: 19px;
+    margin: 28px 0 12px;
+  }
+  .article-body p {
+    margin: 18px 0;
+  }
+  .article-body a {
+    color: var(--electric);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .article-body img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    margin: 28px auto;
+  }
+  .article-body code {
+    font-family: "Fira Code Variable", monospace;
+    font-size: 0.77em;
+    overflow-wrap: anywhere;
+    background: #e7eef8;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+  .article-body pre code {
+    background: transparent;
+    padding: 0;
+  }
+  .article-body pre {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  .article-body .expressive-code {
+    margin: 25px 0;
+    max-width: 100%;
+    font-size: 14px;
+  }
+  .article-body ul,
+  .article-body ol {
+    padding-left: 25px;
+  }
+  .article-body blockquote {
+    border-left: 3px solid var(--electric);
+    margin: 25px 0;
+    padding: 5px 20px;
+    color: var(--slate);
+  }
+  .article-body .end-note a {
+    text-decoration: none;
+  }
+  .article-body .expressive-code code {
+    overflow-wrap: normal;
+  }
+  .article-body .expressive-code .copy button:focus-visible {
+    outline: 3px solid var(--electric);
+    outline-offset: 3px;
+  }
+</style>

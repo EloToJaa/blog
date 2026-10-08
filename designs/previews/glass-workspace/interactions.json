@@ -1,0 +1,44 @@
+{
+  "design": "glass-workspace",
+  "checks": [
+    {
+      "skipLink": "#main",
+      "skipWorks": true,
+      "visibleFocus": true
+    },
+    {
+      "tocWorks": true,
+      "target": "#introduction"
+    },
+    {
+      "deepLink": "/designs/glass-workspace/article/#web",
+      "targetExists": true
+    },
+    {
+      "deepLink": "/designs/glass-workspace/article/#pwn",
+      "targetExists": true
+    },
+    {
+      "deepLink": "/designs/glass-workspace/article/#crypto",
+      "targetExists": true
+    }
+  ],
+  "fonts": [
+    {
+      "family": "Source Sans 3 Variable",
+      "style": "normal",
+      "weight": "200 900"
+    },
+    {
+      "family": "Source Sans 3 Variable",
+      "style": "normal",
+      "weight": "200 900"
+    },
+    {
+      "family": "Fira Code Variable",
+      "style": "normal",
+      "weight": "300 700"
+    }
+  ],
+  "passed": true
+}
