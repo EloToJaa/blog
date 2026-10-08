@@ -1,0 +1,506 @@
+---
+import TechnicalAtlas from "../../layouts/designs/TechnicalAtlas.astro";
+import { loadPosts } from "@utils/blog";
+const posts = await loadPosts();
+const post = posts.find(post => post.id === "cyber-apocalypse")!;
+const article = "/designs/technical-atlas/article";
+const sections = [
+  { name: "Web", slug: "web", description: "Look beyond the interface" },
+  { name: "PWN", slug: "pwn", description: "Follow the execution" },
+  { name: "Crypto", slug: "crypto", description: "Question the assumptions" },
+  {
+    name: "Reversing",
+    slug: "reversing",
+    description: "Recover the structure",
+  },
+  { name: "Misc", slug: "misc", description: "Model. Script. Repeat." },
+];
+---
+
+<TechnicalAtlas title="A closer look at systems">
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="thesis">
+        <p class="eyebrow">The personal notes of Łukasz Budziak</p>
+        <h1 id="hero-title">
+          Look closer.
+          <br />
+          Understand
+          <br />
+          <span>the system.</span>
+        </h1>
+        <p class="intro">
+          Software engineering, programming, and cybersecurity. Notes from
+          taking things apart — and putting the pieces together.
+        </p>
+        <a class="text-link" href="#notes">
+          Explore the notes <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+      <div class="system">
+        <div class="map-caption">
+          <span class="eyebrow">A map of the latest writeup</span>
+          <span aria-hidden="true">↗</span>
+        </div>
+        <svg class="connections" viewBox="0 0 540 430" aria-hidden="true">
+          <path d="M270 215L90 88M270 215L438 95M270 215L95 342M270 215L445 330M270 215L270 395" />
+          <circle cx="270" cy="215" r="76" />
+          <circle cx="270" cy="215" r="108" stroke-dasharray="2 8" />
+        </svg>
+        <div class="center-node">
+          <span class="cross" aria-hidden="true">
+            +
+          </span>
+          <span>
+            Inspect.
+            <br />
+            Model.
+            <br />
+            Understand.
+          </span>
+        </div>
+        <a class="node web" href={`${article}#web`}>
+          <span>Web</span>
+          <small>Client → server</small>
+        </a>
+        <a class="node pwn" href={`${article}#pwn`}>
+          <span>PWN</span>
+          <small>Memory → control</small>
+        </a>
+        <a class="node crypto" href={`${article}#crypto`}>
+          <span>Crypto</span>
+          <small>Cipher → plaintext</small>
+        </a>
+        <a class="node reversing" href={`${article}#reversing`}>
+          <span>Reversing</span>
+          <small>Output → structure</small>
+        </a>
+        <a class="node misc" href={`${article}#misc`}>
+          <span>Misc</span>
+          <small>Game → graph</small>
+        </a>
+        <p class="map-foot">Cyber Apocalypse 2024 / ETRAID</p>
+      </div>
+    </section>
+    <section class="notes" id="notes" aria-labelledby="notes-title">
+      <div class="section-heading">
+        <h2 class="eyebrow" id="notes-title">
+          Latest field note
+        </h2>
+        <span class="eyebrow">20 March 2024</span>
+      </div>
+      <div class="featured">
+        <div class="feature-copy">
+          <span class="tag">CTF / Hack The Box</span>
+          <h2>
+            <a href={article}>{post.data.title}</a>
+          </h2>
+          <p>{post.data.description}</p>
+          <a class="read-link" href={article}>
+            Read the writeup <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <div class="section-index">
+          <p class="eyebrow">Inside this note</p>
+          {sections.map(section => (
+            <a href={`${article}#${section.slug}`}>
+              <div>
+                <strong>{section.name}</strong>
+                <small>{section.description}</small>
+              </div>
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+    <section class="about" id="about">
+      <p class="eyebrow">Behind the notes</p>
+      <div>
+        <h2>
+          Hi, I'm Łukasz.
+          <br />I like knowing how things work.
+        </h2>
+        <p>
+          I'm a software engineer who explores different technologies and tools.
+          I compete in CTFs with StormChasers, take on competitive programming
+          challenges, and enjoy teaching programming and cybersecurity.
+        </p>
+        <div class="socials">
+          <a href="/about">More about me ↗</a>
+          <a href="https://github.com/elotojaa">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/elotoja/">LinkedIn ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</TechnicalAtlas>
+<style>
+  .hero {
+    max-width: 1440px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    padding: 72px 64px 76px;
+    gap: 65px;
+    align-items: center;
+  }
+  .thesis > .eyebrow {
+    margin: 0 0 25px;
+  }
+  h1 {
+    font-size: clamp(60px, 6.6vw, 96px);
+    line-height: 0.98;
+    letter-spacing: -4.8px;
+    font-weight: 650;
+    margin: 0 0 27px;
+  }
+  h1 span {
+    color: var(--blue);
+  }
+  .intro {
+    max-width: 420px;
+    font-size: 19px;
+    margin: 0 0 26px;
+    line-height: 1.55;
+  }
+  .text-link {
+    font-weight: 650;
+    font-size: 16px;
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+  .text-link span {
+    font-size: 25px;
+    color: var(--blue);
+  }
+  .system {
+    aspect-ratio: 1.05;
+    background: var(--blue);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    background-image: radial-gradient(#ffffff35 0.8px, transparent 0.8px);
+    background-size: 22px 22px;
+  }
+  .map-caption {
+    position: absolute;
+    top: 24px;
+    left: 25px;
+    right: 25px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .map-caption > span:last-child {
+    font-size: 22px;
+  }
+  .map-caption .eyebrow {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+  .connections {
+    position: absolute;
+    left: 0;
+    top: 10%;
+    width: 100%;
+    height: 82%;
+    fill: none;
+    stroke: #a8c4ff;
+    stroke-width: 1;
+  }
+  .center-node {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 23px;
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    text-align: center;
+  }
+  .cross {
+    display: block;
+    font-size: 26px;
+    margin-bottom: 4px;
+  }
+  .node {
+    position: absolute;
+    background: var(--blue);
+    padding: 8px 12px;
+    outline: 1px solid #ffffff60;
+    min-width: 130px;
+    transition: background 0.2s;
+  }
+  .node:hover {
+    background: #fff;
+    color: var(--blue);
+  }
+  .node span {
+    display: block;
+    font-size: 18px;
+    font-weight: 650;
+  }
+  .node small {
+    font-family: "Fira Code Variable", monospace;
+    font-size: 8px;
+  }
+  .web {
+    top: 19%;
+    left: 6%;
+  }
+  .pwn {
+    top: 21%;
+    right: 5%;
+  }
+  .crypto {
+    top: 65%;
+    left: 5%;
+  }
+  .reversing {
+    top: 63%;
+    right: 4%;
+  }
+  .misc {
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .map-foot {
+    position: absolute;
+    bottom: 9px;
+    left: 25px;
+    font-family: "Fira Code Variable", monospace;
+    font-size: 8px;
+    letter-spacing: 0.5px;
+  }
+  .notes {
+    max-width: 1440px;
+    margin: auto;
+    padding: 0 64px;
+  }
+  .section-heading {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 14px;
+  }
+  .section-heading h2 {
+    margin: 0;
+    font-weight: 500;
+  }
+  .featured {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    background: var(--ice);
+    margin-top: 25px;
+  }
+  .feature-copy {
+    padding: 42px 50px 43px;
+  }
+  .tag {
+    font-family: "Fira Code Variable", monospace;
+    font-size: 10px;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .feature-copy h2 {
+    font-size: 48px;
+    line-height: 1.07;
+    letter-spacing: -1.8px;
+    max-width: 560px;
+    font-weight: 600;
+    margin: 24px 0;
+  }
+  .feature-copy h2 a:hover {
+    color: var(--blue);
+  }
+  .feature-copy p {
+    max-width: 550px;
+    font-size: 18px;
+  }
+  .read-link {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    margin-top: 35px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  .read-link span {
+    font-size: 27px;
+    color: var(--blue);
+  }
+  .section-index {
+    padding: 28px 38px;
+    border-left: 1px solid var(--line);
+  }
+  .section-index > p {
+    color: var(--blue);
+    margin: 0 0 20px;
+  }
+  .section-index > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--line);
+    padding: 13px 0;
+  }
+  .section-index strong {
+    font-size: 19px;
+    font-weight: 600;
+    display: block;
+  }
+  .section-index small {
+    font-size: 13px;
+    color: #426185;
+  }
+  .section-index > a > span {
+    color: var(--blue);
+    font-size: 23px;
+  }
+  .section-index a:hover strong {
+    color: var(--blue);
+  }
+  .about {
+    max-width: 1440px;
+    margin: 85px auto 0;
+    padding: 0 64px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+  }
+  .about > .eyebrow {
+    margin-top: 10px;
+  }
+  .about h2 {
+    font-size: 39px;
+    letter-spacing: -1px;
+    font-weight: 550;
+    line-height: 1.15;
+    margin: 0 0 20px;
+  }
+  .about p:not(.eyebrow) {
+    max-width: 580px;
+    font-size: 18px;
+  }
+  .socials {
+    display: flex;
+    gap: 30px;
+    font-family: "Fira Code Variable", monospace;
+    font-size: 11px;
+    margin-top: 26px;
+    color: var(--blue);
+  }
+  @media (max-width: 1050px) {
+    .hero {
+      padding: 50px 35px;
+      gap: 35px;
+    }
+    h1 {
+      font-size: 69px;
+      letter-spacing: -3.5px;
+    }
+    .notes,
+    .about {
+      padding-left: 35px;
+      padding-right: 35px;
+    }
+    .feature-copy {
+      padding: 35px;
+    }
+    .feature-copy h2 {
+      font-size: 39px;
+    }
+    .node {
+      min-width: 105px;
+      padding: 7px;
+    }
+    .node small {
+      font-size: 7px;
+    }
+    .center-node {
+      font-size: 20px;
+    }
+    .section-index {
+      padding: 25px;
+    }
+    .map-caption {
+      left: 15px;
+      right: 15px;
+      top: 14px;
+    }
+  }
+  @media (max-width: 700px) {
+    .hero {
+      padding: 42px 24px;
+      grid-template-columns: 1fr;
+      gap: 35px;
+    }
+    h1 {
+      font-size: clamp(52px, 17.44vw, 68px);
+      letter-spacing: -3.7px;
+    }
+    .thesis > .eyebrow {
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
+    .intro {
+      font-size: 17px;
+    }
+    .system {
+      max-width: 540px;
+      width: 100%;
+      aspect-ratio: 1.05;
+    }
+    .notes {
+      padding: 0 24px;
+    }
+    .featured {
+      grid-template-columns: 1fr;
+    }
+    .feature-copy {
+      padding: 30px 25px;
+    }
+    .feature-copy h2 {
+      font-size: 39px;
+    }
+    .section-index {
+      border-left: none;
+      border-top: 1px solid var(--line);
+      padding: 25px;
+    }
+    .section-heading > .eyebrow {
+      font-size: 9px;
+      letter-spacing: 0.6px;
+    }
+    .about {
+      padding: 0 24px;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin-top: 55px;
+    }
+    .about h2 {
+      font-size: 32px;
+    }
+    .socials {
+      gap: 20px;
+      font-size: 10px;
+    }
+    .center-node {
+      top: 38%;
+      font-size: 16px;
+    }
+    .cross {
+      font-size: 18px;
+    }
+    .map-foot {
+      display: none;
+    }
+    .node {
+      min-width: 110px;
+    }
+  }
+</style>

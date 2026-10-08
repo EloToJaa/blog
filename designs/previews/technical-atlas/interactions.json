@@ -1,0 +1,57 @@
+{
+  "design": "technical-atlas",
+  "checks": [
+    {
+      "skipLink": "#main",
+      "skipWorks": true,
+      "visibleFocus": true
+    },
+    {
+      "tocWorks": true,
+      "target": "#introduction"
+    },
+    {
+      "deepLink": "/designs/technical-atlas/article#web",
+      "targetExists": true
+    },
+    {
+      "deepLink": "/designs/technical-atlas/article#pwn",
+      "targetExists": true
+    },
+    {
+      "deepLink": "/designs/technical-atlas/article#crypto",
+      "targetExists": true
+    },
+    {
+      "deepLink": "/designs/technical-atlas/article#reversing",
+      "targetExists": true
+    },
+    {
+      "deepLink": "/designs/technical-atlas/article#misc",
+      "targetExists": true
+    }
+  ],
+  "fonts": [
+    {
+      "family": "Source Sans 3 Variable",
+      "style": "normal",
+      "weight": "200 900"
+    },
+    {
+      "family": "Source Sans 3 Variable",
+      "style": "normal",
+      "weight": "200 900"
+    },
+    {
+      "family": "Fira Code Variable",
+      "style": "normal",
+      "weight": "300 700"
+    },
+    {
+      "family": "Fira Code Variable",
+      "style": "normal",
+      "weight": "300 700"
+    }
+  ],
+  "passed": true
+}
