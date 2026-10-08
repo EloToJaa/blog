@@ -148,6 +148,10 @@ const [name, port, output] = process.argv.slice(2);
         c.articleNavigation !== false &&
         (!c.type ||
           (c.status === 200 &&
+            c.keyboard?.tag === "A" &&
+            c.keyboard.visible &&
+            c.keyboard.href?.startsWith("#") &&
+            !c.keyboard.outline.includes("0px") &&
             c.h1 === 1 &&
             c.main === 1 &&
             !c.overflow &&
