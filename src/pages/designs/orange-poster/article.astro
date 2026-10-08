@@ -1,0 +1,37 @@
+---
+import { render } from "astro:content";
+import OrangePosterLayout from "../../../components/designs/OrangePosterLayout.astro";
+import { loadPosts } from "../../../utils/blog";
+const posts = await loadPosts();
+const post = posts[0];
+const { Content, headings } = await render(post);
+const sections = headings.filter(heading => heading.depth === 2);
+---
+
+<OrangePosterLayout title={post.data.title}>
+  <header class="article-hero">
+    <a class="back-link" href="/designs/orange-poster/#writing">
+      ← Back to writing
+    </a>
+    <p class="eyebrow">CTF / Hack The Box / Writeup</p>
+    <h1>{post.data.title}</h1>
+    <div class="byline">
+      <span>By Łukasz Budziak</span>
+      <time datetime={post.data.pubDatetime.toISOString()}>20 March 2024</time>
+      <span>Web · PWN · Crypto · Reversing · Automation</span>
+    </div>
+  </header>
+  <div class="article-grid">
+    <aside class="contents">
+      <h2 class="section-label">In this writeup</h2>
+      <nav aria-label="Article contents">
+        {sections.map(section => (
+          <a href={`#${section.slug}`}>{section.text}</a>
+        ))}
+      </nav>
+    </aside>
+    <article class="prose">
+      <Content />
+    </article>
+  </div>
+</OrangePosterLayout>

@@ -1,0 +1,88 @@
+---
+import OrangePosterLayout from "../../components/designs/OrangePosterLayout.astro";
+import { loadPosts } from "../../utils/blog";
+const posts = await loadPosts();
+const latest = posts[0];
+const articleHref = "/designs/orange-poster/article/";
+---
+
+<OrangePosterLayout title="Notes on software & security">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-meta eyebrow">
+      <span>Notes on software & security</span>
+      <span>By Łukasz Budziak</span>
+    </div>
+    <div class="hero-grid">
+      <h1 id="hero-title" class="display">
+        <span>BREAK</span>
+        <span>IT DOWN.</span>
+      </h1>
+      <div class="code-mark" aria-label="Inspect, understand, build">
+        <span class="brace" aria-hidden="true">
+          &#123;
+        </span>
+        <div class="code-words">
+          inspect.
+          <br />
+          understand.
+          <br />
+          build.
+        </div>
+        <span class="brace" aria-hidden="true">
+          &#125;
+        </span>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <p>
+        Software engineering, programming, and cybersecurity. Notes from the
+        work of figuring things out.
+      </p>
+      <a class="read-link" href={articleHref}>
+        Read the latest writeup <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+  <section id="writing" class="writing" aria-labelledby="writing-title">
+    <h2 class="section-label" id="writing-title">
+      Writing
+    </h2>
+    <article class="feature">
+      <div class="feature-meta">
+        <time datetime={latest.data.pubDatetime.toISOString()}>
+          20 MAR 2024
+        </time>
+        <span>CTF / WRITEUP</span>
+      </div>
+      <h2>
+        <a href={articleHref}>
+          {latest.data.title}
+          <span aria-hidden="true"> ↗</span>
+        </a>
+      </h2>
+      <p>{latest.data.description}</p>
+      <a class="text-link" href={articleHref}>
+        Read the writeup ↗
+      </a>
+      <ul class="tags" aria-label="Article topics">
+        {latest.data.tags.map(tag => (
+          <li>{tag}</li>
+        ))}
+      </ul>
+    </article>
+  </section>
+  <section id="about" class="about" aria-labelledby="about-title">
+    <span class="section-label">Behind the notes</span>
+    <div>
+      <h2 id="about-title">Hi, I'm Łukasz.</h2>
+      <p>
+        I am a software engineer. I explore different technologies, take part in
+        CTF competitions with StormChasers, and teach programming and
+        cybersecurity.
+      </p>
+      <a class="text-link" href="/about">
+        More about me ↗
+      </a>
+    </div>
+  </section>
+</OrangePosterLayout>

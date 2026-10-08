@@ -1,0 +1,37 @@
+{
+  "design": "orange-poster",
+  "checks": [
+    {
+      "skipLink": "#main",
+      "skipWorks": true,
+      "visibleFocus": true
+    },
+    {
+      "tocWorks": true,
+      "target": "#introduction"
+    }
+  ],
+  "fonts": [
+    {
+      "family": "Source Sans 3 Variable",
+      "style": "normal",
+      "weight": "200 900"
+    },
+    {
+      "family": "Source Sans 3 Variable",
+      "style": "normal",
+      "weight": "200 900"
+    },
+    {
+      "family": "Fira Code Variable",
+      "style": "normal",
+      "weight": "300 700"
+    },
+    {
+      "family": "Fira Code Variable",
+      "style": "normal",
+      "weight": "300 700"
+    }
+  ],
+  "passed": true
+}
