@@ -92,6 +92,7 @@ const { chromium } = loadQA("playwright");
         c.tocWorks !== false &&
         c.targetExists !== false
     );
+    if (!result.passed) process.exitCode = 1;
     const out = process.argv[4] || "designs/previews/" + name;
     fs.mkdirSync(out, { recursive: true });
     fs.writeFileSync(out + "/interactions.json", JSON.stringify(result, null, 2));
